@@ -15,3 +15,14 @@ Extras
 - drag and drop????
 
 react, jquery, rails????, javascript, scss, material ui, ajax, psql or mysql(elephant?, phpmyadmin?)
+
+a) Project Description - Alvin
+b) User Stories - Alvin
+c) Wireframes - Zea
+d) Entity Relationship Diagram - Donny
+e) Stack Choices - whatever
+
+a) Git repo setup - Alvin
+b) Project scaffold - Zea
+c) Database setup - Donny
+d) Seed file - Donny
