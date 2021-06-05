@@ -10,3 +10,4 @@ client
   .catch(e => console.log(`Error connecting to ElephantSQL server:\n${e}`));
 
 module.exports = client;
+
