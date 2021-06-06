@@ -7,7 +7,7 @@ const client = new pg.Client({
     rejectUnauthorized: false,
   },
 });
-
+adsf
 client
   .connect()
   .catch(e => console.log(`Error connecting to Postgres server:\n${e}`));
