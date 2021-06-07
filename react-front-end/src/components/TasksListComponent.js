@@ -2,6 +2,20 @@ import React from "react";
 import { DataGrid, GridRowsProp, GridColDef } from '@material-ui/data-grid';
 import { Button } from "@material-ui/core";
 import '../styles/TasksListComponent.scss';
+const axios = require('axios');
+
+axios.get('/api/tasks')
+  .then(function(response) {
+    // handle success
+    console.log("AxiosResponse: ",response);
+  })
+  .catch(function(error) {
+    // handle error
+    console.log("AxiosError: ", error);
+  })
+  .then(function() {
+    console.log("say hi :)")
+  });
 
 const rows: GridRowsProp = [
   { id: 1, col1: 'Hello', col2: 'World' },
@@ -10,6 +24,7 @@ const rows: GridRowsProp = [
   { id: 4, col1: 'Material-UI', col2: 'is Amazing' },
   { id: 5, col1: 'Material-UI', col2: 'is Amazing' },
 ];
+
 
 const columns: GridColDef[] = [
   { field: 'id', headerName: 'Task Name', width: 150 },
