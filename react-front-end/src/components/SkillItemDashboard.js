@@ -1,10 +1,16 @@
-
 /* Custom Components */
-import AllTasks from './AllTasks';
-
+import React from 'react';
+import TasksListComponent from './TasksListComponent';
+import '../styles/SkillItemDashboard.scss';
 export default function SkillItemDashboard() {
-  
   return (
-    <AllTasks/>
-  )
+    <div id="skill-item-container">
+      <div >
+        <TasksListComponent />
+      </div>
+      <div>
+        <TasksListComponent />
+      </div>
+    </div>
+  );
 }
