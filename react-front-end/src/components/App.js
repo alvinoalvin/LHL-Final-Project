@@ -18,13 +18,6 @@ import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
 
-function App() {
-  return (
-    <div className="App">
-      <Bar />
-    </div>
-  );
-}
 
 const useStyles = reactStyles;
 
