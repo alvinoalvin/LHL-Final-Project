@@ -10,7 +10,8 @@
   },
   "dependencies": {
     "body-parser": "^1.18.3",
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "node-sass": "^6.0.0"
   },
   "devDependencies": {
     "nodemon": "^1.19.4"
