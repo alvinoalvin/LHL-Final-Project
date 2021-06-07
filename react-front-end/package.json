@@ -4,13 +4,14 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.1",
+    "node-sass": "^6.0.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-scripts": "2.1.8"
+    "react-scripts": "^4.0.3"
   },
   "scripts": {
     "start": "set PORT=3006 && react-scripts start",
-    "build": "set PORT=300  6 && react-scripts build",
+    "build": "set PORT=3006 && react-scripts build",
     "test": "set PORT=3006 && react-scripts test",
     "eject": "set PORT=3006 && react-scripts eject"
   },
