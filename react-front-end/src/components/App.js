@@ -9,7 +9,7 @@ import { useTheme } from '@material-ui/core/styles';
 import reactStyles from '../helpers/react-styles';
 
 /* Custom Components */
-import AllTasks from './AllTasks'; 
+import SkillItemDashboard from './SkillItemDashboard';
 
 /* import icons */
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
@@ -55,12 +55,10 @@ export default function Application() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap>
-            Mini variant drawer
-          </Typography>
+          <Typography variant="h6" noWrap> Mini variant drawer </Typography>
         </Toolbar>
       </AppBar>
-      
+
       <Drawer
         variant="permanent"
         className={clsx(classes.drawer, {
@@ -101,8 +99,7 @@ export default function Application() {
 
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        <AllTasks />
-        
+        <SkillItemDashboard />
       </main>
     </div>
   );
