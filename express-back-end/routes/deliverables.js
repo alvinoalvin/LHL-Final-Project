@@ -30,7 +30,13 @@ module.exports = db => {
   router.get("/tasks/:id", (request, response) => {
     db.query(
       `
-      SELECT *, deliverables.id as id, (users.first_name ||' ' || users.last_name) as full_name
+      SELECT *, deliverables.id as id, (users.first_name ||' ' || users.last_name) as full_name,
+        CASE
+          When status.status = 'Completed'
+            Then TRUE
+          When not status.status = 'Completed'
+            Then FALSE
+        END is_completed
       FROM deliverables
       inner JOIN type on type_id = type.id
       inner JOIN status on status_id = status.id
@@ -41,6 +47,6 @@ module.exports = db => {
       response.json(deliverables);
     });
   });
-  
+
   return router;
 }

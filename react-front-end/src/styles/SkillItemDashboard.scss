@@ -1,5 +1,36 @@
-#skill-item-container{
- display: grid;
- grid-template-columns: 2fr 2fr ;
- height:100%;
+@mixin areaBorder($area) {
+  grid-area: $area;
+  // border: solid 1px black;
+  margin: 10px;
+  margin-left: 0;
+  min-height: 100px;
+}
+
+#skill-item-container {
+  display: grid;
+  height: 100%;
+  width: 100%;
+  grid-template-areas:
+    "header header"
+    "taskList progress"
+    "taskList notes"
+    "taskList resources"
+    "taskList resources";
+
+  .header {
+    @include areaBorder(header);
+  }
+  .task-list-component {
+    @include areaBorder(taskList);
+  }
+
+  .progress {
+    @include areaBorder(progress);
+  }
+  .notes {
+    @include areaBorder(notes);
+  }
+  .resources {
+    @include areaBorder(resources);
+  }
 }
