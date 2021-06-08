@@ -13,7 +13,7 @@ CREATE TABLE users(
   first_name VARCHAR(255) NOT NULL,
   last_name VARCHAR(255) NOT NULL,
   email VARCHAR(255) NOT NULL,
-  password VARCHAR(255) NOT NULL,
+  password VARCHAR(255),
   position VARCHAR (255) NOT NULL,
   team_id INTEGER REFERENCES teams(id),
   delete BOOLEAN DEFAULT FALSE
@@ -56,6 +56,7 @@ CREATE TABLE deliverables (
   name VARCHAR(255) NOT NULL,
   notes TEXT,
   link VARCHAR(255),
+  create_date DATE,
   start_date DATE,
   end_date DATE
 );
