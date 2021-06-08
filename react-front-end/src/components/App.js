@@ -101,6 +101,7 @@ export default function Application() {
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <HomeDashboard />
+        {/* <SkillItemDashboard /> */}
       </main>
     </div>
   );
