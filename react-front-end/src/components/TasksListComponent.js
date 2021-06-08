@@ -24,9 +24,12 @@ export default class TasksListComponent extends React.Component {
     const rows = this.state.tasks;
     /* TODO
         - name need to be editable
-        - status need to be dropdown editable
-        - add trash can on click thingy https://codesandbox.io/s/f71wj
+        - status need to be dropdown editable 
+        - add trash can on click thingy 
         - Add task button needs onclick method
+
+        https://material-ui.com/components/data-grid/columns/
+        https://codesandbox.io/s/f71wj
     */
     const columns: GridColDef[] = [
       { field: 'name', headerName: 'Name', width: 150 },
