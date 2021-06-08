@@ -12,6 +12,9 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
+import Modal from '@material-ui/core/Modal';
+import Backdrop from '@material-ui/core/Backdrop';
+import Fade from '@material-ui/core/Fade';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,11 +25,33 @@ const useStyles = makeStyles((theme) => ({
   table: {
     minWidth: 650,
   },
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  paper: {
+    backgroundColor: theme.palette.background.paper,
+    border: '2px solid #000',
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+  },
 }));
 
 
 export default function Team(props) {
   const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
+
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const [team, setTeam] = useState([]);
 
   let team_id = 1
@@ -34,7 +59,6 @@ export default function Team(props) {
   useEffect(() => {
     axios.get(`/api/teams/${team_id}`)
       .then(function(response) {
-        console.log(response.data);
         setTeam(response.data)
       })
   }, [])
@@ -43,6 +67,8 @@ export default function Team(props) {
     return (
       <Member
         member={member}
+        setTeam={setTeam}
+        team={team}
       />
     )
   })
@@ -65,8 +91,32 @@ export default function Team(props) {
           </TableBody>
         </Table>
       </TableContainer>
-      <Button variant="contained" onClick={props.onAdd}>Add Team Member</Button>
-      <Form />
+      <Button variant="contained" color="primary" type="button" onClick={handleOpen}>
+        Add New Member
+      </Button>
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        className={classes.modal}
+        open={open}
+        onClose={handleClose}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Fade in={open}>
+          <div className={classes.paper}>
+          <Form 
+            setTeam={setTeam}
+            team={team}
+            handleClose={handleClose}
+          />
+          </div>
+        </Fade>
+      </Modal>
+
     </div>
 
   )

@@ -19,16 +19,18 @@ export default function Form(props) {
   const [position, setPosition] = useState("");
 
   function addMember() {
-
-    return axios.post(`/api/users`, {
+    const newMember = {
       first_name: firstName,
       last_name: lastName,
       email: email,
       password: password,
       position: position
-    })
+    }
+
+    return axios.post(`/api/users`, newMember)
     .then(function (response) {
-      console.log(response);
+      const teamCopy = [...props.team, newMember]
+      props.setTeam(teamCopy)
     })
     .catch(function (error) {
       console.log(error);
@@ -77,7 +79,11 @@ export default function Form(props) {
         color="primary"
         className={classes.button}
         startIcon={<SaveIcon />}
-        onClick={addMember}
+        onClick={() => {
+          addMember()
+          props.handleClose()
+          }
+        }
       >
         Save
       </Button>
