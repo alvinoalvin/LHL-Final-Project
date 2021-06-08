@@ -56,7 +56,7 @@ export default function Application() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap> Mini variant drawer </Typography>
+          <Typography variant="h6" noWrap> Life Long Learning</Typography>
         </Toolbar>
       </AppBar>
 

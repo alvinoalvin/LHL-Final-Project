@@ -1,5 +1,5 @@
 /* Custom Components */
-import HomePlaceholders from './HomePlaceholders';
+import HomePlaceholders from './HomeDashboardCharts';
 
 export default function SpacingGrid() {
   
