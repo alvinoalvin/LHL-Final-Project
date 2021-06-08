@@ -85,10 +85,7 @@ INSERT INTO tags (tag)
 VALUES
   ('#javascript'),
   ('#webdevelopment'),
-  ('#codecademy'),
-  ('#udemy'),
-  ('#lighthouselabs'),
-  ('#react'),
+  ('#codecademy'),'Bradley', 'Fung', 'brad@brad.com
   ('#agile'),
   ('#productmanagement'),
   ('#programming'),
