@@ -17,6 +17,8 @@ import reactStyles from '../helpers/react-styles';
 /* Custom Components */
 import SkillItemDashboard from './SkillItemDashboard';
 import HomeDashboard from './HomeDashboard'
+import SignUp from './SignUp';
+import Team from "./Team";
 
 /* import icons */
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
@@ -24,8 +26,11 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
+import GroupIcon from '@material-ui/icons/Group';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import LockOpenIcon from '@material-ui/icons/LockOpen';
+import HomeIcon from '@material-ui/icons/Home';
 
-import Team from "./Team";
 
 const useStyles = reactStyles;
 
@@ -88,40 +93,50 @@ export default function Application() {
           </div>
           <Divider />
           <List>
-            {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
-
-                <Link to="/team">
+              <Link to="/">
                 <ListItem>
-                  <ListItemIcon><InboxIcon /></ListItemIcon>
+                  <ListItemIcon><HomeIcon /></ListItemIcon>
+                  <ListItemText primary='Home'></ListItemText>
+                </ListItem>
+              </Link>
+              <Link to="/team">
+                <ListItem>
+                  <ListItemIcon><GroupIcon /></ListItemIcon>
                   <ListItemText primary='Team'></ListItemText>
+                </ListItem>
+              </Link>
+              <Link to="/skill">
+                <ListItem>
+                  <ListItemIcon><AccountCircleIcon /></ListItemIcon>
+                  <ListItemText primary='Skill'></ListItemText>
+                </ListItem>
+              </Link>
+              <Link to="/signup">
+                <ListItem>
+                  <ListItemIcon><LockOpenIcon/></ListItemIcon>
+                  <ListItemText primary='Sign Up'></ListItemText>
                 </ListItem>
               </Link>
           </List>
           <Divider />
-          <List>
-            {['All mail', 'Trash', 'Spam'].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
-          </List>
         </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        <SkillItemDashboard />
+
         <Switch>
           <Route path="/team">
             <Team />
           </Route>
+          <Route path="/signup">
+            <SignUp />
+          </Route>
+          <Route path="/skill">
+            <SkillItemDashboard />
+          </Route>
+          <Route path="/">
+            <HomeDashboard />
+          </Route>
         </Switch>
-        <HomeDashboard />
-        {/* <SkillItemDashboard /> */}
       </main>
     </div>
     </Router>
