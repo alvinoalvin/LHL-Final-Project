@@ -38,56 +38,58 @@ export default function Form(props) {
   }
 
   return (
-    <form>
-      <input
-        name="first_name"
-        type="text"
-        placeholder="First Name"
-        value={firstName}
-        onChange={(event) => setFirstName(event.target.value)}
-      />
-      <input
-        name="last_name"
-        type="text"
-        placeholder="Last Name"
-        value={lastName}
-        onChange={(event) => setLastName(event.target.value)}
-      />
-      <input
-        name="email"
-        type="text"
-        placeholder="Email"
-        value={email}
-        onChange={(event) => setEmail(event.target.value)}
-      />
-      <input
-        name="password"
-        type="text"
-        placeholder="Password"
-        value={password}
-        onChange={(event) => setPassword(event.target.value)}
-      />
-      <input
-        name="position"
-        type="text"
-        placeholder="Position" 
-        value={position}
-        onChange={(event) => setPosition(event.target.value)}
-      />
-      <Button
-        variant="contained"
-        color="primary"
-        className={classes.button}
-        startIcon={<SaveIcon />}
-        onClick={() => {
-          addMember()
-          props.handleClose()
+    <main>
+      <h3>Add New Team Member</h3>
+      <form className='new-member-form'>
+        <input
+          name="first_name"
+          type="text"
+          placeholder="First Name"
+          value={firstName}
+          onChange={(event) => setFirstName(event.target.value)}
+        />
+        <input
+          name="last_name"
+          type="text"
+          placeholder="Last Name"
+          value={lastName}
+          onChange={(event) => setLastName(event.target.value)}
+        />
+        <input
+          name="email"
+          type="text"
+          placeholder="Email"
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
+        />
+        <input
+          name="password"
+          type="text"
+          placeholder="Password"
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
+        />
+        <input
+          name="position"
+          type="text"
+          placeholder="Position" 
+          value={position}
+          onChange={(event) => setPosition(event.target.value)}
+        />
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.button}
+          startIcon={<SaveIcon />}
+          onClick={() => {
+            addMember()
+            props.handleClose()
+            }
           }
-        }
-      >
-        Save
-      </Button>
-    </form>
-    
+        >
+          Save
+        </Button>
+      </form>
+    </main>
   )
 }

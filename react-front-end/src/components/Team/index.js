@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import Member from "./components/Member";
 import Form from "./components/Form";
+import "./styles.scss"
 
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -35,6 +36,10 @@ const useStyles = makeStyles((theme) => ({
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
+    height: 400,
+  },
+  dialogPaper: {
+    height : '400px'
   },
 }));
 
