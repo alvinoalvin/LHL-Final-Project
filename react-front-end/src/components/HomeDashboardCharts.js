@@ -94,7 +94,16 @@ export default function CenteredGrid() {
 
   return (
     <div className={classes.root}>
-      <Grid container spacing={3}>
+      <Grid container spacing={6}>
+      <Grid item xs={4}>
+          <Paper className={classes.paper}><h3>Most in-progress</h3><h2>React</h2><Doughnut data={pieData}/></Paper>
+        </Grid>
+        <Grid item xs={4}>
+          <Paper className={classes.paper}><h3>Most in staged</h3><h2>People Skills</h2><Doughnut data={pieData}/></Paper>
+        </Grid>
+        <Grid item xs={4}>
+          <Paper className={classes.paper}><h3>Most complete</h3><h2>Management</h2><Doughnut data={pieData}/></Paper>
+        </Grid>
         <Grid item xs={6}>
           <Paper className={classes.paper}>
           <div>
@@ -113,18 +122,9 @@ export default function CenteredGrid() {
         <Grid item xs={6}>
           <Paper className={classes.paper}><h2>Completion Rate</h2><Line data={lineData} /></Paper>
         </Grid>
-        <Grid item xs={3}>
-          <Paper className={classes.paper}><h3>Most in-progress</h3><h2>React</h2><Doughnut data={pieData}/></Paper>
-        </Grid>
-        <Grid item xs={3}>
-          <Paper className={classes.paper}><h3>Most in staged</h3><h2>People Skills</h2><Doughnut data={pieData}/></Paper>
-        </Grid>
-        <Grid item xs={3}>
-          <Paper className={classes.paper}><h3>Most complete</h3><h2>Management</h2><Doughnut data={pieData}/></Paper>
-        </Grid>
-        <Grid item xs={3}>
+        {/* <Grid item xs={3}>
           <Paper className={classes.paper}><h3>Newest Skill</h3><h2>Javascript</h2><Doughnut data={pieData}/></Paper>
-        </Grid>
+        </Grid> */}
       </Grid>
     </div>
   );
