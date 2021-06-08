@@ -8,6 +8,8 @@ import axios from "axios";
 
 export default function Member(props) {
 
+  const currentID = 1;
+
   function deleteMember(id) {
     return axios.delete(`api/users/${id}`, {id})
     .then(function (response) {
@@ -24,11 +26,15 @@ export default function Member(props) {
       console.log(error);
     });
   }
-
+  // to do: add customization to existing team members
   return (
     <>
     {!props.member.delete && <TableRow key={props.member.id}>
-    <TableCell >{props.member.first_name} {props.member.last_name}</TableCell>
+    <TableCell >
+      {props.member.first_name} {props.member.last_name} 
+      {/* { if (currentID === props.member.id) {
+      (Me)}} */}
+      </TableCell>
     <TableCell >{props.member.email}</TableCell>
     <TableCell >{props.member.position}</TableCell>
     <TableCell >      

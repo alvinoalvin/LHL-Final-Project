@@ -13,6 +13,7 @@ module.exports = db => {
   });
 
   router.get("/teams/:team_id", (request, response) => {
+    // to do: sort and organize by team leads first? 
     db.query(
       `
       SELECT users.id, first_name, last_name, email, position, delete, team_id
