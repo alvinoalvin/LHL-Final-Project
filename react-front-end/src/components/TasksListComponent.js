@@ -1,5 +1,5 @@
 import React from "react";
-import { DataGrid, GridRowsProp, GridColDef } from '@material-ui/data-grid';
+import { DataGrid} from '@material-ui/data-grid';
 import { Button } from "@material-ui/core";
 import '../styles/TasksListComponent.scss';
 const axios = require('axios');
@@ -8,11 +8,12 @@ const axios = require('axios');
 export default class TasksListComponent extends React.Component {
 
   state = {
-    tasks: []
+    tasks: [],
+    userId:1
   }
 
   componentDidMount() {
-    axios.get('/api/tasks')
+    axios.get(`/api/tasks/${this.state.userId}`)
       .then(response => {
         const tasks = response.data;
         console.log(tasks)
@@ -22,9 +23,9 @@ export default class TasksListComponent extends React.Component {
 
   render() {
     const rows = this.state.tasks;
-    console.log(rows);
 
     const columns = [
+      { field: 'id', headerName: 'id', width: 150 },
       { field: 'name', headerName: 'Name', width: 150 },
       { field: 'start_date', headerName: 'Date Created', width: 150 },
       { field: 'status', headerName: 'Status', width: 150 },

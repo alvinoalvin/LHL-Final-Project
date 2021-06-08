@@ -9,7 +9,7 @@ export default function SkillItemDashboard() {
         <TasksListComponent />
       </div>
       <div>
-        {/* <TasksListComponent />           */}
+        <TasksListComponent />          
       </div>       
     </div>
   );
