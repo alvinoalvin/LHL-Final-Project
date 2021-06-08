@@ -19,6 +19,7 @@ import SkillItemDashboard from './SkillItemDashboard';
 import HomeDashboard from './HomeDashboard'
 import SignUp from './SignUp';
 import Team from "./Team";
+import Report from "./Report";
 
 /* import icons */
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
@@ -30,6 +31,7 @@ import GroupIcon from '@material-ui/icons/Group';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import HomeIcon from '@material-ui/icons/Home';
+import AssessmentIcon from '@material-ui/icons/Assessment';
 
 
 const useStyles = reactStyles;
@@ -111,6 +113,12 @@ export default function Application() {
                   <ListItemText primary='Skill'></ListItemText>
                 </ListItem>
               </Link>
+              <Link to="/report">
+                <ListItem>
+                  <ListItemIcon><AssessmentIcon /></ListItemIcon>
+                  <ListItemText primary='Report'></ListItemText>
+                </ListItem>
+              </Link>
               <Link to="/signup">
                 <ListItem>
                   <ListItemIcon><LockOpenIcon/></ListItemIcon>
@@ -132,6 +140,9 @@ export default function Application() {
           </Route>
           <Route path="/skill">
             <SkillItemDashboard />
+          </Route>
+          <Route path="/report">
+            <Report />
           </Route>
           <Route path="/">
             <HomeDashboard />
