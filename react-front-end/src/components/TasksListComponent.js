@@ -22,11 +22,12 @@ export default class TasksListComponent extends React.Component {
 
   render() {
     const rows = this.state.tasks;
-/* TODO
-    name need to be editable
-    status need to be dropdown editable
-    add trash can on click thingy https://codesandbox.io/s/f71wj
-*/
+    /* TODO
+        - name need to be editable
+        - status need to be dropdown editable
+        - add trash can on click thingy https://codesandbox.io/s/f71wj
+        - Add task button needs onclick method
+    */
     const columns: GridColDef[] = [
       { field: 'name', headerName: 'Name', width: 150 },
       { field: 'status', headerName: 'Status', width: 150 },
