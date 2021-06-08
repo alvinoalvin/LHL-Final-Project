@@ -6,7 +6,7 @@ import TaskItem from './TaskItem';
 
 import FilterListIcon from '@material-ui/icons/FilterList';
 
-import '../styles/TasksListComponent.scss';
+import '../../styles/TasksListComponent.scss';
 
 /* Libraries */
 const axios = require('axios');
@@ -42,28 +42,7 @@ export default function TasksListComponent(props) {
       />
     );
   })
-  const rows = tasks;
-  const columns: GridColDef[] = [
-    { field: 'name', headerName: 'Name', width: 150 },
-    { field: 'status', headerName: 'Status', width: 150 },
-    { field: 'start_date', headerName: 'Start Date', width: 150 },
-    { field: 'end_date', headerName: 'End Date', width: 150 },
-    {
-      field: 'is_completed', headerName: 'Completed', width: 150,
-      renderCell: (params) => (
-        < Checkbox
-          disabled
-          checked={params.row.is_completed}
-          onChange={() => {
-            console.log(params.row);
-          }}
-          inputProps={{ 'aria-label': 'checkbox with small size' }}
-        />
-      ),
-    },
-    { field: 'full_name', headerName: 'Creator', width: 150 },
-  ];
-
+  
   return (
     <div class="task-list-component" >
       <h3>All Tasks</h3>

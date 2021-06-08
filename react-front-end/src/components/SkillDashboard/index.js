@@ -1,8 +1,8 @@
 /* Custom Components */
 import React from 'react';
 import TasksListComponent from './TasksListComponent';
-import '../styles/SkillItemDashboard.scss';
-export default function SkillItemDashboard() {
+import '../../styles/SkillItemDashboard.scss';
+export default function SkillDashboard() {
   const skill_id = 1;
   return (
     <div id="skill-item-container">

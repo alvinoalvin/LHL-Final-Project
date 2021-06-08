@@ -15,7 +15,7 @@ import { useTheme } from '@material-ui/core/styles';
 import reactStyles from '../helpers/react-styles';
 
 /* Custom Components */
-import SkillItemDashboard from './SkillItemDashboard';
+import SkillDashboard from './SkillDashboard';
 import HomeDashboard from './HomeDashboard'
 import SignUp from './SignUp';
 import Team from "./Team";
@@ -131,7 +131,7 @@ export default function Application() {
               <SignUp />
             </Route>
             <Route path="/skill">
-              <SkillItemDashboard />
+              <SkillDashboard />
             </Route>
             <Route path="/">
               <HomeDashboard />
