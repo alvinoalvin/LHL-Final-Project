@@ -10,24 +10,24 @@ import axios from "axios";
 
 export default function TaskItem(props) {
 
-  function deletetask(id) {
-    return axios.delete(`api/task/${id}`, { id })
+  function deleteTask(id) {
+    return axios.delete(`api/deliverables/${id}`, { id })
       .then(function(response) {
         const taskCopy = [...props.task];
         for (let task of taskCopy) {
           if (task.id === props.task.id) {
-            task.delete = true
+            task.deleted = true
           }
         }
-        
-        console.log(taskCopy);
+        console.log("task copy",taskCopy);
         props.setTasks(taskCopy);
       })
       .catch(function(error) {
+        console.log("inside then deletetask")
         console.log(error);
       });
   }
-  console.log(props.task)
+
   return (
     <>
       {!props.task.delete && <TableRow key={props.task.id}>
@@ -44,8 +44,12 @@ export default function TaskItem(props) {
         <TableCell >
           <IconButton
             aria-label="delete"
-          >
-            <DeleteIcon  />
+            onClick={(event) => {
+              if (window.confirm('Are you sure you want to delete?')) {
+                deleteTask(props.task.id);
+              }
+            }}>
+            <DeleteIcon />
           </IconButton>
         </TableCell>
       </TableRow>}
