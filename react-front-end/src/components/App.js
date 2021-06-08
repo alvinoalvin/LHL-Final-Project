@@ -10,6 +10,7 @@ import reactStyles from '../helpers/react-styles';
 
 /* Custom Components */
 import SkillItemDashboard from './SkillItemDashboard';
+import HomeDashboard from './HomeDashboard'
 
 /* import icons */
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
@@ -99,7 +100,7 @@ export default function Application() {
 
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        <SkillItemDashboard />
+        <HomeDashboard />
       </main>
     </div>
   );
