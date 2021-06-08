@@ -1,0 +1,11 @@
+.task-list-component {
+  grid-area: tasksList;
+  width: 90%;
+  min-height: 300px;
+  button {
+    margin-top: 10px;
+  }
+  .MuiDataGrid-columnHeader {
+    font-weight: bold;
+  }
+}

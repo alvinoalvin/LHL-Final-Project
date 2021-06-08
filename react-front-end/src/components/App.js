@@ -16,6 +16,7 @@ import reactStyles from '../helpers/react-styles';
 
 /* Custom Components */
 import SkillItemDashboard from './SkillItemDashboard';
+import HomeDashboard from './HomeDashboard'
 
 /* import icons */
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
@@ -63,7 +64,7 @@ export default function Application() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap> Mini variant drawer </Typography>
+          <Typography variant="h6" noWrap> Life Long Learning</Typography>
         </Toolbar>
       </AppBar>
 
@@ -119,6 +120,8 @@ export default function Application() {
             <Team />
           </Route>
         </Switch>
+        <HomeDashboard />
+        {/* <SkillItemDashboard /> */}
       </main>
     </div>
     </Router>
