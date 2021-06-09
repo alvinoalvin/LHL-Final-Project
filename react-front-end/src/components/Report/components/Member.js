@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Collapse from '@material-ui/core/Collapse';
@@ -7,7 +6,6 @@ import IconButton from '@material-ui/core/IconButton';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Typography from '@material-ui/core/Typography';
@@ -30,7 +28,6 @@ export default function Member(props) {
   const [open, setOpen] = useState(false);
   const classes = useRowStyles();
 
-  const team_id = 1;
   const total = Number(props.member.staged_count) + Number(props.member.in_progress_count) + Number(props.member.completed_count);
 
   const [deliverables, setDeliverables] = useState([])
@@ -79,7 +76,8 @@ export default function Member(props) {
                     <TableCell>Skill</TableCell>
                     <TableCell>Category</TableCell>
                     <TableCell>Name</TableCell>
-                    <TableCell align="right">Time Esimate (h)</TableCell>
+                    <TableCell align="right">Date Completed</TableCell>
+                    <TableCell align="right">Time Esimate (min)</TableCell>
                     <TableCell align="right">Stage</TableCell>
                   </TableRow>
                 </TableHead>
