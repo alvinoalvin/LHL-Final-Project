@@ -29,9 +29,7 @@ module.exports = db => {
 
   router.post("/tasks", (request, response) => {
     const { creator, assigned_to, skill_id, status_id, time_estimate_minutes, type_id, name, notes, link, create_date } = request.body
-    console.log("request.body: ", request.body);
     const values = [creator, assigned_to, skill_id, status_id, time_estimate_minutes, type_id, name, notes, link, create_date]
-    console.log("values", values);
 
     const queryString = `INSERT INTO deliverables(creator, assigned_to, skill_id, status_id, time_estimate_minutes, type_id, name, notes, link, create_date)
     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, (to_timestamp($10)))`

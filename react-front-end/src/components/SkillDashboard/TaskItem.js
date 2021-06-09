@@ -19,11 +19,9 @@ export default function TaskItem(props) {
             task.deleted = true
           }
         }
-        console.log("task copy",taskCopy);
         props.setTasks(taskCopy);
       })
       .catch(function(error) {
-        console.log("inside then deletetask")
         console.log(error);
       });
   }
