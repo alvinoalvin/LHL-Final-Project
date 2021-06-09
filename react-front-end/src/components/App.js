@@ -19,6 +19,7 @@ import SkillDashboard from './SkillDashboard';
 import HomeDashboard from './HomeDashboard'
 import SignUp from './SignUp';
 import Team from "./Team";
+import Report from "./Report";
 
 /* import icons */
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
@@ -30,6 +31,7 @@ import GroupIcon from '@material-ui/icons/Group';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import HomeIcon from '@material-ui/icons/Home';
+import AssessmentIcon from '@material-ui/icons/Assessment';
 
 
 const useStyles = reactStyles;
