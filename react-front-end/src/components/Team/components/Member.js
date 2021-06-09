@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
@@ -8,7 +8,7 @@ import axios from "axios";
 
 export default function Member(props) {
 
-  const currentID = 1;
+  const userID = 1;
 
   function deleteMember(id) {
     return axios.delete(`api/users/${id}`, {id})
@@ -31,9 +31,8 @@ export default function Member(props) {
     <>
     {!props.member.delete && <TableRow key={props.member.id}>
     <TableCell >
-      {props.member.first_name} {props.member.last_name} 
-      {/* { if (currentID === props.member.id) {
-      (Me)}} */}
+      {props.member.first_name + ' ' + props.member.last_name}
+      {props.member.id === userID && <span> (Me)</span>}
       </TableCell>
     <TableCell >{props.member.email}</TableCell>
     <TableCell >{props.member.position}</TableCell>

@@ -48,20 +48,21 @@ module.exports = db => {
     });
   });
 
-  router.get("/deliverables/users/:user_id", (request, response) => {
+  router.get("/deliverables/users/skills/:user_id&:skill_id", (request, response) => {
 
 
     db.query(
       `
-        SELECT *, deliverables.id as deliverable_id, users.id as user_id, teams.id as team_id, skills.name as skill_name, deliverables.name as deliverable_name
-        FROM deliverables
-        JOIN users ON assigned_to=users.id
-        JOIN teams ON users.team_id = teams.id
-        JOIN skills ON skill_id = skills.id
-        JOIN type ON type_id = type.id
-        JOIN status ON status_id = status.id
-        WHERE users.id=${request.params.user_id}
-        ORDER BY skill_id, status_id
+      SELECT deliverables.name as deliverable_name, type.type, time_estimate_minutes, end_date, status.status
+      FROM deliverables
+      JOIN users ON assigned_to=users.id
+      JOIN teams ON users.team_id = teams.id
+      JOIN skills ON skill_id = skills.id
+      JOIN type ON type_id = type.id
+      JOIN status ON status_id = status.id
+      WHERE users.id=${request.params.user_id}
+      AND skills.id =${request.params.skill_id}
+      ORDER BY type
       `
       )
         .then(({ rows: deliverables }) => {
