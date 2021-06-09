@@ -8,7 +8,6 @@ import {
   Typography, Paper, Checkbox, IconButton, Tooltip, FormControlLabel, Switch
 } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
-import FilterListIcon from "@material-ui/icons/FilterList";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -123,6 +122,11 @@ const EnhancedTableToolbar = (props) => {
   const classes = useToolbarStyles();
   const { numSelected } = props;
 
+  /* implment me */
+  const handleDelete = () => {
+    console.log("DELETING")
+  }
+
   return (
     <Toolbar
       className={clsx(classes.root, {
@@ -152,7 +156,7 @@ const EnhancedTableToolbar = (props) => {
       {numSelected > 0 ? (
         <Tooltip title="Delete">
           <IconButton aria-label="delete">
-            <DeleteIcon />
+            <DeleteIcon onClick={handleDelete} />
           </IconButton>
         </Tooltip>
       )
@@ -287,6 +291,7 @@ export default function EnhancedTable(props) {
 
                   return (
                     <props.rowComponent
+                      key={row.id}
                       task={row}
                       tasks={props.tasks}
                       setTask={props.setTasks}

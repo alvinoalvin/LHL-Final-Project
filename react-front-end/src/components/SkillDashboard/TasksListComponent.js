@@ -67,7 +67,6 @@ export default function TasksListComponent(props) {
     axios.get(`/api/tasks/${props.userID}/${props.skillID}`)
       .then(response => {
         setTasks(response.data);
-        console.log(tasks)
       }).catch(error => console.log("ERROR: ", error));
   });
 
