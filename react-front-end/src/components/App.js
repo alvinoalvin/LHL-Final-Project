@@ -113,6 +113,12 @@ export default function Application() {
                 <ListItemText primary='Skill'></ListItemText>
               </ListItem>
             </Link>
+            <Link to="/report">
+              <ListItem>
+                <ListItemIcon><AssessmentIcon /></ListItemIcon>
+                <ListItemText primary='Report'></ListItemText>
+              </ListItem>
+            </Link>
             <Link to="/signup">
               <ListItem>
                 <ListItemIcon><LockOpenIcon /></ListItemIcon>
@@ -134,6 +140,9 @@ export default function Application() {
             </Route>
             <Route path="/skill">
               <SkillDashboard />
+            </Route>
+            <Route path="/report">
+              <Report />
             </Route>
             <Route path="/">
               <HomeDashboard />
