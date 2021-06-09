@@ -68,15 +68,21 @@ export default function TasksListComponent(props) {
       .then(response => {
         setTasks(response.data);
       }).catch(error => console.log("ERROR: ", error));
-  });
+  }, []);
 
+  /* make sure ids match db column names */
   const headCells = [
-    { id: 'Name', numeric: false, disablePadding: true, label: 'Name' },
-    { id: 'Status', numeric: false, disablePadding: false, label: 'Status' },
-    { id: 'Start Date', numeric: false, disablePadding: false, label: 'Start Date' },
-    { id: 'End Date', numeric: false, disablePadding: false, label: 'End Date' },
-    { id: 'Completed', numeric: false, disablePadding: false, label: 'Completed' },
+    { id: 'name', numeric: false, disablePadding: true, label: 'Name' },
+    { id: 'status', numeric: false, disablePadding: false, label: 'Status' },
+    { id: 'start_date', numeric: false, disablePadding: false, label: 'Start Date' },
+    { id: 'end_date', numeric: false, disablePadding: false, label: 'End Date' },
+    { id: 'completed', numeric: false, disablePadding: false, label: 'Completed' },
   ];
+
+  const handleDelete = (selected) => {
+    console.log("DELETING")
+    console.log(selected)
+  }
 
   return (
     <div class="task-list-component" >
@@ -86,9 +92,10 @@ export default function TasksListComponent(props) {
         headCells={headCells}
         tasks={tasks}
         setTasks={setTasks}
-        rowComponent ={TaskItem}
+        rowComponent={TaskItem}
+        handleDelete={handleDelete}
       />
-      
+
       <Button variant="outlined" color="primary" onClick={setOpen}>
         Add Task
       </Button>

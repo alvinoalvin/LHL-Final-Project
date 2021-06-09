@@ -120,12 +120,10 @@ const useToolbarStyles = makeStyles((theme) => ({
 
 const EnhancedTableToolbar = (props) => {
   const classes = useToolbarStyles();
-  const { numSelected } = props;
+  const { numSelected, selected, handleDelete } = props;
 
   /* implment me */
-  const handleDelete = () => {
-    console.log("DELETING")
-  }
+  handleDelete(selected)
 
   return (
     <Toolbar
@@ -171,7 +169,8 @@ const EnhancedTableToolbar = (props) => {
 };
 
 EnhancedTableToolbar.propTypes = {
-  numSelected: PropTypes.number.isRequired
+  numSelected: PropTypes.number.isRequired,
+  selected: PropTypes.array
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -256,7 +255,7 @@ export default function EnhancedTable(props) {
     setDense(event.target.checked);
   };
 
-  const isSelected = (name) => selected.indexOf(name) !== -1;
+  const isSelected = (name) => selected.indexOf(name) !== -1
 
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
@@ -264,7 +263,7 @@ export default function EnhancedTable(props) {
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <EnhancedTableToolbar numSelected={selected.length} selected={selected} handleDelete={props.handleDelete} />
         <TableContainer>
           <Table
             className={classes.table}
@@ -304,7 +303,7 @@ export default function EnhancedTable(props) {
                 })}
               {emptyRows > 0 && (
                 <TableRow style={{ height: (dense ? 33 : 53) * emptyRows }}>
-                  <TableCell colSpan={6} />
+                  <TableCell colSpan={5} />
                 </TableRow>
               )}
             </TableBody>
