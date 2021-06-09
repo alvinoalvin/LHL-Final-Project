@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from "axios";
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -69,8 +70,17 @@ export default function CenteredGrid() {
     ]
   };
   
-  
-  
+  axios.get('http://localhost:8080/api/analytics/skill-status', {
+      headers: {
+          'Content-Type': 'application/json',
+      },
+    })
+    .then((response) => {
+      // handle success
+      console.log(response.data);
+    });
+
+  //?? How to load chart after I get data from API 
   //placeholder for pie chart
   const pieData = {
     labels: [
