@@ -26,6 +26,7 @@ export default function Member(props) {
       console.log(error);
     });
   }
+
   // to do: add customization to existing team members
   return (
     <>
@@ -33,7 +34,7 @@ export default function Member(props) {
     <TableCell >
       {props.member.first_name + ' ' + props.member.last_name}
       {props.member.id === userID && <span> (Me)</span>}
-      </TableCell>
+    </TableCell>
     <TableCell >{props.member.email}</TableCell>
     <TableCell >{props.member.position}</TableCell>
     <TableCell >      

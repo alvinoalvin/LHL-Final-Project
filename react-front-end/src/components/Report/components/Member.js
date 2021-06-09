@@ -32,6 +32,8 @@ export default function Member(props) {
 
   const [skills, setSkills] = useState([])
 
+  const userID = 1;
+
   useEffect(() => {
     axios.get(`/api/skills/users/${props.member.id}`)
     .then(function(response) {
@@ -58,6 +60,7 @@ export default function Member(props) {
         </TableCell>
         <TableCell component="th" scope="row">
           {props.member.first_name} {props.member.last_name}
+          {props.member.id === userID && <span> (Me)</span>}
         </TableCell>
         <TableCell align="right">{props.member.staged_count}</TableCell>
         <TableCell align="right">{props.member.in_progress_count}</TableCell>
