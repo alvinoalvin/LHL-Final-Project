@@ -86,7 +86,6 @@ export default function TasksListComponent(props) {
 
   return (
     <div class="task-list-component" >
-      <h3>All Tasks</h3>
       <EnhancedTable
         rows={tasks}
         headCells={headCells}
@@ -94,6 +93,7 @@ export default function TasksListComponent(props) {
         setTasks={setTasks}
         rowComponent={TaskItem}
         handleDelete={handleDelete}
+        tableName={"All Tasks"}
       />
 
       <Button variant="outlined" color="primary" onClick={setOpen}>

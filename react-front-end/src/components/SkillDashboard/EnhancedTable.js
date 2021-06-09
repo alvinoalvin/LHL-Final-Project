@@ -120,7 +120,7 @@ const useToolbarStyles = makeStyles((theme) => ({
 
 const EnhancedTableToolbar = (props) => {
   const classes = useToolbarStyles();
-  const { numSelected, selected, handleDelete } = props;
+  const { numSelected, selected, handleDelete, tableName} = props;
 
   /* implment me */
   handleDelete(selected)
@@ -147,7 +147,7 @@ const EnhancedTableToolbar = (props) => {
           id="tableTitle"
           component="div"
         >
-          Nutrition
+          {tableName}
         </Typography>
       )}
 
@@ -170,7 +170,8 @@ const EnhancedTableToolbar = (props) => {
 
 EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
-  selected: PropTypes.array
+  selected: PropTypes.array,
+  tableName:PropTypes.string
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -263,7 +264,7 @@ export default function EnhancedTable(props) {
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <EnhancedTableToolbar numSelected={selected.length} selected={selected} handleDelete={props.handleDelete} />
+        <EnhancedTableToolbar numSelected={selected.length} selected={selected} handleDelete={props.handleDelete} tableName={props.tableName} />
         <TableContainer>
           <Table
             className={classes.table}
