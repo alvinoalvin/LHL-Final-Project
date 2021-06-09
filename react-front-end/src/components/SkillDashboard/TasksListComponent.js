@@ -1,11 +1,17 @@
+/* React Libraries */
 import React, { useState, setState, useEffect } from "react";
+
+/* Material Ui */
 import { Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, TableSortLabel, Toolbar, Paper } from "@material-ui/core";
-import { Button, Checkbox } from "@material-ui/core";
-
-import TaskItem from './TaskItem';
-
+import { Button, Checkbox, Modal, Backdrop, Fade } from "@material-ui/core";
 import FilterListIcon from '@material-ui/icons/FilterList';
+import { makeStyles } from '@material-ui/core/styles';
 
+/* Custom components */
+import TaskItem from './TaskItem';
+import SkillDashboardForm from './SkillDashboardForm';
+
+/* scss */
 import '../../styles/TasksListComponent.scss';
 
 /* Libraries */
@@ -22,12 +28,47 @@ const axios = require('axios');
     https://codesandbox.io/s/f71wj
 */
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    '& > *': {
+      margin: theme.spacing(1),
+    },
+  },
+  table: {
+    minWidth: 650,
+  },
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  paper: {
+    backgroundColor: theme.palette.background.paper,
+    border: '2px solid #000',
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+    height: 400,
+  },
+  dialogPaper: {
+    height: '400px'
+  },
+}));
+
 export default function TasksListComponent(props) {
-  const userId = 1;
+  const classes = useStyles();
   const [tasks, setTasks] = useState([]);
+  const [open, setOpen] = React.useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   useEffect(() => {
-    axios.get(`/api/tasks/${userId}/${props.skillID}`)
+    axios.get(`/api/tasks/${props.userID}/${props.skillID}`)
       .then(response => {
         setTasks(response.data);
       }).catch(error => console.log("ERROR: ", error));
@@ -42,7 +83,7 @@ export default function TasksListComponent(props) {
       />
     );
   })
-  
+
   return (
     <div class="task-list-component" >
       <h3>All Tasks</h3>
@@ -62,9 +103,34 @@ export default function TasksListComponent(props) {
           </TableBody>
         </Table>
       </TableContainer>
-      <Button variant="outlined" color="primary">
+      <Button variant="outlined" color="primary" onClick={setOpen}>
         Add Task
       </Button>
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        className={classes.modal}
+        open={open}
+        onClose={handleClose}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Fade in={open}>
+          <div className={classes.paper}>
+            <SkillDashboardForm
+              userID={props.userID}
+              skillID={props.skillID}
+              setTasks={setTasks}
+              tasks={tasks}
+              handleClose={handleClose}
+            />
+          </div>
+        </Fade>
+      </Modal>
+
     </div>
   );
 }
