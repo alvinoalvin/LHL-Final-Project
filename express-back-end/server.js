@@ -1,9 +1,11 @@
+const cors = require('cors');
 const Express = require('express');
 const App = Express();
+App.use(cors());
+App.options('*', cors());
 const BodyParser = require('body-parser');
 const PORT = 8080;
 const db = require("./db");
-
 
 // Express Configuration
 App.use(BodyParser.urlencoded({ extended: false }));
@@ -16,6 +18,8 @@ const deliverables = require("./routes/deliverables");
 App.use("/api", deliverables(db));
 const teams = require("./routes/teams");
 App.use("/api", teams(db));
+const analytics = require("./routes/analytics");
+App.use("/api", analytics(db));
 
 // Sample GET route
 App.get('/api/data', (req, res) => res.json({
