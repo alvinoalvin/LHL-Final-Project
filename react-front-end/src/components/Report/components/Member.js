@@ -11,7 +11,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Typography from '@material-ui/core/Typography';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
-import Deliverable from './Deliverable';
+import Skill from './Skill';
 
 import axios from "axios";
 
@@ -30,19 +30,22 @@ export default function Member(props) {
 
   const total = Number(props.member.staged_count) + Number(props.member.in_progress_count) + Number(props.member.completed_count);
 
-  const [deliverables, setDeliverables] = useState([])
+  const [skills, setSkills] = useState([])
+
+  const userID = 1;
 
   useEffect(() => {
-    axios.get(`/api/deliverables/users/${props.member.id}`)
+    axios.get(`/api/skills/users/${props.member.id}`)
     .then(function(response) {
-      setDeliverables(response.data)
+      setSkills(response.data)
     })
   }, [])
 
-  const deliverableList = deliverables.map(deliverable => {
+  const skillList = skills.map(skill => {
     return (
-      <Deliverable 
-        deliverable={deliverable}
+      <Skill
+        userID={props.member.id}
+        skill={skill}
       />
     )
   })
@@ -51,12 +54,13 @@ export default function Member(props) {
     <React.Fragment>
       <TableRow className={classes.root}>
         <TableCell>
-          <IconButton aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
+          <IconButton disabled={!total} aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
         <TableCell component="th" scope="row">
           {props.member.first_name} {props.member.last_name}
+          {props.member.id === userID && <span> (Me)</span>}
         </TableCell>
         <TableCell align="right">{props.member.staged_count}</TableCell>
         <TableCell align="right">{props.member.in_progress_count}</TableCell>
@@ -67,22 +71,21 @@ export default function Member(props) {
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box margin={1}>
-              <Typography variant="h6" gutterBottom component="div">
-                History
+              <Typography gutterBottom component="div">
+                Skills
               </Typography>
               <Table size="small" aria-label="purchases">
                 <TableHead>
-                  <TableRow>
-                    <TableCell>Skill</TableCell>
-                    <TableCell>Category</TableCell>
+                  <TableRow >
+                    <TableCell />
                     <TableCell>Name</TableCell>
-                    <TableCell align="right">Date Completed</TableCell>
-                    <TableCell align="right">Time Esimate (min)</TableCell>
-                    <TableCell align="right">Stage</TableCell>
+                    <TableCell align="right">Tasks</TableCell>
+                    <TableCell align="right">Resources</TableCell>
+                    <TableCell align="right">Total Time Esimate (h)</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                    {deliverableList}
+                    {skillList}
                 </TableBody>
               </Table>
             </Box>

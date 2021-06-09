@@ -16,6 +16,8 @@ const deliverables = require("./routes/deliverables");
 App.use("/api", deliverables(db));
 const teams = require("./routes/teams");
 App.use("/api", teams(db));
+const skills = require("./routes/skills");
+App.use("/api", skills(db));
 const csv = require("./routes/csv");
 App.use("/api", csv(db));
 
