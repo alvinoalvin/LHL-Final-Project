@@ -155,13 +155,13 @@ const EnhancedTableToolbar = (props) => {
             <DeleteIcon />
           </IconButton>
         </Tooltip>
-      ) : (
-        <Tooltip title="Filter list">
-          <IconButton aria-label="filter list">
-            <FilterListIcon />
-          </IconButton>
-        </Tooltip>
-      )}
+      )
+        : (
+          <Tooltip title="Filter list">
+            <IconButton aria-label="filter list">
+            </IconButton>
+          </Tooltip>
+        )}
     </Toolbar>
   );
 };
