@@ -15,7 +15,7 @@ import { useTheme } from '@material-ui/core/styles';
 import reactStyles from '../helpers/react-styles';
 
 /* Custom Components */
-import SkillItemDashboard from './SkillItemDashboard';
+import SkillDashboard from './SkillDashboard';
 import HomeDashboard from './HomeDashboard'
 import SignUp from './SignUp';
 import Team from "./Team";
@@ -51,29 +51,29 @@ export default function Application() {
 
   return (
     <Router>
-    <div className={classes.root}>
-      <CssBaseline />
-      <AppBar
-        position="fixed"
-        className={clsx(classes.appBar, {
-          [classes.appBarShift]: open,
-        })}
-      >
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            className={clsx(classes.menuButton, {
-              [classes.hide]: open,
-            })}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap> Life Long Learning</Typography>
-        </Toolbar>
-      </AppBar>
+      <div className={classes.root}>
+        <CssBaseline />
+        <AppBar
+          position="fixed"
+          className={clsx(classes.appBar, {
+            [classes.appBarShift]: open,
+          })}
+        >
+          <Toolbar>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              edge="start"
+              className={clsx(classes.menuButton, {
+                [classes.hide]: open,
+              })}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" noWrap> Life Long Learning</Typography>
+          </Toolbar>
+        </AppBar>
 
         <Drawer
           variant="permanent"
@@ -95,61 +95,52 @@ export default function Application() {
           </div>
           <Divider />
           <List>
-              <Link to="/">
-                <ListItem>
-                  <ListItemIcon><HomeIcon /></ListItemIcon>
-                  <ListItemText primary='Home'></ListItemText>
-                </ListItem>
-              </Link>
-              <Link to="/team">
-                <ListItem>
-                  <ListItemIcon><GroupIcon /></ListItemIcon>
-                  <ListItemText primary='Team'></ListItemText>
-                </ListItem>
-              </Link>
-              <Link to="/skill">
-                <ListItem>
-                  <ListItemIcon><AccountCircleIcon /></ListItemIcon>
-                  <ListItemText primary='Skill'></ListItemText>
-                </ListItem>
-              </Link>
-              <Link to="/report">
-                <ListItem>
-                  <ListItemIcon><AssessmentIcon /></ListItemIcon>
-                  <ListItemText primary='Report'></ListItemText>
-                </ListItem>
-              </Link>
-              <Link to="/signup">
-                <ListItem>
-                  <ListItemIcon><LockOpenIcon/></ListItemIcon>
-                  <ListItemText primary='Sign Up'></ListItemText>
-                </ListItem>
-              </Link>
+            <Link to="/">
+              <ListItem>
+                <ListItemIcon><HomeIcon /></ListItemIcon>
+                <ListItemText primary='Home'></ListItemText>
+              </ListItem>
+            </Link>
+            <Link to="/team">
+              <ListItem>
+                <ListItemIcon><GroupIcon /></ListItemIcon>
+                <ListItemText primary='Team'></ListItemText>
+              </ListItem>
+            </Link>
+            <Link to="/skill">
+              <ListItem>
+                <ListItemIcon><AccountCircleIcon /></ListItemIcon>
+                <ListItemText primary='Skill'></ListItemText>
+              </ListItem>
+            </Link>
+            <Link to="/signup">
+              <ListItem>
+                <ListItemIcon><LockOpenIcon /></ListItemIcon>
+                <ListItemText primary='Sign Up'></ListItemText>
+              </ListItem>
+            </Link>
           </List>
           <Divider />
         </Drawer>
-      <main className={classes.content}>
-        <div className={classes.toolbar} />
+        <main className={classes.content}>
+          <div className={classes.toolbar} />
 
-        <Switch>
-          <Route path="/team">
-            <Team />
-          </Route>
-          <Route path="/signup">
-            <SignUp />
-          </Route>
-          <Route path="/skill">
-            <SkillItemDashboard />
-          </Route>
-          <Route path="/report">
-            <Report />
-          </Route>
-          <Route path="/">
-            <HomeDashboard />
-          </Route>
-        </Switch>
-      </main>
-    </div>
+          <Switch>
+            <Route path="/team">
+              <Team />
+            </Route>
+            <Route path="/signup">
+              <SignUp />
+            </Route>
+            <Route path="/skill">
+              <SkillDashboard />
+            </Route>
+            <Route path="/">
+              <HomeDashboard />
+            </Route>
+          </Switch>
+        </main>
+      </div>
     </Router>
   );
 }
