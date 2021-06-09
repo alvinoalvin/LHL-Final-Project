@@ -19,12 +19,8 @@ const axios = require('axios');
 /* TODO
     - name need to be editable
     - status need to be dropdown editable 
-    - add trash can on click thingy 
-    - Add task button needs onclick method
-    - create new branch, add react router
+    - add trash can on click thingy (for bulk)
     
-    https://reactrouter.com/
-    https://material-ui.com/components/data-grid/columns/
     https://codesandbox.io/s/f71wj
 */
 
@@ -75,16 +71,6 @@ export default function TasksListComponent(props) {
       }).catch(error => console.log("ERROR: ", error));
   });
 
-  // const tasksList = tasks.map(task => {
-  //   return (
-  //     <TaskItem
-  //       task={task}
-  //       tasks={tasks}
-  //       setTasks={setTasks}
-  //     />
-  //   );
-  // })
-
   const headCells = [
     { id: 'Name', numeric: false, disablePadding: true, label: 'Name' },
     { id: 'Status', numeric: false, disablePadding: false, label: 'Status' },
@@ -103,22 +89,7 @@ export default function TasksListComponent(props) {
         setTasks={setTasks}
         rowComponent ={TaskItem}
       />
-      {/* <TableContainer component={Paper}>
-        <Table className="task-table" aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell>Status</TableCell>
-              <TableCell>Start Date</TableCell>
-              <TableCell>End Date</TableCell>
-              <TableCell>Completed</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {tasksList}
-          </TableBody>
-        </Table>
-      </TableContainer> */}
+      
       <Button variant="outlined" color="primary" onClick={setOpen}>
         Add Task
       </Button>
