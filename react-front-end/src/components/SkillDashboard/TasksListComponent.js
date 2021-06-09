@@ -2,15 +2,15 @@
 import React, { useState, setState, useEffect } from "react";
 
 /* Material Ui */
-import { Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, TableSortLabel, Toolbar, Paper } from "@material-ui/core";
+// import { Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, TableSortLabel, Toolbar, Paper } from "@material-ui/core";
 import { Button, Checkbox, Modal, Backdrop, Fade } from "@material-ui/core";
-import FilterListIcon from '@material-ui/icons/FilterList';
+// import FilterListIcon from '@material-ui/icons/FilterList';
 import { makeStyles } from '@material-ui/core/styles';
 
 /* Custom components */
 import TaskItem from './TaskItem';
 import SkillDashboardForm from './SkillDashboardForm';
-
+import EnhancedTable from "./EnhancedTable";
 /* scss */
 import '../../styles/TasksListComponent.scss';
 
@@ -71,23 +71,39 @@ export default function TasksListComponent(props) {
     axios.get(`/api/tasks/${props.userID}/${props.skillID}`)
       .then(response => {
         setTasks(response.data);
+        console.log(tasks)
       }).catch(error => console.log("ERROR: ", error));
   });
 
-  const tasksList = tasks.map(task => {
-    return (
-      <TaskItem
-        task={task}
-        tasks={tasks}
-        setTasks={setTasks}
-      />
-    );
-  })
+  // const tasksList = tasks.map(task => {
+  //   return (
+  //     <TaskItem
+  //       task={task}
+  //       tasks={tasks}
+  //       setTasks={setTasks}
+  //     />
+  //   );
+  // })
+
+  const headCells = [
+    { id: 'Name', numeric: false, disablePadding: true, label: 'Name' },
+    { id: 'Status', numeric: false, disablePadding: false, label: 'Status' },
+    { id: 'Start Date', numeric: false, disablePadding: false, label: 'Start Date' },
+    { id: 'End Date', numeric: false, disablePadding: false, label: 'End Date' },
+    { id: 'Completed', numeric: false, disablePadding: false, label: 'Completed' },
+  ];
 
   return (
     <div class="task-list-component" >
       <h3>All Tasks</h3>
-      <TableContainer component={Paper}>
+      <EnhancedTable
+        rows={tasks}
+        headCells={headCells}
+        tasks={tasks}
+        setTasks={setTasks}
+        rowComponent ={TaskItem}
+      />
+      {/* <TableContainer component={Paper}>
         <Table className="task-table" aria-label="simple table">
           <TableHead>
             <TableRow>
@@ -102,7 +118,7 @@ export default function TasksListComponent(props) {
             {tasksList}
           </TableBody>
         </Table>
-      </TableContainer>
+      </TableContainer> */}
       <Button variant="outlined" color="primary" onClick={setOpen}>
         Add Task
       </Button>
