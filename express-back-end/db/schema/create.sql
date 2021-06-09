@@ -58,7 +58,8 @@ CREATE TABLE deliverables (
   link VARCHAR(255),
   create_date DATE,
   start_date DATE,
-  end_date DATE
+  end_date DATE,
+  deleted BOOLEAN NOT NULL DEFAULT FALSE
 );
 
 DROP TABLE IF EXISTS tags CASCADE;
