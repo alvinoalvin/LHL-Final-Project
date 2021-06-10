@@ -72,6 +72,7 @@ export default function Team(props) {
   const teamList = team.map(member => {
     return (
       <Member
+        key={member.id}
         member={member}
         setTeam={setTeam}
         team={team}

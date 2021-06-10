@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
@@ -12,6 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 
+import { authContext } from '../../providers/AuthProvider';
 import axios from "axios";
 
 function Copyright() {
@@ -57,7 +58,7 @@ export default function Form(props) {
   const [email, setEmail] = useState("");
   const [position, setPosition] = useState("");
 
-  const team_id = 1;
+  const { team_id } = useContext(authContext);
 
   function addMember() {
     const newMember = {
