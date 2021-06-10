@@ -62,17 +62,14 @@ export default function Skill(props) {
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box margin={1}>
-              <Typography gutterBottom component="div">
-                Deliverables
-              </Typography>
               <Table size="small" aria-label="purchases">
                 <TableHead>
                   <TableRow >
                     <TableCell>Name</TableCell>
-                    <TableCell>Type</TableCell>
-                    <TableCell>Time Esimate (min)</TableCell>
                     <TableCell>Status</TableCell>
+                    <TableCell>Type</TableCell>
                     <TableCell>Due Date</TableCell>
+                    <TableCell align="right">Time Esimate (min)</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>

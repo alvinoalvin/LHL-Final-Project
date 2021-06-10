@@ -12,10 +12,10 @@ export default function Deliverable(props) {
   return (
     <TableRow >
       <TableCell>{props.deliverable.deliverable_name}</TableCell>
-      <TableCell>{props.deliverable.type}</TableCell>
-      <TableCell>{props.deliverable.time_estimate_minutes}</TableCell>
       <TableCell>{props.deliverable.status}</TableCell>
+      <TableCell>{props.deliverable.type}</TableCell>
       <TableCell>{dueDate}</TableCell>
+      <TableCell align="right">{props.deliverable.time_estimate_minutes}</TableCell>
     </TableRow>
   )
 }
