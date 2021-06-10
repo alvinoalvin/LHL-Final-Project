@@ -1,6 +1,17 @@
 const router = require("express").Router();
 
 module.exports = db => { 
+  router.get("/skills", (request, response) => {
+    db.query(
+      `
+      SELECT *
+      FROM skills
+      `
+    ).then(({ rows: skills }) => {
+      response.json(skills);
+    });
+  });
+
   router.get("/skills/users/:user_id", (request, response) => {
     db.query(
       `
@@ -18,6 +29,8 @@ module.exports = db => {
       response.json(skills);
     });
   });
+
+
 
   return router;
 }

@@ -28,7 +28,6 @@ module.exports = db => {
       GROUP BY users.id
       `
     ).then(({ rows: teams }) => {
-      console.log("***GET METHOD***", response);
       response.json(teams);
     });
   });
