@@ -28,7 +28,7 @@ export default function CreateTaskForm(props) {
       name: name,
       // notes: description,
       link: link,
-      create_date: Date.now() / 1000
+      create_date: new Date().toISOString()
     }
 
     return axios.post(`/api/tasks`, newTask)

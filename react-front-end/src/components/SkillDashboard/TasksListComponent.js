@@ -75,7 +75,7 @@ export default function TasksListComponent(props) {
   const headCells = [
     { id: 'name', numeric: false, disablePadding: true, label: 'Name', align: "left", width: 210 },
     { id: 'status', numeric: false, disablePadding: false, label: 'Status', align: "left", width: 100 },
-    // { id: 'start_date', numeric: false, disablePadding: false, label: 'Start Date', align: "left", width: 150},
+    { id: 'start_date', numeric: false, disablePadding: false, label: 'Start Date', align: "left", width: 150 },
     { id: 'time_estimate_minutes', numeric: false, disablePadding: false, label: 'Estimated Time (mins)', align: "left" },
     { id: 'link', numeric: false, disablePadding: false, label: 'Resource Link', align: "left" },
     { id: 'is_completed', numeric: false, disablePadding: false, label: 'Completed', align: "left" },

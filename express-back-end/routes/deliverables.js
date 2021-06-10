@@ -32,8 +32,9 @@ module.exports = db => {
     const { creator, assigned_to, skill_id, status_id, time_estimate_minutes, type_id, name, notes, link, create_date } = request.body
     const values = [creator, assigned_to, skill_id, status_id, time_estimate_minutes, type_id, name, notes, link, create_date]
 
-    const queryString = `INSERT INTO deliverables(creator, assigned_to, skill_id, status_id, time_estimate_minutes, type_id, name, notes, link, create_date)
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, (to_timestamp($10))) RETURNING id`
+    const queryString = `INSERT INTO deliverables(creator, assigned_to, skill_id,
+      status_id, time_estimate_minutes, type_id, name, notes, link, create_date,start_date)
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $10) RETURNING id`
     db.query(queryString, values)
       .then((result) => {
         response.json({ msg: 'success', result: result.rows[0] })
@@ -91,7 +92,7 @@ module.exports = db => {
 
   router.delete("/deliverables", (request, response) => {
     const arr = JSON.parse(request.query.array);
-    
+
     let paramStr = "(";
     for (let i = 1; i <= arr.length; i++) {
       if (i != arr.length) {
@@ -101,7 +102,7 @@ module.exports = db => {
       }
     }
     paramStr += ")";
-    
+
     const queryString = `UPDATE deliverables SET deleted=true WHERE id IN ${paramStr} RETURNING *`;
 
     console.log("deleting id: ", arr)
@@ -143,9 +144,9 @@ module.exports = db => {
     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, NOW())`
 
     db.query(queryString, values)
-    .then(({ rows: deliverables }) => {
-      response.json(deliverables);
-    });
+      .then(({ rows: deliverables }) => {
+        response.json(deliverables);
+      });
   })
   return router;
 }

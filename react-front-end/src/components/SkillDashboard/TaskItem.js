@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { TableCell, TableRow, Checkbox } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
+import { getDate } from "../../helpers/dateFuncs"
 
 import axios from "axios";
 
@@ -31,21 +32,6 @@ export default function TaskItem(props) {
       });
   }
 
-  // function getDate(dateStr) {
-  //   const date = new Date(dateStr);
-  //   const year = date.getFullYear();
-  //   let month = date.getMonth() + 1;
-  //   let dt = date.getDate();
-
-  //   if (dt < 10) {
-  //     dt = '0' + dt;
-  //   }
-  //   if (month < 10) {
-  //     month = '0' + month;
-  //   }
-  //   return (year + '-' + month + '-' + dt)
-  // }
-
   return (
     <TableRow key={task.id}
       hover
@@ -71,7 +57,7 @@ export default function TaskItem(props) {
         {task.name}
       </TableCell>
       <TableCell align="left">{task.status}</TableCell>
-      {/* <TableCell align="left">{getDate(task.start_date)}</TableCell> */}
+      <TableCell align="left">{getDate(task.start_date)}</TableCell>
       <TableCell align="left">{task.time_estimate_minutes}</TableCell>
       <TableCell align="left"><a href={task.link}>{task.link !== "No Link Needed?" ? task.link : ""}</a></TableCell>
       <TableCell align="left" >
@@ -80,7 +66,7 @@ export default function TaskItem(props) {
           checked={task.is_completed}
         />
       </TableCell>
-      <TableCell >
+      <TableCell align="left">
         <IconButton
           aria-label="delete"
           onClick={(event) => {
