@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import {Doughnut} from 'react-chartjs-2';
 import {Line} from 'react-chartjs-2';
 import {Bar} from 'react-chartjs-2';
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -21,25 +22,57 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CenteredGrid() {
   const classes = useStyles();
+  //update wth actual datacalls
+  const[testdata, setData] = useState();
+
+  const[labels, setLabels] = useState();
+
+  //only run on first load []
+  useEffect(() => {
+    axios.get('http://localhost:8080/api/analytics/skill-status', {
+      headers: {
+          'Content-Type': 'application/json',
+      },
+    })
+    .then(((response) => {
+      // handle success
+      console.log(response.data)
+      const newLabels = response.data.reduce(
+        (acc, dataPoint) => {
+          if (acc.includes(dataPoint.name)){
+            return acc
+          }
+          else {
+            acc.push(dataPoint.name)
+          }
+          return acc
+        }, [] 
+      )
+      setLabels(newLabels)
+
+      const stackBarData = response.data.reduce(
+        (acc, dataPoint) => {
+          if (acc[dataPoint.status]){
+            acc[dataPoint.status].push(Number(dataPoint.count))
+          } else {
+            acc[dataPoint.status] = [Number(dataPoint.count)]
+          }
+          return acc
+        }, {});
+        console.log(stackBarData)
+      setData(stackBarData);
+    }));
+  }, [])
   
-  
+  // change string to number 
+
   //placeholder for bar chart
   const data = {
-    labels: ['React', 'Javascript', 'Writing', 'French', 'Code', 'PHP', 'Rails'],
-    datasets: [
-      {
-        label: 'Skills in progress',
-        backgroundColor: 'rgba(255,99,132,0.2)',
-        borderColor: 'rgba(255,99,132,1)',
-        borderWidth: 1,
-        hoverBackgroundColor: 'rgba(255,99,132,0.4)',
-        hoverBorderColor: 'rgba(255,99,132,1)',
-        data: [65, 59, 80, 81, 56, 55, 40]
-      }
-    ]
+    labels: labels, 
+    datasets: Object.entries(testdata || {}).map(([label, values], i) => ({label, data: values, backgroundColor: `rgba(${i*100},255,255)`}))
   };
   
-  
+ console.log("datasets?", data)
   
   //placeholder for line chart
   const lineData = {
@@ -70,15 +103,8 @@ export default function CenteredGrid() {
     ]
   };
   
-  axios.get('http://localhost:8080/api/analytics/skill-status', {
-      headers: {
-          'Content-Type': 'application/json',
-      },
-    })
-    .then((response) => {
-      // handle success
-      console.log(response.data);
-    });
+
+//when page renders fetch data (useEffect)[] 
 
   //?? How to load chart after I get data from API 
   //placeholder for pie chart
@@ -123,7 +149,21 @@ export default function CenteredGrid() {
           width={100}
           height={50}
           options={{
-            maintainAspectRatio: true
+            plugins: {
+              title: {
+                display: true,
+                text: 'Chart.js Bar Chart - Stacked'
+              },
+            },
+            responsive: true,
+            scales: {
+              x: {
+                stacked: true,
+              },
+              y: {
+                stacked: true
+              }
+            }
           }}
         />
     </div>
