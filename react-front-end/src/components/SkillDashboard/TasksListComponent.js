@@ -76,7 +76,7 @@ export default function TasksListComponent(props) {
     { id: 'status', numeric: false, disablePadding: false, label: 'Status', align: "left" },
     { id: 'start_date', numeric: false, disablePadding: false, label: 'Start Date', align: "left" },
     { id: 'end_date', numeric: false, disablePadding: false, label: 'End Date', align: "left" },
-    { id: 'completed', numeric: false, disablePadding: false, label: 'Completed', align: "left", width:30 },
+    { id: 'is_completed', numeric: false, disablePadding: false, label: 'Completed', align: "left", width:30 },
   ];
 
   const handleDelete = (selected, setSelected, tasks, setTasks) => {
