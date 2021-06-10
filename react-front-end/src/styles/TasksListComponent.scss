@@ -1,6 +1,6 @@
 .task-list-component {
   grid-area: tasksList;
-  width: 90%;
+  max-width: 45vw;
   min-height: 300px;
   button {
     margin-top: 10px;

@@ -64,9 +64,10 @@ function EnhancedTableHead(props) {
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
-            align={headCell.numeric ? "right" : "left"}
+            align={headCell.align}
             padding={headCell.disablePadding ? "none" : "default"}
             sortDirection={orderBy === headCell.id ? order : false}
+            width={headCell.width ? headCell.width : "auto"}
           >
             <TableSortLabel
               active={orderBy === headCell.id}
@@ -260,7 +261,7 @@ export default function EnhancedTable(props) {
 
   return (
     <div className={classes.root}>
-      <Paper className={classes.paper}>
+      <Paper className={classes.paper} variant="elevation">
         <EnhancedTableToolbar numSelected={selected.length} selected={selected} handleDelete={props.handleDelete} tableName={props.tableName} setSelected={setSelected} rows={rows} setRows={props.setRows} />
         <TableContainer>
           <Table

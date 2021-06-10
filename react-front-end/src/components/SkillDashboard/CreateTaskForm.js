@@ -47,11 +47,13 @@ export default function CreateTaskForm(props) {
       <h3>Add New Task Member</h3>
       <form className='new-member-form'>
         <input
+          id="create-task-name-input"
           name="name"
           type="text"
           placeholder="Task"
           value={name}
           onChange={(event) => setName(event.target.value)}
+          required
         />
         <input
           name="estDuration"
@@ -73,15 +75,20 @@ export default function CreateTaskForm(props) {
           placeholder="description"
           value={description}
           onChange={(event) => setDescription(event.target.value)}
-        />
+        /> 
         <Button
           variant="contained"
           color="primary"
           className={classes.button}
           startIcon={<SaveIcon />}
-          onClick={() => {
-            addTask()
-            props.handleClose()
+          onClick={(event) => {
+            console.log(document.getElementById("create-task-name-input"))
+            if (document.getElementById("create-task-name-input").value) {
+              addTask()
+              props.handleClose()
+            } else {
+              alert("Please enter a name")
+            }
           }
           }
         >

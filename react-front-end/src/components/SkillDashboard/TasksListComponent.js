@@ -72,11 +72,11 @@ export default function TasksListComponent(props) {
 
   /* make sure ids match db column names */
   const headCells = [
-    { id: 'name', numeric: false, disablePadding: true, label: 'Name' },
-    { id: 'status', numeric: false, disablePadding: false, label: 'Status' },
-    { id: 'start_date', numeric: false, disablePadding: false, label: 'Start Date' },
-    { id: 'end_date', numeric: false, disablePadding: false, label: 'End Date' },
-    { id: 'completed', numeric: false, disablePadding: false, label: 'Completed' },
+    { id: 'name', numeric: false, disablePadding: true, label: 'Name', align: "left",width:200 },
+    { id: 'status', numeric: false, disablePadding: false, label: 'Status', align: "left" },
+    { id: 'start_date', numeric: false, disablePadding: false, label: 'Start Date', align: "left" },
+    { id: 'end_date', numeric: false, disablePadding: false, label: 'End Date', align: "left" },
+    { id: 'completed', numeric: false, disablePadding: false, label: 'Completed', align: "left", width:30 },
   ];
 
   const handleDelete = (selected, setSelected, tasks, setTasks) => {
