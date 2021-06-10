@@ -16,7 +16,8 @@ import reactStyles from '../helpers/react-styles';
 
 /* Custom Components */
 import SkillDashboard from './SkillDashboard';
-import HomeDashboard from './HomeDashboard'
+import HomePlaceholders from './HomeDashboardCharts';
+import SkillViewAll from './SkillViewAll';
 import SignUp from './SignUp';
 import Team from "./Team";
 import Report from "./Report";
@@ -24,8 +25,6 @@ import Report from "./Report";
 /* import icons */
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
 import GroupIcon from '@material-ui/icons/Group';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
@@ -144,8 +143,11 @@ export default function Application() {
             <Route path="/report">
               <Report />
             </Route>
-            <Route path="/">
-              <HomeDashboard />
+            <Route path="/allSkills">
+              <SkillViewAll />
+            </Route>
+            <Route exact path="/">
+              <HomePlaceholders />
             </Route>
           </Switch>
         </main>
