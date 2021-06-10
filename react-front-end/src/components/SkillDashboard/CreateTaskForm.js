@@ -75,7 +75,7 @@ export default function CreateTaskForm(props) {
           placeholder="description"
           value={description}
           onChange={(event) => setDescription(event.target.value)}
-        /> 
+        />
         <Button
           variant="contained"
           color="primary"

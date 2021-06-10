@@ -18,8 +18,7 @@ import '../../styles/TasksListComponent.scss';
 const axios = require('axios');
 /* TODO
     - name need to be editable
-    - status need to be dropdown editable 
-    - add trash can on click thingy (for bulk)
+    - status need to be dropdown editable
     
     https://codesandbox.io/s/f71wj
 */
