@@ -41,7 +41,6 @@ export default function CreateTaskForm(props) {
 
     return axios.post(`/api/tasks`, newTask)
       .then(function(response) {
-        console.log(newTask)
         newTask.id = response.data.result.id
         newTask.status = "In Progress"
         const taskCopy = [...props.tasks, newTask]
@@ -126,18 +125,14 @@ export default function CreateTaskForm(props) {
             className={classes.button}
             startIcon={<SaveIcon />}
             onClick={(event) => {
-              const nameInput = document.getElementById("create-task-name-input").value;
-              const estDurInput = document.getElementById("create-task-est-dur-input").value;
+              const nameInput = document.getElementById("create-task-name-input");
+              const estDurInput = document.getElementById("create-task-est-dur-input");
 
-              console.log(document.getElementById("create-task-est-dur-input").validity.badInput == true)
-              console.log(estDurInput)
-              console.log(!isNaN(estDurInput))
-              
-              if (!nameInput) {
+              if (!nameInput.value) {
                 alert("Please enter a name")
               }
-              else if (document.getElementById("create-task-est-dur-input").validity.badInput == true) {
-                alert("please enter a number for Estimated Duration")
+              else if (estDurInput.validity.badInput == true || estDurInput.value < 0) {
+                alert("Please enter a postive number for Estimated Duration")
               }
               else {
                 addTask()
