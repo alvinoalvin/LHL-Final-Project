@@ -1,15 +1,15 @@
 /* React Libraries */
-import React, { useState, setState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 /* Material Ui */
 // import { Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, TableSortLabel, Toolbar, Paper } from "@material-ui/core";
-import { Button, Checkbox, Modal, Backdrop, Fade } from "@material-ui/core";
+import { Button, Modal, Backdrop, Fade } from "@material-ui/core";
 // import FilterListIcon from '@material-ui/icons/FilterList';
 import { makeStyles } from '@material-ui/core/styles';
 
 /* Custom components */
 import TaskItem from './TaskItem';
-import SkillDashboardForm from './SkillDashboardForm';
+import CreateTaskForm from './CreateTaskForm';
 import EnhancedTable from "./EnhancedTable";
 /* scss */
 import '../../styles/TasksListComponent.scss';
@@ -87,6 +87,7 @@ export default function TasksListComponent(props) {
   return (
     <div class="task-list-component" >
       <EnhancedTable
+        key={1}
         rows={tasks}
         headCells={headCells}
         tasks={tasks}
@@ -113,7 +114,7 @@ export default function TasksListComponent(props) {
       >
         <Fade in={open}>
           <div className={classes.paper}>
-            <SkillDashboardForm
+            <CreateTaskForm
               userID={props.userID}
               skillID={props.skillID}
               setTasks={setTasks}

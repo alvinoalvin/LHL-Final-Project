@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SkillDashboardForm(props) {
+export default function CreateTaskForm(props) {
   const classes = useStyles();
   const [name, setName] = useState("");
   const [estDuration, setEstDuration] = useState();
@@ -22,7 +22,7 @@ export default function SkillDashboardForm(props) {
       creator: props.userID,
       assigned_to: props.userID,
       skill_id: props.skillID,
-      status_id: 1,
+      status_id: 2,
       time_estimate_minutes: estDuration,
       type_id: 1,
       name: name,
@@ -33,8 +33,10 @@ export default function SkillDashboardForm(props) {
 
     return axios.post(`/api/tasks`, newTask)
       .then(function(response) {
+        newTask.id = response.data.result.id
         const taskCopy = [...props.tasks, newTask]
-        props.setTask(taskCopy)
+        console.log("new task newTask: ", newTask)
+        props.setTasks(taskCopy)
       })
       .catch(function(error) {
         console.log(error);

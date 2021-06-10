@@ -9,19 +9,21 @@ import axios from "axios";
 
 
 export default function TaskItem(props) {
-  const { task, setTasks, isItemSelected, labelId, handleClick } = props;
+  const { task, tasks, setTasks, isItemSelected, labelId, handleClick } = props;
+
   function deleteTask(id) {
     return axios.delete(`api/deliverables/${id}`, { id })
       .then(function(response) {
-        const taskCopy = [...task];
-        for (let task of taskCopy) {
-          if (task.id === props.task.id) {
-            task.deleted = true;
+        const taskCopy = tasks.filter((task) => {
+          if (task.id !== props.task.id) {
+            return task
           }
-        }
+        });
+
         setTasks(taskCopy);
       })
       .catch(function(error) {
+        console.log("Error")
         console.log(error);
       });
   }
@@ -63,9 +65,10 @@ export default function TaskItem(props) {
         <IconButton
           aria-label="delete"
           onClick={(event) => {
-            if (window.confirm('Are you sure you want to delete?')) {
-              deleteTask(task.id);
-            }
+            console.log("blah")
+            // if (window.confirm('Are you sure you want to delete?')) {
+            deleteTask(task.id);
+            // }
           }}>
           <DeleteIcon />
         </IconButton>
