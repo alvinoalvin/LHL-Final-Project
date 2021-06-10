@@ -17,7 +17,7 @@ import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    marginTop: theme.spacing(8),
+    marginTop: theme.spacing(4),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -46,7 +46,22 @@ export default function Form(props) {
   const classes = useStyles();
 
   const [skillName, setSkillName] = useState('');
-  const [skillType, setSkillType] = useState('');
+
+  const user_id = 1;
+
+  function addSkill() {
+    const newSkill = {
+      skill_name: skillName
+    }
+
+    axios.post(`api/skills/users/${user_id}`, newSkill)
+    .then(function(response) {
+      console.log(response)
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
 
   return (
     <div className={classes.paper}>
@@ -69,26 +84,13 @@ export default function Form(props) {
           value={skillName}
           onChange={(event) => setSkillName(event.target.value)}
         />
-        <FormControl className={classes.formControl}>
-          <InputLabel id="demo-simple-select-helper-label">Skill</InputLabel>
-          <Select
-            labelId="demo-simple-select-helper-label"
-            id="demo-simple-select-helper"
-            value={skillType}
-            onChange={(event) => setSkillType(event.target.value)}
-          >
-            <MenuItem value={1}>Technical</MenuItem>
-            <MenuItem value={2}>Soft Skill</MenuItem>
-          </Select>
-          <FormHelperText>Type</FormHelperText>
-        </FormControl>
         <Button
           type="submit"
           variant="contained"
           color="primary"
           className={classes.submit}
           onClick={(event) => {
-
+            addSkill()
             }}
         >
           Add

@@ -28,7 +28,7 @@ module.exports = db => {
   });
 
   router.post("/users", (request, response) => {
-    const {first_name, last_name, email, password, position} = request.body
+    const {first_name, last_name, email, position} = request.body
 
     const values = [ first_name, last_name, email, position, 1 ]
 

@@ -164,3 +164,10 @@ VALUES
   ('I love javascript', 1, 1),
   ('I hate javascript', 1, 1),
   ('JavaScript is life', 1, 1);
+
+INSERT INTO users_skills(user_id, skill_id)
+VALUES
+  (1,1),
+  (1,2),
+  (2,1),
+  (2,2);

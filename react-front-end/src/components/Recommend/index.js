@@ -100,9 +100,8 @@ export default function Recommend(props) {
   }, [userID])
   
   const skillChoice = skillList.map(skillInfo => {
-    console.log(skillInfo);
     return (
-      <MenuItem value={skillInfo.id}>{skillInfo.name}</MenuItem>
+      <MenuItem value={skillInfo.skill_id}>{skillInfo.name}</MenuItem>
     )
   })
 
@@ -175,7 +174,6 @@ export default function Recommend(props) {
               value={skill? skill : ''}
               onChange={(event) => {
                 setSkill(event.target.value)
-                console.log(skill)
               }
               }
             >
