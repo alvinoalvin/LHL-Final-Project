@@ -18,6 +18,8 @@ const teams = require("./routes/teams");
 App.use("/api", teams(db));
 const skills = require("./routes/skills");
 App.use("/api", skills(db));
+const type = require("./routes/type");
+App.use("/api", type(db));
 const csv = require("./routes/csv");
 App.use("/api", csv(db));
 

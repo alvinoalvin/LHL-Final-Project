@@ -19,12 +19,12 @@ import SkillDashboard from './SkillDashboard';
 import HomeDashboard from './HomeDashboard'
 import SignUp from './SignUp';
 import Team from "./Team";
+import Recommend from "./Recommend";
 import Report from "./Report";
 
 /* import icons */
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
 import GroupIcon from '@material-ui/icons/Group';
@@ -119,6 +119,12 @@ export default function Application() {
                 <ListItemText primary='Report'></ListItemText>
               </ListItem>
             </Link>
+            <Link to="/recommend">
+              <ListItem>
+                <ListItemIcon><MailIcon /></ListItemIcon>
+                <ListItemText primary='Recommend'></ListItemText>
+              </ListItem>
+            </Link>
             <Link to="/signup">
               <ListItem>
                 <ListItemIcon><LockOpenIcon /></ListItemIcon>
@@ -143,6 +149,9 @@ export default function Application() {
             </Route>
             <Route path="/report">
               <Report />
+            </Route>
+            <Route path="/recommend">
+              <Recommend />
             </Route>
             <Route path="/">
               <HomeDashboard />
