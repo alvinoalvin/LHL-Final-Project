@@ -105,7 +105,6 @@ module.exports = db => {
 
     const queryString = `UPDATE deliverables SET deleted=true WHERE id IN ${paramStr} RETURNING *`;
 
-    console.log("deleting id: ", arr)
     db.query(queryString, arr)
       .then((result) => {
         response.json({ msg: 'success' })
