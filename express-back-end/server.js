@@ -20,6 +20,10 @@ const teams = require("./routes/teams");
 App.use("/api", teams(db));
 const analytics = require("./routes/analytics");
 App.use("/api", analytics(db));
+const skills = require("./routes/skills");
+App.use("/api", skills(db));
+const csv = require("./routes/csv");
+App.use("/api", csv(db));
 
 // Sample GET route
 App.get('/api/data', (req, res) => res.json({

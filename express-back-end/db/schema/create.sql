@@ -58,7 +58,8 @@ CREATE TABLE deliverables (
   link VARCHAR(255),
   create_date DATE,
   start_date DATE,
-  end_date DATE
+  end_date DATE,
+  deleted BOOLEAN NOT NULL DEFAULT FALSE
 );
 
 DROP TABLE IF EXISTS tags CASCADE;
@@ -74,4 +75,13 @@ CREATE TABLE skills_tags (
   id SERIAL PRIMARY KEY NOT NULL,
   deliverable_id INTEGER REFERENCES deliverables(id) ON DELETE CASCADE,
   tag_id INTEGER REFERENCES tags(id) ON DELETE CASCADE
+);
+
+DROP TABLE IF EXISTS notes CASCADE;
+
+CREATE TABLE notes (
+  id SERIAL PRIMARY KEY NOT NULL,
+  note TEXT,
+  skill_id INTEGER REFERENCES skills(id) ON DELETE CASCADE,
+  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE
 );
