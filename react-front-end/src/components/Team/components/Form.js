@@ -57,6 +57,8 @@ export default function Form(props) {
   const [email, setEmail] = useState("");
   const [position, setPosition] = useState("");
 
+  const team_id = 1;
+
   function addMember() {
     const newMember = {
       first_name: firstName,
@@ -65,7 +67,7 @@ export default function Form(props) {
       position: position
     }
 
-    return axios.post(`/api/users`, newMember)
+    return axios.post(`/api/teams/${team_id}`, newMember)
     .then(function (response) {
       const teamCopy = [...props.team, newMember]
       props.setTeam(teamCopy)

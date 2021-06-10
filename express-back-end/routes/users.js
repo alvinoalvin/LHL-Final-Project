@@ -27,23 +27,6 @@ module.exports = db => {
     });
   });
 
-  router.post("/users", (request, response) => {
-    const {first_name, last_name, email, position} = request.body
-
-    const values = [ first_name, last_name, email, position, 1 ]
-
-    const queryString = `INSERT INTO users(first_name, last_name, email, position, team_id)
-    VALUES ($1, $2, $3, $4, $5)`
-
-    db.query(queryString, values)
-    .then((result) => {
-      response.json({msg: 'success'})
-    })
-    .catch((err) => {
-      console.log(err.message)
-    });
-  })
-
   router.delete("/users/:user_id", (request, response) => {
     const values = [request.params.user_id]
     const queryString = `UPDATE users SET delete=true WHERE id=$1`
