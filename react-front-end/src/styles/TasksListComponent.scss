@@ -9,3 +9,11 @@
     font-weight: 550;
   }
 }
+
+label[data-shrink="false"]
+  // + .MuiInputBase-formControl
+  .MuiInputBase-input::placeholder {
+  opacity: 0 !important;
+  display: block;
+  vertical-align: middle;
+}
