@@ -6,6 +6,7 @@ module.exports = db => {
       `
       SELECT *
       FROM deliverables
+      ORDER BY id DESC
       `
     ).then(({ rows: deliverables }) => {
       response.json(deliverables);
@@ -121,5 +122,18 @@ module.exports = db => {
         });
   })
 
+  router.post("/deliverables", (request, response) => {
+    const { creator, assigned_to, skill_id, status_id, time_estimate_minutes, type_id, name, notes, link } = request.body
+
+    const values = [creator, assigned_to, skill_id, status_id, time_estimate_minutes, type_id, name, notes, link]
+
+    const queryString = `INSERT INTO deliverables(creator, assigned_to, skill_id, status_id, time_estimate_minutes, type_id, name, notes, link, create_date)
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, NOW())`
+
+    db.query(queryString, values)
+    .then(({ rows: deliverables }) => {
+      response.json(deliverables);
+    });
+  })
   return router;
 }
