@@ -120,7 +120,7 @@ const useToolbarStyles = makeStyles((theme) => ({
 
 const EnhancedTableToolbar = (props) => {
   const classes = useToolbarStyles();
-  const { numSelected, selected, handleDelete, tableName } = props;
+  const { numSelected, selected, setSelected, rows, setRows, handleDelete, tableName } = props;
 
   return (
     <Toolbar
@@ -151,7 +151,7 @@ const EnhancedTableToolbar = (props) => {
       {numSelected > 0 ? (
         <Tooltip title="Delete">
           <IconButton aria-label="delete">
-            <DeleteIcon onClick={() => { handleDelete(selected) }} />
+            <DeleteIcon onClick={() => { handleDelete(selected, setSelected, rows, setRows) }} />
           </IconButton>
         </Tooltip>
       )
@@ -261,7 +261,7 @@ export default function EnhancedTable(props) {
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <EnhancedTableToolbar numSelected={selected.length} selected={selected} handleDelete={props.handleDelete} tableName={props.tableName} />
+        <EnhancedTableToolbar numSelected={selected.length} selected={selected} handleDelete={props.handleDelete} tableName={props.tableName} setSelected={setSelected} rows={rows} setRows={props.setRows} />
         <TableContainer>
           <Table
             className={classes.table}
@@ -290,8 +290,8 @@ export default function EnhancedTable(props) {
                     <props.rowComponent
                       key={row.id}
                       task={row}
-                      tasks={props.tasks}
-                      setTasks={props.setTasks}
+                      tasks={rows}
+                      setTasks={props.setRows}
                       handleClick={handleClick}
                       isItemSelected={isItemSelected}
                       labelId={labelId}

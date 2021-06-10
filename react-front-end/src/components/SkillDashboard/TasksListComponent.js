@@ -79,9 +79,23 @@ export default function TasksListComponent(props) {
     { id: 'completed', numeric: false, disablePadding: false, label: 'Completed' },
   ];
 
-  const handleDelete = (selected) => {
+  const handleDelete = (selected, setSelected, tasks, setTasks) => {
     console.log("DELETING")
-    console.log(selected)
+    console.log(`api/deliverables/?array=[${selected.toString()}]`)
+
+    return axios.delete(`api/deliverables/?array=[${selected.toString()}]`, {})
+      .then(function(response) {
+        const taskCopy = tasks.filter((task) => {
+          if (!selected.includes(task.id)) {
+            return task
+          }
+        });
+        setSelected([]);
+        setTasks(taskCopy);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
   }
 
   return (
@@ -89,6 +103,7 @@ export default function TasksListComponent(props) {
       <EnhancedTable
         key={1}
         rows={tasks}
+        setRows={setTasks}
         headCells={headCells}
         tasks={tasks}
         setTasks={setTasks}

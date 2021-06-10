@@ -88,10 +88,23 @@ module.exports = db => {
     });
   });
 
-  router.delete("/deliverables/:id", (request, response) => {
-    const queryString = `UPDATE deliverables SET deleted=true WHERE id=$1`;
-    console.log("deleting id: ", request.params.id)
-    db.query(queryString, [request.params.id])
+  router.delete("/deliverables", (request, response) => {
+    const arr = JSON.parse(request.query.array);
+    
+    let paramStr = "(";
+    for (let i = 1; i <= arr.length; i++) {
+      if (i != arr.length) {
+        paramStr += `$${i},`;
+      } else {
+        paramStr += `$${i}`;
+      }
+    }
+    paramStr += ")";
+    
+    const queryString = `UPDATE deliverables SET deleted=true WHERE id IN ${paramStr} RETURNING *`;
+
+    console.log("deleting id: ", arr)
+    db.query(queryString, arr)
       .then((result) => {
         response.json({ msg: 'success' })
       })

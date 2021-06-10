@@ -12,7 +12,7 @@ export default function TaskItem(props) {
   const { task, tasks, setTasks, isItemSelected, labelId, handleClick, selected, setSelected } = props;
 
   function deleteTask(id) {
-    return axios.delete(`api/deliverables/${id}`, { id })
+    return axios.delete(`api/deliverables/?array=[${id}]`, { id })
       .then(function(response) {
         const taskCopy = tasks.filter((task) => {
           if (task.id !== props.task.id) {
@@ -20,7 +20,7 @@ export default function TaskItem(props) {
           }
         });
         const selectedCopy = selected.filter((selectedTask) => {
-          if (selectedTask !== props.task.name) {
+          if (selectedTask !== props.task.id) {
             return selectedTask
           }
         });
@@ -28,7 +28,6 @@ export default function TaskItem(props) {
         setTasks(taskCopy);
       })
       .catch(function(error) {
-        console.log("Error")
         console.log(error);
       });
   }
@@ -70,7 +69,6 @@ export default function TaskItem(props) {
         <IconButton
           aria-label="delete"
           onClick={(event) => {
-            console.log("blah")
             // if (window.confirm('Are you sure you want to delete?')) {
             deleteTask(task.id);
             // }
