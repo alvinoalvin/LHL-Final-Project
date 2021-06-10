@@ -31,21 +31,21 @@ export default function TaskItem(props) {
       });
   }
 
-  function getDate(dateStr) {
-    const date = new Date(dateStr);
-    const year = date.getFullYear();
-    let month = date.getMonth() + 1;
-    let dt = date.getDate();
+  // function getDate(dateStr) {
+  //   const date = new Date(dateStr);
+  //   const year = date.getFullYear();
+  //   let month = date.getMonth() + 1;
+  //   let dt = date.getDate();
 
-    if (dt < 10) {
-      dt = '0' + dt;
-    }
-    if (month < 10) {
-      month = '0' + month;
-    }
-    return (year + '-' + month + '-' + dt)
-  }
-  
+  //   if (dt < 10) {
+  //     dt = '0' + dt;
+  //   }
+  //   if (month < 10) {
+  //     month = '0' + month;
+  //   }
+  //   return (year + '-' + month + '-' + dt)
+  // }
+
   return (
     <TableRow key={task.id}
       hover
@@ -71,8 +71,9 @@ export default function TaskItem(props) {
         {task.name}
       </TableCell>
       <TableCell align="left">{task.status}</TableCell>
-      <TableCell align="left">{getDate(task.start_date)}</TableCell>
+      {/* <TableCell align="left">{getDate(task.start_date)}</TableCell> */}
       <TableCell align="left">{task.time_estimate_minutes}</TableCell>
+      <TableCell align="left"><a href={task.link}>{task.link !== "No Link Needed?" ? task.link : ""}</a></TableCell>
       <TableCell align="left" >
         < Checkbox
           disabled
@@ -83,9 +84,9 @@ export default function TaskItem(props) {
         <IconButton
           aria-label="delete"
           onClick={(event) => {
-            // if (window.confirm('Are you sure you want to delete?')) {
-            deleteTask(task.id);
-            // }
+            if (window.confirm('Are you sure you want to delete?')) {
+              deleteTask(task.id);
+            }
           }}>
           <DeleteIcon />
         </IconButton>

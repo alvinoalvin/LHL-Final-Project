@@ -26,7 +26,7 @@ export default function CreateTaskForm(props) {
       time_estimate_minutes: estDuration,
       type_id: 1,
       name: name,
-      notes: description,
+      // notes: description,
       link: link,
       create_date: Date.now() / 1000
     }
@@ -69,13 +69,13 @@ export default function CreateTaskForm(props) {
           value={link}
           onChange={(event) => setLink(event.target.value)}
         />
-        <input
+        {/* <input
           name="description"
           type="text"
           placeholder="description"
           value={description}
           onChange={(event) => setDescription(event.target.value)}
-        />
+        /> */}
         <Button
           variant="contained"
           color="primary"
