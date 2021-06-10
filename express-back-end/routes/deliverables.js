@@ -126,6 +126,7 @@ module.exports = db => {
       JOIN status ON status_id = status.id
       WHERE users.id=${request.params.user_id}
       AND skills.id =${request.params.skill_id}
+      AND deleted=false
       ORDER BY type
       `
     )

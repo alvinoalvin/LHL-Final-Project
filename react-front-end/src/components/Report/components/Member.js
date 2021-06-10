@@ -35,7 +35,7 @@ export default function Member(props) {
   const userID = 1;
 
   useEffect(() => {
-    axios.get(`/api/skills/users/${props.member.id}`)
+    axios.get(`/api/skills/report/users/${props.member.id}`)
     .then(function(response) {
       setSkills(response.data)
     })
@@ -71,9 +71,6 @@ export default function Member(props) {
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box margin={1}>
-              <Typography gutterBottom component="div">
-                Skills
-              </Typography>
               <Table size="small" aria-label="purchases">
                 <TableHead>
                   <TableRow >
