@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Recommend(props) {
   const classes = useStyles();
-  const [name, setName] = useState('');
+  const [userID, setUserID] = useState('');
   const [type, setType] = useState('');
   const [skill, setSkill] = useState('');
   const [deliverableName, setDeliverableName] = useState('');
@@ -89,13 +89,18 @@ export default function Recommend(props) {
   const [skillList, setSkillList] = useState([]);
 
   useEffect(() => {
-    axios.get(`/api/skills`)
+    if (!userID) {
+      return 
+    }
+
+    axios.get(`/api/skills/users/${userID}`)
     .then(function(response) {
       setSkillList(response.data)
     })
-  }, [])
+  }, [userID])
   
   const skillChoice = skillList.map(skillInfo => {
+    console.log(skillInfo);
     return (
       <MenuItem value={skillInfo.id}>{skillInfo.name}</MenuItem>
     )
@@ -104,7 +109,7 @@ export default function Recommend(props) {
   function addDeliverable() {
     const newDeliverable = {
       creator: user_id,
-      assigned_to: name,
+      assigned_to: userID,
       skill_id: skill,
       status_id: 1,
       time_estimate_minutes: Number(time),
@@ -140,8 +145,11 @@ export default function Recommend(props) {
             <Select
               labelId="demo-simple-select-helper-label"
               id="demo-simple-select-helper"
-              value={name}
-              onChange={(event) => setName(event.target.value)}
+              value={userID}
+              onChange={(event) => {
+                setUserID(event.target.value)
+                setSkill('')
+              }}
             >
               {userChoice}
             </Select>
@@ -164,9 +172,16 @@ export default function Recommend(props) {
             <Select
               labelId="demo-simple-select-helper-label"
               id="demo-simple-select-helper"
-              value={skill}
-              onChange={(event) => setSkill(event.target.value)}
+              value={skill? skill : ''}
+              onChange={(event) => {
+                setSkill(event.target.value)
+                console.log(skill)
+              }
+              }
             >
+              <MenuItem value="">
+                <em>None</em>
+              </MenuItem>
               {skillChoice}
             </Select>
             <FormHelperText>Type</FormHelperText>

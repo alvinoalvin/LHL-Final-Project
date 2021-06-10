@@ -35,7 +35,7 @@ export default function Member(props) {
   const userID = 1;
 
   useEffect(() => {
-    axios.get(`/api/skills/users/${props.member.id}`)
+    axios.get(`/api/skills/report/users/${props.member.id}`)
     .then(function(response) {
       setSkills(response.data)
     })
