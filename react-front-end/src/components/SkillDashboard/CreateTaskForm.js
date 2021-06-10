@@ -35,7 +35,6 @@ export default function CreateTaskForm(props) {
       .then(function(response) {
         newTask.id = response.data.result.id
         const taskCopy = [...props.tasks, newTask]
-        console.log("new task newTask: ", newTask)
         props.setTasks(taskCopy)
       })
       .catch(function(error) {

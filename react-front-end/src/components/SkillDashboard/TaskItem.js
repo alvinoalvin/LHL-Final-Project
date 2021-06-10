@@ -9,7 +9,7 @@ import axios from "axios";
 
 
 export default function TaskItem(props) {
-  const { task, tasks, setTasks, isItemSelected, labelId, handleClick } = props;
+  const { task, tasks, setTasks, isItemSelected, labelId, handleClick, selected, setSelected } = props;
 
   function deleteTask(id) {
     return axios.delete(`api/deliverables/${id}`, { id })
@@ -19,7 +19,12 @@ export default function TaskItem(props) {
             return task
           }
         });
-
+        const selectedCopy = selected.filter((selectedTask) => {
+          if (selectedTask !== props.task.name) {
+            return selectedTask
+          }
+        });
+        setSelected(selectedCopy);
         setTasks(taskCopy);
       })
       .catch(function(error) {
@@ -31,11 +36,11 @@ export default function TaskItem(props) {
   return (
     <TableRow key={task.id}
       hover
-      onClick={(event) => handleClick(event, task.name)}
+      onClick={(event) => handleClick(event, task.id)}
       role="checkbox"
       aria-checked={isItemSelected}
       tabIndex={-1}
-      key={task.name}
+      key={task.id}
       selected={isItemSelected}
     >
       <TableCell padding="checkbox">
