@@ -19,7 +19,9 @@ const axios = require('axios');
 /* TODO
     - name need to be editable
     - status need to be dropdown editable
-    
+    - ui update for create Task form
+    - 
+
     https://codesandbox.io/s/f71wj
 */
 
@@ -71,11 +73,11 @@ export default function TasksListComponent(props) {
 
   /* make sure ids match db column names */
   const headCells = [
-    { id: 'name', numeric: false, disablePadding: true, label: 'Name', align: "left",width:200 },
-    { id: 'status', numeric: false, disablePadding: false, label: 'Status', align: "left" },
-    { id: 'start_date', numeric: false, disablePadding: false, label: 'Start Date', align: "left" },
-    { id: 'end_date', numeric: false, disablePadding: false, label: 'End Date', align: "left" },
-    { id: 'is_completed', numeric: false, disablePadding: false, label: 'Completed', align: "left", width:30 },
+    { id: 'name', numeric: false, disablePadding: true, label: 'Name', align: "left", width: 210 },
+    { id: 'status', numeric: false, disablePadding: false, label: 'Status', align: "left", width: 100 },
+    { id: 'start_date', numeric: false, disablePadding: false, label: 'Start Date', align: "left", width: 150},
+    { id: 'time_estimate_minutes', numeric: false, disablePadding: false, label: 'Estimated Time (mins)', align: "left" },
+    { id: 'is_completed', numeric: false, disablePadding: false, label: 'Completed', align: "left" },
   ];
 
   const handleDelete = (selected, setSelected, tasks, setTasks) => {

@@ -72,7 +72,7 @@ export default function TaskItem(props) {
       </TableCell>
       <TableCell align="left">{task.status}</TableCell>
       <TableCell align="left">{getDate(task.start_date)}</TableCell>
-      <TableCell align="left">{getDate(task.end_date)}</TableCell>
+      <TableCell align="left">{task.time_estimate_minutes}</TableCell>
       <TableCell align="left" >
         < Checkbox
           disabled
