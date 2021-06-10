@@ -21,6 +21,7 @@ import SignUp from './SignUp';
 import Team from "./Team";
 import Recommend from "./Recommend";
 import Report from "./Report";
+import Test from "./Test";
 
 /* import icons */
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
@@ -125,6 +126,12 @@ export default function Application() {
                 <ListItemText primary='Recommend'></ListItemText>
               </ListItem>
             </Link>
+            <Link to="/test">
+              <ListItem>
+                <ListItemIcon><MailIcon /></ListItemIcon>
+                <ListItemText primary='Test'></ListItemText>
+              </ListItem>
+            </Link>
             <Link to="/signup">
               <ListItem>
                 <ListItemIcon><LockOpenIcon /></ListItemIcon>
@@ -152,6 +159,9 @@ export default function Application() {
             </Route>
             <Route path="/recommend">
               <Recommend />
+            </Route>
+            <Route path="/test">
+              <Test />
             </Route>
             <Route path="/">
               <HomeDashboard />

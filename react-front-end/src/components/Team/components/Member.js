@@ -19,7 +19,6 @@ export default function Member(props) {
           member.delete = true
         }
       }
-      console.log(teamCopy);
       props.setTeam(teamCopy);
     })
     .catch(function (error) {
