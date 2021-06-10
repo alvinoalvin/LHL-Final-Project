@@ -14,8 +14,9 @@ export default function CreateTaskForm(props) {
   const classes = useStyles();
   const [name, setName] = useState("");
   const [estDuration, setEstDuration] = useState();
+  const [dueDate, setDueDate] = useState();
   const [link, setLink] = useState("");
-  const [description, setDescription] = useState("");
+  // const [description, setDescription] = useState("");
 
   function addTask() {
     const newTask = {
@@ -24,6 +25,7 @@ export default function CreateTaskForm(props) {
       skill_id: props.skillID,
       status_id: 2,
       time_estimate_minutes: estDuration,
+      end_date: dueDate,
       type_id: 1,
       name: name,
       // notes: description,
@@ -55,6 +57,15 @@ export default function CreateTaskForm(props) {
           onChange={(event) => setName(event.target.value)}
           required
         />
+
+        <input
+          name="due-date"
+          type="date"
+          placeholder="Due Date"
+          value={dueDate}
+          onChange={(event) => setDueDate(event.target.value)}
+        />
+
         <input
           name="estDuration"
           type="text"

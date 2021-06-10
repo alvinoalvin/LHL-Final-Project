@@ -57,7 +57,7 @@ export default function TaskItem(props) {
         {task.name}
       </TableCell>
       <TableCell align="left">{task.status}</TableCell>
-      <TableCell align="left">{getDate(task.start_date)}</TableCell>
+      <TableCell align="left">{getDate(task.end_date)}</TableCell>
       <TableCell align="left">{task.time_estimate_minutes}</TableCell>
       <TableCell align="left"><a href={task.link}>{task.link !== "No Link Needed?" ? task.link : ""}</a></TableCell>
       <TableCell align="left" >
