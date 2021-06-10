@@ -64,9 +64,10 @@ function EnhancedTableHead(props) {
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
-            align={headCell.numeric ? "right" : "left"}
+            align={headCell.align}
             padding={headCell.disablePadding ? "none" : "default"}
             sortDirection={orderBy === headCell.id ? order : false}
+            width={headCell.width ? headCell.width : "auto"}
           >
             <TableSortLabel
               active={orderBy === headCell.id}
@@ -120,10 +121,7 @@ const useToolbarStyles = makeStyles((theme) => ({
 
 const EnhancedTableToolbar = (props) => {
   const classes = useToolbarStyles();
-  const { numSelected, selected, handleDelete, tableName} = props;
-
-  /* implment me */
-  handleDelete(selected)
+  const { numSelected, selected, setSelected, rows, setRows, handleDelete, tableName } = props;
 
   return (
     <Toolbar
@@ -154,7 +152,11 @@ const EnhancedTableToolbar = (props) => {
       {numSelected > 0 ? (
         <Tooltip title="Delete">
           <IconButton aria-label="delete">
-            <DeleteIcon onClick={handleDelete} />
+            <DeleteIcon onClick={() => {
+              if (window.confirm('Are you sure you want to delete?')) {
+                handleDelete(selected, setSelected, rows, setRows);
+              }
+            }} />
           </IconButton>
         </Tooltip>
       )
@@ -171,7 +173,7 @@ const EnhancedTableToolbar = (props) => {
 EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
   selected: PropTypes.array,
-  tableName:PropTypes.string
+  tableName: PropTypes.string
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -216,19 +218,19 @@ export default function EnhancedTable(props) {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.name);
+      const newSelecteds = rows.map((n) => n.id);
       setSelected(newSelecteds);
       return;
     }
     setSelected([]);
   };
 
-  const handleClick = (event, name) => {
-    const selectedIndex = selected.indexOf(name);
+  const handleClick = (event, id) => {
+    const selectedIndex = selected.indexOf(id);
     let newSelected = [];
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
+      newSelected = newSelected.concat(selected, id);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -256,15 +258,15 @@ export default function EnhancedTable(props) {
     setDense(event.target.checked);
   };
 
-  const isSelected = (name) => selected.indexOf(name) !== -1
+  const isSelected = (id) => selected.indexOf(id) !== -1
 
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
   return (
     <div className={classes.root}>
-      <Paper className={classes.paper}>
-        <EnhancedTableToolbar numSelected={selected.length} selected={selected} handleDelete={props.handleDelete} tableName={props.tableName} />
+      <Paper className={classes.paper} variant="elevation">
+        <EnhancedTableToolbar numSelected={selected.length} selected={selected} handleDelete={props.handleDelete} tableName={props.tableName} setSelected={setSelected} rows={rows} setRows={props.setRows} />
         <TableContainer>
           <Table
             className={classes.table}
@@ -286,18 +288,20 @@ export default function EnhancedTable(props) {
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.name);
+                  const isItemSelected = isSelected(row.id);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
                     <props.rowComponent
                       key={row.id}
                       task={row}
-                      tasks={props.tasks}
-                      setTask={props.setTasks}
+                      tasks={rows}
+                      setTasks={props.setRows}
                       handleClick={handleClick}
                       isItemSelected={isItemSelected}
                       labelId={labelId}
+                      selected={selected}
+                      setSelected={setSelected}
                     />
 
                   );

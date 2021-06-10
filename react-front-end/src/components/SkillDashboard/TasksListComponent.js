@@ -1,15 +1,15 @@
 /* React Libraries */
-import React, { useState, setState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 /* Material Ui */
 // import { Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, TableSortLabel, Toolbar, Paper } from "@material-ui/core";
-import { Button, Checkbox, Modal, Backdrop, Fade } from "@material-ui/core";
+import { Button, Modal, Backdrop, Fade } from "@material-ui/core";
 // import FilterListIcon from '@material-ui/icons/FilterList';
 import { makeStyles } from '@material-ui/core/styles';
 
 /* Custom components */
 import TaskItem from './TaskItem';
-import SkillDashboardForm from './SkillDashboardForm';
+import CreateTaskForm from './CreateTaskForm';
 import EnhancedTable from "./EnhancedTable";
 /* scss */
 import '../../styles/TasksListComponent.scss';
@@ -18,10 +18,15 @@ import '../../styles/TasksListComponent.scss';
 const axios = require('axios');
 /* TODO
     - name need to be editable
-    - status need to be dropdown editable 
-    - add trash can on click thingy (for bulk)
-    
+    - status need to be dropdown editable
+    - ui update for create Task form
+    - 
+
+    (Enhanced tables)
     https://codesandbox.io/s/f71wj
+    
+    (Editable tables) 
+    https://codesandbox.io/s/material-ui-editable-tables-wsp0c?file=/src/index.js
 */
 
 const useStyles = makeStyles((theme) => ({
@@ -72,22 +77,39 @@ export default function TasksListComponent(props) {
 
   /* make sure ids match db column names */
   const headCells = [
-    { id: 'name', numeric: false, disablePadding: true, label: 'Name' },
-    { id: 'status', numeric: false, disablePadding: false, label: 'Status' },
-    { id: 'start_date', numeric: false, disablePadding: false, label: 'Start Date' },
-    { id: 'end_date', numeric: false, disablePadding: false, label: 'End Date' },
-    { id: 'completed', numeric: false, disablePadding: false, label: 'Completed' },
+    { id: 'name', numeric: false, disablePadding: true, label: 'Name', align: "left", width: 210 },
+    { id: 'status', numeric: false, disablePadding: false, label: 'Status', align: "left", width: 100 },
+    { id: 'start_date', numeric: false, disablePadding: false, label: 'Start Date', align: "left", width: 150 },
+    { id: 'time_estimate_minutes', numeric: false, disablePadding: false, label: 'Estimated Time (mins)', align: "left" },
+    { id: 'link', numeric: false, disablePadding: false, label: 'Resource Link', align: "left", width: 100 },
+    { id: 'is_completed', numeric: false, disablePadding: false, label: 'Done', align: "left" },
   ];
 
-  const handleDelete = (selected) => {
+  const handleDelete = (selected, setSelected, tasks, setTasks) => {
     console.log("DELETING")
-    console.log(selected)
+    console.log(`api/deliverables/?array=[${selected.toString()}]`)
+
+    return axios.delete(`api/deliverables/?array=[${selected.toString()}]`, {})
+      .then(function(response) {
+        const taskCopy = tasks.filter((task) => {
+          if (!selected.includes(task.id)) {
+            return task
+          }
+        });
+        setSelected([]);
+        setTasks(taskCopy);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
   }
 
   return (
     <div class="task-list-component" >
       <EnhancedTable
+        key={1}
         rows={tasks}
+        setRows={setTasks}
         headCells={headCells}
         tasks={tasks}
         setTasks={setTasks}
@@ -113,7 +135,7 @@ export default function TasksListComponent(props) {
       >
         <Fade in={open}>
           <div className={classes.paper}>
-            <SkillDashboardForm
+            <CreateTaskForm
               userID={props.userID}
               skillID={props.skillID}
               setTasks={setTasks}

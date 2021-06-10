@@ -1,24 +1,30 @@
 import React, { useState } from "react";
 
 import { TableCell, TableRow, Checkbox } from '@material-ui/core';
-// import TableRow from '@material-ui/core/TableRow';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
+import { getDate } from "../../helpers/dateFuncs"
 
 import axios from "axios";
 
 
 export default function TaskItem(props) {
-  const { task, setTasks, isItemSelected, labelId, handleClick } = props;
+  const { task, tasks, setTasks, isItemSelected, labelId, handleClick, selected, setSelected } = props;
+
   function deleteTask(id) {
-    return axios.delete(`api/deliverables/${id}`, { id })
+    return axios.delete(`api/deliverables/?array=[${id}]`, { id })
       .then(function(response) {
-        const taskCopy = [...task];
-        for (let task of taskCopy) {
-          if (task.id === props.task.id) {
-            task.deleted = true;
+        const taskCopy = tasks.filter((task) => {
+          if (task.id !== props.task.id) {
+            return task
           }
-        }
+        });
+        const selectedCopy = selected.filter((selectedTask) => {
+          if (selectedTask !== props.task.id) {
+            return selectedTask
+          }
+        });
+        setSelected(selectedCopy);
         setTasks(taskCopy);
       })
       .catch(function(error) {
@@ -29,11 +35,11 @@ export default function TaskItem(props) {
   return (
     <TableRow key={task.id}
       hover
-      onClick={(event) => handleClick(event, task.name)}
+      onClick={(event) => handleClick(event, task.id)}
       role="checkbox"
       aria-checked={isItemSelected}
       tabIndex={-1}
-      key={task.name}
+      key={task.id}
       selected={isItemSelected}
     >
       <TableCell padding="checkbox">
@@ -50,16 +56,17 @@ export default function TaskItem(props) {
       >
         {task.name}
       </TableCell>
-      <TableCell align="right">{task.status}</TableCell>
-      <TableCell align="right">{task.start_date}</TableCell>
-      <TableCell align="right">{task.end_date}</TableCell>
-      <TableCell >
+      <TableCell align="left">{task.status}</TableCell>
+      <TableCell align="left">{getDate(task.start_date)}</TableCell>
+      <TableCell align="left">{task.time_estimate_minutes}</TableCell>
+      <TableCell align="left"><a href={task.link}>{task.link !== "No Link Needed?" ? task.link : ""}</a></TableCell>
+      <TableCell align="left" >
         < Checkbox
           disabled
           checked={task.is_completed}
         />
       </TableCell>
-      <TableCell >
+      <TableCell align="left">
         <IconButton
           aria-label="delete"
           onClick={(event) => {

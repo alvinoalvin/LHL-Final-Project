@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SkillDashboardForm(props) {
+export default function CreateTaskForm(props) {
   const classes = useStyles();
   const [name, setName] = useState("");
   const [estDuration, setEstDuration] = useState();
@@ -22,19 +22,20 @@ export default function SkillDashboardForm(props) {
       creator: props.userID,
       assigned_to: props.userID,
       skill_id: props.skillID,
-      status_id: 1,
+      status_id: 2,
       time_estimate_minutes: estDuration,
       type_id: 1,
       name: name,
-      notes: description,
+      // notes: description,
       link: link,
-      create_date: Date.now() / 1000
+      create_date: new Date().toISOString()
     }
 
     return axios.post(`/api/tasks`, newTask)
       .then(function(response) {
+        newTask.id = response.data.result.id
         const taskCopy = [...props.tasks, newTask]
-        props.setTask(taskCopy)
+        props.setTasks(taskCopy)
       })
       .catch(function(error) {
         console.log(error);
@@ -46,11 +47,13 @@ export default function SkillDashboardForm(props) {
       <h3>Add New Task Member</h3>
       <form className='new-member-form'>
         <input
+          id="create-task-name-input"
           name="name"
           type="text"
           placeholder="Task"
           value={name}
           onChange={(event) => setName(event.target.value)}
+          required
         />
         <input
           name="estDuration"
@@ -66,21 +69,26 @@ export default function SkillDashboardForm(props) {
           value={link}
           onChange={(event) => setLink(event.target.value)}
         />
-        <input
+        {/* <input
           name="description"
           type="text"
           placeholder="description"
           value={description}
           onChange={(event) => setDescription(event.target.value)}
-        />
+        /> */}
         <Button
           variant="contained"
           color="primary"
           className={classes.button}
           startIcon={<SaveIcon />}
-          onClick={() => {
-            addTask()
-            props.handleClose()
+          onClick={(event) => {
+            console.log(document.getElementById("create-task-name-input"))
+            if (document.getElementById("create-task-name-input").value) {
+              addTask()
+              props.handleClose()
+            } else {
+              alert("Please enter a name")
+            }
           }
           }
         >

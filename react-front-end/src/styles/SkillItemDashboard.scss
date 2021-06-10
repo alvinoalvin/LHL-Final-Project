@@ -34,3 +34,38 @@
     @include areaBorder(resources);
   }
 }
+
+@media (max-width: 1670px) {
+  @mixin areaBorder($area) {
+    grid-area: $area;
+    margin: 10px 0;
+    // margin-left: 0;
+    min-height: 100px;
+  }
+
+  #skill-item-container {
+    grid-template-areas:
+      "header "
+      "notes"
+      "taskList"
+      "resources";
+    .header {
+      @include areaBorder(header);
+    }
+    .task-list-component {
+      @include areaBorder(taskList);
+      max-width: 100%;
+    }
+
+    .progress {
+      @include areaBorder(progress);
+      display: none;
+    }
+    .notes {
+      @include areaBorder(notes);
+    }
+    .resources {
+      @include areaBorder(resources);
+    }
+  }
+}
