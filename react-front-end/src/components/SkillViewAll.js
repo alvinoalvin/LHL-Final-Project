@@ -5,7 +5,7 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import { Doughnut } from "react-chartjs-2";
 import { red } from "@material-ui/core/colors";
-import { authContext } from './providers/AuthProvider';
+import { authContext } from '../providers/AuthProvider';
 import { useHistory } from "react-router-dom";
 import Form from "./NewSkill/components/Form"
 
