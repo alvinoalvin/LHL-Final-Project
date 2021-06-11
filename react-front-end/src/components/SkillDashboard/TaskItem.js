@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 
-import { TableCell, TableRow, Checkbox, Input, Select, MenuItem, TextField } from '@material-ui/core';
+import { TableCell, TableRow, Checkbox, Input, Select, MenuItem, TextField, } from '@material-ui/core';
+import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
+
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { getDate } from "../../helpers/dateFuncs"
@@ -56,16 +59,32 @@ const CustomTableCell = ({ row, name, onChange, attr, type }) => {
   function renderInput() {
     if (type === "date") {
       return (
-        <Input
-          type="date"
-          defaultValue={Date.now().toISOString}
-          className={classes.input}
-          InputLabelProps={{
-            shrink: true,
-          }}
-          onChange={(e, value) => { onChange(e, row, attr) }}
-          size="small"
-        />)
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+          <KeyboardDatePicker
+            className={classes.input}
+            disableToolbar
+            format="MM/dd/yyyy"
+            margin="normal"
+            id="date-picker-inline"
+            value={row.end_date}
+            onChange={(value) => { onChange(value, row, attr, "date") }}
+            KeyboardButtonProps={{
+              'aria-label': 'change date',
+            }}
+            width="200"
+          />
+        </MuiPickersUtilsProvider>
+        // <Input
+        //   type="date"
+        //   defaultValue={Date.now().toISOString}
+        //   className={classes.input}
+        //   InputLabelProps={{
+        //     shrink: true,
+        //   }}
+        //   onChange={(e, value) => { onChange(e, row, attr) }}
+        //   size="small"
+        // />
+      )
     }
     if (type === "number") {
       return (<Input
@@ -134,7 +153,7 @@ const CustomStatusCell = ({ row, status, onStatusChange, statusMap }) => {
           className={classes.select}
 
           value={getKey(status)}
-          onChange={(e) => { console.log(statusMap); onStatusChange(e, row, statusMap) }}
+          onChange={(e) => {onStatusChange(e, row, statusMap) }}
         >
           {createMenu()}
         </Select>
@@ -202,16 +221,26 @@ export default function TaskItem(props) {
     }
   };
 
-  const onChange = (e, task, attr) => {
+  const onChange = (e, task, attr, type) => {
     if (!previous["task"]) {
       setPrevious({ "task": task });
     }
-    const value = e.target.value;
+    console.log(typeof e)
+    
+    let value;
+    if (type = "date") {
+      value = e.toISOString();
+      console.log(task)
+      console.log(value)
+    } else {
+      value = e.target.value;
+    }
+    
     const { id } = task;
     const newTasks = rows.map((task) => {
       if (task.id === id) {
-        console.log(attr)
         task[attr] = value
+        console.log(task[attr])
         return task;
       }
       return task;

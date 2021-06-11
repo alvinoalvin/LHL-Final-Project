@@ -14,6 +14,16 @@
   .MuiTableCell-sizeSmall.MuiTableCell-paddingCheckbox {
     padding: 0 12px 0 14px;
   }
+  .MuiButtonBase-root, .MuiIconButton-root{
+    margin:0;
+  }
+  .MuiInputBase-input{
+    padding:6px 0 11px;
+  }
+  #date-picker-inline{
+    font-size: 11px;
+    padding-bottom: 17px;
+  }
 }
 
 label[data-shrink="false"]
