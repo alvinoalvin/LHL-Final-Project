@@ -147,7 +147,7 @@ const CustomStatusCell = ({ row, status, onStatusChange, statusMap }) => {
 };
 
 export default function TaskItem(props) {
-  const { task, tasks, setTasks, isItemSelected, labelId, handleClick, selected, setSelected } = props;
+  const { row, rows, setRows, isItemSelected, labelId, handleClick, selected, setSelected } = props;
   const [previous, setPrevious] = React.useState({});
   const [statusMap, setStatusMap] = React.useState({});
   const classes = useStyles();
@@ -162,7 +162,7 @@ export default function TaskItem(props) {
   function deleteTask(id) {
     return axios.delete(`api/deliverables/?array=[${id}]`, { id })
       .then(function(response) {
-        const taskCopy = tasks.filter((task) => {
+        const taskCopy = rows.filter((task) => {
           if (task.id !== props.task.id) {
             return task
           }
@@ -173,7 +173,7 @@ export default function TaskItem(props) {
           }
         });
         setSelected(selectedCopy);
-        setTasks(taskCopy);
+        setRows(taskCopy);
       })
       .catch(function(error) {
         console.log(error);
@@ -181,8 +181,8 @@ export default function TaskItem(props) {
   }
 
   const onToggleEditMode = (id, updateDb) => {
-    setTasks((state) => {
-      return tasks.map((task) => {
+    setRows((state) => {
+      return rows.map((task) => {
         if (task.id === id) {
           setPrevious({ "task": task })
           return { ...task, isEditMode: !task.isEditMode };
@@ -192,7 +192,7 @@ export default function TaskItem(props) {
     });
     /* run axios api to update tasks on db here. */
     if (updateDb) {
-      return axios.post(`api/tasks/${id}`, { task })
+      return axios.post(`api/tasks/${id}`, { task: row })
         .then(function(response) {
           console.log(response)
         })
@@ -208,7 +208,7 @@ export default function TaskItem(props) {
     }
     const value = e.target.value;
     const { id } = task;
-    const newTasks = tasks.map((task) => {
+    const newTasks = rows.map((task) => {
       if (task.id === id) {
         console.log(attr)
         task[attr] = value
@@ -216,7 +216,7 @@ export default function TaskItem(props) {
       }
       return task;
     });
-    setTasks(newTasks);
+    setRows(newTasks);
   };
 
   const onStatusChange = (e, task, statusMap) => {
@@ -236,7 +236,7 @@ export default function TaskItem(props) {
 
 
     const { id } = task;
-    const newTasks = tasks.map((task) => {
+    const newTasks = rows.map((task) => {
       if (task.id === id) {
 
         return {
@@ -245,12 +245,12 @@ export default function TaskItem(props) {
       }
       return task;
     });
-    setTasks(newTasks);
+    setRows(newTasks);
   };
 
   const onRevert = (id) => {
 
-    const newTasks = tasks.map((task) => {
+    const newTasks = rows.map((task) => {
       if (task.id === id) {
         task.name = previous.task.name
         task.status = previous.task.status
@@ -266,18 +266,18 @@ export default function TaskItem(props) {
       }
       return task;
     });
-    setTasks(newTasks);
+    setRows(newTasks);
     setPrevious({});
     onToggleEditMode(id, false);
   };
   return (
-    <TableRow key={task.id}
+    <TableRow key={row.id}
       hover
-      onClick={(event) => handleClick(event, task.id)}
+      onClick={(event) => handleClick(event, row.id)}
       role="checkbox"
       aria-checked={isItemSelected}
       tabIndex={-1}
-      key={task.id}
+      key={row.id}
       selected={isItemSelected}
     >
 
@@ -289,32 +289,32 @@ export default function TaskItem(props) {
       </TableCell>
 
       <CustomTableCell
-        {...{ row: task, name: task.name, onChange, attr: "name", type: "text" }}
+        {...{ row: row, name: row.name, onChange, attr: "name", type: "text" }}
       />
       <CustomStatusCell
-        {...{ row: task, status: task.status, onStatusChange, statusMap }}
+        {...{ row: row, status: row.status, onStatusChange, statusMap }}
       />
       <CustomTableCell
-        {...{ row: task, name: getDate(task.end_date), onChange, attr: "end_date", type: "date" }}
+        {...{ row: row, name: getDate(row.end_date), onChange, attr: "end_date", type: "date" }}
       />
       <CustomTableCell
-        {...{ row: task, name: task.time_estimate_minutes, onChange, attr: "time_estimate_minutes", type: "number" }}
+        {...{ row: row, name: row.time_estimate_minutes, onChange, attr: "time_estimate_minutes", type: "number" }}
       />
       <CustomTableCell
-        {...{ row: task, name: task.name, onChange, attr: "link", type: "link" }}
+        {...{ row: row, name: row.name, onChange, attr: "link", type: "link" }}
       />
       <TableCell align="left" >
         < Checkbox
           disabled
-          checked={task.is_completed}
+          checked={row.is_completed}
         />
       </TableCell>
       <TableCell className={classes.selectTableCell}>
-        {task.isEditMode ? (
+        {row.isEditMode ? (
           <>
             <IconButton
               aria-label="done"
-              onClick={() => onToggleEditMode(task.id, true)}
+              onClick={() => onToggleEditMode(row.id, true)}
             >
               <DoneIcon />
             </IconButton>
@@ -322,7 +322,7 @@ export default function TaskItem(props) {
         ) : (
           <IconButton
             aria-label="delete"
-            onClick={() => onToggleEditMode(task.id, false)}
+            onClick={() => onToggleEditMode(row.id, false)}
           >
             <EditIcon />
           </IconButton>
@@ -330,10 +330,10 @@ export default function TaskItem(props) {
         )}
       </TableCell>
       <TableCell align="left">
-        {task.isEditMode ? (
+        {row.isEditMode ? (
           <IconButton
             aria-label="revert"
-            onClick={() => onRevert(task.id)}
+            onClick={() => onRevert(row.id)}
           >
             <RevertIcon />
           </IconButton>
@@ -342,7 +342,7 @@ export default function TaskItem(props) {
             aria-label="delete"
             onClick={(event) => {
               if (window.confirm('Are you sure you want to delete?')) {
-                deleteTask(task.id);
+                deleteTask(row.id);
               }
             }}>
             <DeleteIcon />

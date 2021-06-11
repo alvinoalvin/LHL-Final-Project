@@ -295,9 +295,9 @@ export default function EnhancedTable(props) {
                   return (
                     <props.RowComponent
                       key={row.id}
-                      task={row}
-                      tasks={rows}
-                      setTasks={props.setRows}
+                      row={row}
+                      rows={rows}
+                      setRows={props.setRows}
                       handleClick={handleClick}
                       isItemSelected={isItemSelected}
                       labelId={labelId}
