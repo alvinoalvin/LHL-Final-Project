@@ -36,7 +36,7 @@ export default function SkillViewAll(props) {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/analytics/time-estimate", {
+      .get("api/analytics/time-estimate", {
         headers: {
           "Content-Type": "application/json",
         },
