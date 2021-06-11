@@ -26,6 +26,8 @@ const type = require("./routes/type");
 App.use("/api", type(db));
 const csv = require("./routes/csv");
 App.use("/api", csv(db));
+const status = require("./routes/status");
+App.use("/api", status(db));
 
 // Sample GET route
 App.get('/api/data', (req, res) => res.json({

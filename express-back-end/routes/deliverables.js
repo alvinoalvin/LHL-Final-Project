@@ -44,6 +44,26 @@ module.exports = db => {
       });
   })
 
+  router.post("/tasks/:task_id", (request, response) => {
+    const { name, status_id, link, end_date, time_estimate_minutes } = request.body.task
+    const values = [request.params.task_id, name, status_id, link, end_date, time_estimate_minutes]
+    console.log(request.body)
+    const queryString =
+      `
+    update deliverables SET
+    name = $2, status_id = $3, link = $4, end_date = $5, time_estimate_minutes = $6
+    where id = $1
+    RETURNING *
+    `
+    db.query(queryString, values)
+      .then((result) => {
+        response.json({ msg: 'success', result: result.rows[0] })
+      })
+      .catch((err) => {
+        console.log(err.message)
+      });
+  })
+
   router.get("/tasks/:task_id", (request, response) => {
     const queryString = `
       SELECT *, deliverables.id as id, (users.first_name ||' ' || users.last_name) as full_name,
@@ -105,7 +125,6 @@ module.exports = db => {
 
     const queryString = `UPDATE deliverables SET deleted=true WHERE id IN ${paramStr} RETURNING *`;
 
-    console.log("deleting id: ", arr)
     db.query(queryString, arr)
       .then((result) => {
         response.json({ msg: 'success' })

@@ -53,7 +53,7 @@ function EnhancedTableHead(props) {
   return (
     <TableHead>
       <TableRow>
-        <TableCell padding="checkbox">
+        <TableCell padding="checkbox" align="left">
           <Checkbox
             indeterminate={numSelected > 0 && numSelected < rowCount}
             checked={rowCount > 0 && numSelected === rowCount}
@@ -206,7 +206,7 @@ export default function EnhancedTable(props) {
   const [orderBy, setOrderBy] = React.useState("calories");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
-  const [dense, setDense] = React.useState(false);
+  const [dense, setDense] = React.useState(true);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const rows = props.rows;
 
@@ -271,7 +271,8 @@ export default function EnhancedTable(props) {
           <Table
             className={classes.table}
             aria-labelledby="tableTitle"
-            size={dense ? "small" : "medium"}
+            // size={dense ? "small" : "medium"}
+            size={"small"}
             aria-label="enhanced table"
           >
             <EnhancedTableHead
@@ -324,10 +325,10 @@ export default function EnhancedTable(props) {
           onChangeRowsPerPage={handleChangeRowsPerPage}
         />
       </Paper>
-      <FormControlLabel
+      {/* <FormControlLabel
         control={<Switch checked={dense} onChange={handleChangeDense} />}
         label="Dense padding"
-      />
+      /> */}
     </div>
   );
 }

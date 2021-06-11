@@ -1,4 +1,4 @@
-function getDate(dateStr) {
+function getDate(dateStr, plus1) {
   if (!dateStr) {
     return null
   }
@@ -6,6 +6,9 @@ function getDate(dateStr) {
   const year = date.getFullYear();
   let month = date.getMonth() + 1;
   let dt = date.getDate();
+  if (plus1) {
+    dt += 1
+  }
 
   if (dt < 10) {
     dt = '0' + dt;

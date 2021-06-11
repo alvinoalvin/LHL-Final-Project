@@ -47,8 +47,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-    height: 400,
+    padding: theme.spacing(2, 4, 3)
   },
   dialogPaper: {
     height: '400px'
@@ -78,17 +77,14 @@ export default function TasksListComponent(props) {
   /* make sure ids match db column names */
   const headCells = [
     { id: 'name', numeric: false, disablePadding: true, label: 'Name', align: "left", width: 210 },
-    { id: 'status', numeric: false, disablePadding: false, label: 'Status', align: "left", width: 100 },
-    { id: 'start_date', numeric: false, disablePadding: false, label: 'Start Date', align: "left", width: 150 },
+    { id: 'status', numeric: false, disablePadding: false, label: 'Status', align: "left" },
+    { id: 'end_date', numeric: false, disablePadding: false, label: 'Due Date', align: "left" },
     { id: 'time_estimate_minutes', numeric: false, disablePadding: false, label: 'Estimated Time (mins)', align: "left" },
-    { id: 'link', numeric: false, disablePadding: false, label: 'Resource Link', align: "left", width: 100 },
+    { id: 'link', numeric: false, disablePadding: false, label: 'Task Link', align: "left", width: 110 },
     { id: 'is_completed', numeric: false, disablePadding: false, label: 'Done', align: "left" },
   ];
 
   const handleDelete = (selected, setSelected, tasks, setTasks) => {
-    console.log("DELETING")
-    console.log(`api/deliverables/?array=[${selected.toString()}]`)
-
     return axios.delete(`api/deliverables/?array=[${selected.toString()}]`, {})
       .then(function(response) {
         const taskCopy = tasks.filter((task) => {
