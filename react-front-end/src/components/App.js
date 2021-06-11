@@ -23,6 +23,7 @@ import Team from "./Team";
 import Recommend from "./Recommend";
 import Report from "./Report";
 import Test from "./Test";
+import LineGraph from "./LineGraph"
 
 /* import icons */
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
@@ -52,7 +53,7 @@ export default function Application() {
   };
 
   function onClick(text){
-    
+    console.log("onClick", onClick, text)
   }
 
   return (
@@ -119,6 +120,12 @@ export default function Application() {
                 <ListItemText primary='Skill'></ListItemText>
               </ListItem>
             </Link>
+            <Link to="/allSkills">
+              <ListItem>
+                <ListItemIcon><AccountCircleIcon /></ListItemIcon>
+                <ListItemText primary='allSkills'></ListItemText>
+              </ListItem>
+            </Link>
             <Link to="/report">
               <ListItem>
                 <ListItemIcon><AssessmentIcon /></ListItemIcon>
@@ -166,6 +173,9 @@ export default function Application() {
             </Route>
             <Route path="/recommend">
               <Recommend />
+            </Route>
+            <Route path="/lineGraph">
+              <LineGraph />
             </Route>
             <Route path="/test">
               <Test />

@@ -5,6 +5,7 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import { Doughnut } from "react-chartjs-2";
 import { red } from "@material-ui/core/colors";
+import { authContext } from './providers/AuthProvider';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -40,7 +41,7 @@ export default function SkillViewAll(props) {
               labels: [],
               datasets: [{
                 data:[],
-                backgroundColor: ["red", "blue", "green"]
+                backgroundColor: ["#91C4F2", "#576AB3", "#7E1F86"]
               }],
             },
           };
@@ -66,7 +67,7 @@ export default function SkillViewAll(props) {
           
           <div onClick= { () => props.onClick(skill_id)}>
           <Paper className={classes.paper}>
-            <h2>{data[skill_id].name}</h2><h3>Total time in minutes</h3>
+            <h2>{data[skill_id].name}</h2><h3>Time in Minutes</h3>
           <Doughnut data={data[skill_id].chartData} />
           </Paper>
           </div>
@@ -75,6 +76,8 @@ export default function SkillViewAll(props) {
         ))}
       </Grid>
     </div>
+
+//  const { id, team_id } = useContext(authContext);
 
 // make onclick function
 ///deliverables/users/skills/:user_id&:skill_id

@@ -104,16 +104,9 @@ export default function CenteredGrid() {
 
   return (
     <div className={classes.root}>
-      <SkillViewAll />
+
       <Grid container spacing={6}>
-        
-        {/* <Grid item xs={4}>
-          <Paper className={classes.paper}>
-            <h3>Most in-progress</h3>
-            <h2>React</h2>
-            <Doughnut data={pieData} />
-          </Paper>
-        </Grid> */}
+      
         
         <Grid item xs={6}>
           <Paper className={classes.paper}>
