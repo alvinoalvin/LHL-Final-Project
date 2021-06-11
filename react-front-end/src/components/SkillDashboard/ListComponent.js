@@ -43,7 +43,7 @@ export default function ListComponent(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
-  const { headCells, rows, setRows, handleDelete, RowComponent, CreateForm } = props
+  const { headCells, rows, setRows, handleDelete, RowComponent, CreateForm, tableName } = props
   const handleOpen = () => {
     setOpen(true);
   };
@@ -57,7 +57,7 @@ export default function ListComponent(props) {
       .then(response => {
         setRows(response.data);
       }).catch(error => console.log("ERROR: ", error));
-  }, []);
+  }, [rows]);
 
   return (
     <div class="task-list-component" >
@@ -68,7 +68,7 @@ export default function ListComponent(props) {
         headCells={headCells}
         RowComponent={RowComponent}
         handleDelete={handleDelete}
-        tableName={"All Tasks"}
+        tableName={tableName}
       />
 
       <Button variant="outlined" color="primary" onClick={setOpen}>

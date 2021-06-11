@@ -1,6 +1,7 @@
 /* Custom Components */
 import React from 'react';
-import TasksListComponent from './TasksListComponent';
+import TasksList from './TasksList';
+import ResourceList from './ResourceList';
 import '../../styles/SkillItemDashboard.scss';
 export default function SkillDashboard() {
   const skillID = 1;
@@ -8,7 +9,7 @@ export default function SkillDashboard() {
   return (
     <div id="skill-item-container">
       <div id="dashboardHeader"><h1>Ruby on Rails</h1></div>
-      <TasksListComponent
+      <TasksList
         key={skillID}
         skillID={skillID}
         userID={userID}
@@ -16,7 +17,7 @@ export default function SkillDashboard() {
       <div class="progress"> <h3> Progress bar</h3></div>
       <div class="notes"> <h3> notes</h3></div>
       <div class="resources">
-        <TasksListComponent
+        <ResourceList
           key={skillID}
           skillID={skillID}
           userID={userID}

@@ -110,7 +110,7 @@ module.exports = db => {
     });
   });
   
-  router.get("/resource/:user_id/:skill_id", (request, response) => {
+  router.get("/resources/:user_id/:skill_id", (request, response) => {
     const queryString = `
       SELECT *, deliverables.id as id, (users.first_name ||' ' || users.last_name) as full_name,
         CASE

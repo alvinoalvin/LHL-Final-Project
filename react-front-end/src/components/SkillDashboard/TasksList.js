@@ -12,7 +12,7 @@ import '../../styles/TasksListComponent.scss';
 /* Libraries */
 const axios = require('axios');
 
-export default function TasksListComponent(props) {
+export default function TasksList(props) {
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
@@ -26,7 +26,7 @@ export default function TasksListComponent(props) {
   const headCells = [
     { id: 'name', numeric: false, disablePadding: true, label: 'Task Name', align: "left", width: 210 },
     { id: 'status', numeric: false, disablePadding: false, label: 'Status', align: "left" },
-    { id: 'end_date', numeric: false, disablePadding: false, label: 'Due Date', align: "left" },
+    { id: 'end_date', numeric: false, disablePadding: false, label: 'Due Date', align: "left",width:200 },
     { id: 'time_estimate_minutes', numeric: false, disablePadding: false, label: 'Estimated Time (mins)', align: "left" },
     { id: 'link', numeric: false, disablePadding: false, label: 'Link', align: "left", width: 110 },
     { id: 'is_completed', numeric: false, disablePadding: false, label: 'Done', align: "left" },
@@ -56,6 +56,7 @@ export default function TasksListComponent(props) {
       handleDelete={handleDelete}
       RowComponent={TaskItem}
       CreateForm={CreateTaskForm}
+      tableName={"All Tasks"}
     />
   );
 }

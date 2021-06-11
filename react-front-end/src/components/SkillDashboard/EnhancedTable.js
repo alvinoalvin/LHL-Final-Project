@@ -257,7 +257,6 @@ export default function EnhancedTable(props) {
   const handleChangeDense = (event) => {
     setDense(event.target.checked);
   };
-
   const isSelected = (id) => selected.indexOf(id) !== -1
 
   const emptyRows =
@@ -332,34 +331,3 @@ export default function EnhancedTable(props) {
     </div>
   );
 }
-
-/*
-    <TableRow
-      hover
-      onClick={(event) => handleClick(event, row.name)}
-      role="checkbox"
-      aria-checked={isItemSelected}
-      tabIndex={-1}
-      key={row.name}
-      selected={isItemSelected}
-    >
-      <TableCell padding="checkbox">
-        <Checkbox
-          checked={isItemSelected}
-          inputProps={{ "aria-labelledby": labelId }}
-        />
-      </TableCell>
-      <TableCell
-        component="th"
-        id={labelId}
-        scope="row"
-        padding="none"
-      >
-        {row.name}
-      </TableCell>
-      <TableCell align="right">{row.status}</TableCell>
-      <TableCell align="right">{row.start_date}</TableCell>
-      <TableCell align="right">{row.carbs}</TableCell>
-      <TableCell align="right">{row.protein}</TableCell>
-    </TableRow>
-*/
