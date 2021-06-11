@@ -33,6 +33,7 @@ export default function Member(props) {
 
   const total = Number(props.member.staged_count) + Number(props.member.in_progress_count) + Number(props.member.completed_count);
 
+
   const [skills, setSkills] = useState([])
 
   const userID = 1;
@@ -47,11 +48,13 @@ export default function Member(props) {
   const skillList = skills.map(skill => {
     return (
       <Skill
+        key={props.member.id + ':' + skill.skill_id}
         userID={props.member.id}
         skill={skill}
       />
     )
   })
+
 
   return (
     <React.Fragment>
@@ -76,7 +79,7 @@ export default function Member(props) {
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box margin={1}>
               <Grid container spacing={8}>
-                <SkillViewAll />
+                {skillList}
               </Grid>
             </Box>
           </Collapse>
