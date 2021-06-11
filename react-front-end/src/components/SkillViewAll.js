@@ -6,6 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import { Doughnut } from "react-chartjs-2";
 import { red } from "@material-ui/core/colors";
 
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -17,9 +18,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SkillViewAll() {
+
+export default function SkillViewAll(props) {
   const classes = useStyles();
   const [data, setData] = useState({});
+  const [mode, setMode] = useState('donought')
 
   useEffect(() => {
     axios
@@ -52,23 +55,33 @@ export default function SkillViewAll() {
       });
   }, []);
 
-  console.log("data", data);
+
+
+  
   return (
     <div className={classes.root}>
       <Grid container spacing={6}>
         {Object.keys(data).map((skill_id) => (
           <Grid item xs={4}>
+          
+          <div onClick= { () => props.onClick(skill_id)}>
           <Paper className={classes.paper}>
             <h2>{data[skill_id].name}</h2><h3>Total time in minutes</h3>
-            <Doughnut data={data[skill_id].chartData} />
+          <Doughnut data={data[skill_id].chartData} />
           </Paper>
+          </div>
+        
         </Grid>
         ))}
       </Grid>
     </div>
+
+// make onclick function
+///deliverables/users/skills/:user_id&:skill_id
     // STILL TO DO
     // rename labels for time estimates
     // make each container onClick go to skill page
     // wrap paper in <a
+    // wrap router - context provider (58 onwards on app.js)
   );
 }

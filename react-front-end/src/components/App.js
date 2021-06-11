@@ -51,6 +51,10 @@ export default function Application() {
     setOpen(false);
   };
 
+  function onClick(text){
+    
+  }
+
   return (
     <Router>
       <div className={classes.root}>
@@ -158,8 +162,7 @@ export default function Application() {
             <Route path="/report">
               <Report />
             </Route>
-            <Route path="/allSkills">
-              <SkillViewAll />
+            <Route path="/allSkills" render={(props) => <SkillViewAll onClick={onClick}/>}>
             </Route>
             <Route path="/recommend">
               <Recommend />

@@ -6,6 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import { Doughnut } from "react-chartjs-2";
 import { Line } from "react-chartjs-2";
 import { Bar } from "react-chartjs-2";
+import SkillViewAll from './SkillViewAll';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -115,28 +116,17 @@ export default function CenteredGrid() {
 
   return (
     <div className={classes.root}>
+      <SkillViewAll />
       <Grid container spacing={6}>
-        <Grid item xs={4}>
+        
+        {/* <Grid item xs={4}>
           <Paper className={classes.paper}>
             <h3>Most in-progress</h3>
             <h2>React</h2>
             <Doughnut data={pieData} />
           </Paper>
-        </Grid>
-        <Grid item xs={4}>
-          <Paper className={classes.paper}>
-            <h3>Most in staged</h3>
-            <h2>People Skills</h2>
-            <Doughnut data={pieData} />
-          </Paper>
-        </Grid>
-        <Grid item xs={4}>
-          <Paper className={classes.paper}>
-            <h3>Most complete</h3>
-            <h2>Management</h2>
-            <Doughnut data={pieData} />
-          </Paper>
-        </Grid>
+        </Grid> */}
+        
         <Grid item xs={6}>
           <Paper className={classes.paper}>
             <div>
