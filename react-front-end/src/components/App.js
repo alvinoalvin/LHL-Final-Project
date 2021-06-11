@@ -16,7 +16,8 @@ import reactStyles from '../helpers/react-styles';
 
 /* Custom Components */
 import SkillDashboard from './SkillDashboard';
-import HomeDashboard from './HomeDashboard'
+import HomePlaceholders from './HomeDashboardCharts';
+import SkillViewAll from './SkillViewAll';
 import SignUp from './SignUp';
 import Team from "./Team";
 import Recommend from "./Recommend";
@@ -157,6 +158,9 @@ export default function Application() {
             <Route path="/report">
               <Report />
             </Route>
+            <Route path="/allSkills">
+              <SkillViewAll />
+            </Route>
             <Route path="/recommend">
               <Recommend />
             </Route>
@@ -164,7 +168,7 @@ export default function Application() {
               <Test />
             </Route>
             <Route path="/">
-              <HomeDashboard />
+              <HomePlaceholders />
             </Route>
           </Switch>
         </main>
@@ -172,10 +176,6 @@ export default function Application() {
     </Router>
   );
 }
-
-
-
-
 
 
 /* Template data */
