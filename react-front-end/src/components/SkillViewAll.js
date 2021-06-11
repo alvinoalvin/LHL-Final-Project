@@ -6,6 +6,8 @@ import Grid from "@material-ui/core/Grid";
 import { Doughnut } from "react-chartjs-2";
 import { red } from "@material-ui/core/colors";
 import { authContext } from './providers/AuthProvider';
+import { useHistory } from "react-router-dom";
+import Form from "./NewSkill/components/Form"
 
 
 const useStyles = makeStyles((theme) => ({
@@ -20,10 +22,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
+
+
 export default function SkillViewAll(props) {
   const classes = useStyles();
   const [data, setData] = useState({});
   const [mode, setMode] = useState('donought')
+  const history = useHistory();
+
+  function handleClick() {
+    history.push("/skill");
+  }
 
   useEffect(() => {
     axios
@@ -60,18 +69,20 @@ export default function SkillViewAll(props) {
 
   
   return (
+    
     <div className={classes.root}>
+      
+
+
       <Grid container spacing={6}>
         {Object.keys(data).map((skill_id) => (
           <Grid item xs={4}>
-          
-          <div onClick= { () => props.onClick(skill_id)}>
+          <div onClick={handleClick}>
           <Paper className={classes.paper}>
             <h2>{data[skill_id].name}</h2><h3>Time in Minutes</h3>
           <Doughnut data={data[skill_id].chartData} />
           </Paper>
           </div>
-        
         </Grid>
         ))}
       </Grid>
@@ -81,10 +92,16 @@ export default function SkillViewAll(props) {
 
 // make onclick function
 ///deliverables/users/skills/:user_id&:skill_id
+
+// pass <div onClick={handleClick (
+//  skill_id
+// )}>
+
+// :user_id&:skill_id pass to useHistory (onClick === (skill_id))
+
     // STILL TO DO
     // rename labels for time estimates
     // make each container onClick go to skill page
-    // wrap paper in <a
-    // wrap router - context provider (58 onwards on app.js)
+
   );
 }

@@ -144,6 +144,12 @@ export default function Application() {
                 <ListItemText primary='Test'></ListItemText>
               </ListItem>
             </Link>
+            <Link to="/Form">
+              <ListItem>
+                <ListItemIcon><LockOpenIcon /></ListItemIcon>
+                <ListItemText primary='Form'></ListItemText>
+              </ListItem>
+            </Link>
             <Link to="/signup">
               <ListItem>
                 <ListItemIcon><LockOpenIcon /></ListItemIcon>
@@ -169,7 +175,8 @@ export default function Application() {
             <Route path="/report">
               <Report />
             </Route>
-            <Route path="/allSkills" render={(props) => <SkillViewAll onClick={onClick}/>}>
+            <Route path="/allSkills">
+              <SkillViewAll/>
             </Route>
             <Route path="/recommend">
               <Recommend />
