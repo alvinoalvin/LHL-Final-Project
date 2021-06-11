@@ -46,7 +46,7 @@ const CustomTableCell = ({ row, name, onChange, attr, type }) => {
   const { isEditMode } = row;
   function renderAttr() {
     if (type === "link" || type === "Link") {
-      return (<a href={row.link}>{row.link !== "No Link Needed?" && row.link !== "" ? "Link" : ""}</a>)
+      return (<a href={row.link}>{row.link !== "No Link Needed?" && row.link !== "" ? "Task Link" : ""}</a>)
     }
     if (type === "date" || type === "Date") {
       return getDate(row[attr])
@@ -71,6 +71,7 @@ const CustomTableCell = ({ row, name, onChange, attr, type }) => {
       return (<Input
         id="create-task-est-dur-input"
         label="Estimated Duration (mins)"
+        defaultValue={row[attr]}
         type="number"
         className={classes.input}
         onChange={(e, value) => { onChange(e, row, attr) }}
@@ -237,7 +238,10 @@ export default function TaskItem(props) {
     const { id } = task;
     const newTasks = tasks.map((task) => {
       if (task.id === id) {
-        return { ...task, "status_id": value, "status": status };
+
+        return {
+          ...task, "status_id": value, "status": status, "is_completed": status === "Completed" ? true : false
+        };
       }
       return task;
     });
@@ -254,6 +258,11 @@ export default function TaskItem(props) {
         task.link = previous.task.link
         task.end_date = previous.task.end_date
         task.time_estimate_minutes = previous.task.time_estimate_minutes
+        if (task.status == "Completed") {
+          task.is_completed = true;
+        } else {
+          task.is_completed = false;
+        }
       }
       return task;
     });

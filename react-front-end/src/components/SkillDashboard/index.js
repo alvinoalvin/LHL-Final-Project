@@ -15,7 +15,13 @@ export default function SkillDashboard() {
       />
       <div class="progress"> <h3> Progress bar</h3></div>
       <div class="notes"> <h3> notes</h3></div>
-      <div class="resources"> <h3> Resources</h3></div>
+      <div class="resources">
+        <TasksListComponent
+          key={skillID}
+          skillID={skillID}
+          userID={userID}
+        />
+      </div>
     </div>
   );
 }

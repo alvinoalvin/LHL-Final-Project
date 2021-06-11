@@ -293,7 +293,7 @@ export default function EnhancedTable(props) {
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
-                    <props.rowComponent
+                    <props.RowComponent
                       key={row.id}
                       task={row}
                       tasks={rows}
