@@ -28,10 +28,27 @@ module.exports = db => {
       GROUP BY users.id
       `
     ).then(({ rows: teams }) => {
-      console.log("***GET METHOD***", response);
       response.json(teams);
     });
   });
 
+  router.post("/teams/:team_id", (request, response) => {
+    const {first_name, last_name, email, position} = request.body
+    const team_id = request.params.team_id;
+
+    const values = [ first_name, last_name, email, position, team_id ]
+
+    const queryString = `INSERT INTO users(first_name, last_name, email, position, team_id)
+    VALUES ($1, $2, $3, $4, $5)`
+    db.query(queryString, values)
+    .then((result) => {
+      response.json({msg: 'success'})
+    })
+    .catch((err) => {
+      console.log(err.message)
+    });
+  })
+
   return router;
+
 }

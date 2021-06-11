@@ -9,6 +9,7 @@ export default function SkillDashboard() {
     <div id="skill-item-container">
       <div id="dashboardHeader"><h1>Ruby on Rails</h1></div>
       <TasksListComponent
+        key={skillID}
         skillID={skillID}
         userID={userID}
       />

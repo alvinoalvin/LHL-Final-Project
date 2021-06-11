@@ -20,11 +20,14 @@ import HomePlaceholders from './HomeDashboardCharts';
 import SkillViewAll from './SkillViewAll';
 import SignUp from './SignUp';
 import Team from "./Team";
+import Recommend from "./Recommend";
 import Report from "./Report";
+import Test from "./Test";
 
 /* import icons */
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
 import GroupIcon from '@material-ui/icons/Group';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
@@ -118,6 +121,18 @@ export default function Application() {
                 <ListItemText primary='Report'></ListItemText>
               </ListItem>
             </Link>
+            <Link to="/recommend">
+              <ListItem>
+                <ListItemIcon><MailIcon /></ListItemIcon>
+                <ListItemText primary='Recommend'></ListItemText>
+              </ListItem>
+            </Link>
+            <Link to="/test">
+              <ListItem>
+                <ListItemIcon><MailIcon /></ListItemIcon>
+                <ListItemText primary='Test'></ListItemText>
+              </ListItem>
+            </Link>
             <Link to="/signup">
               <ListItem>
                 <ListItemIcon><LockOpenIcon /></ListItemIcon>
@@ -146,7 +161,13 @@ export default function Application() {
             <Route path="/allSkills">
               <SkillViewAll />
             </Route>
-            <Route exact path="/">
+            <Route path="/recommend">
+              <Recommend />
+            </Route>
+            <Route path="/test">
+              <Test />
+            </Route>
+            <Route path="/">
               <HomePlaceholders />
             </Route>
           </Switch>

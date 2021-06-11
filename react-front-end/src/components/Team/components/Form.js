@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
@@ -10,7 +10,9 @@ import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
 
+import { authContext } from '../../providers/AuthProvider';
 import axios from "axios";
 
 function Copyright() {
@@ -56,6 +58,8 @@ export default function Form(props) {
   const [email, setEmail] = useState("");
   const [position, setPosition] = useState("");
 
+  const { team_id } = useContext(authContext);
+
   function addMember() {
     const newMember = {
       first_name: firstName,
@@ -64,7 +68,7 @@ export default function Form(props) {
       position: position
     }
 
-    return axios.post(`/api/users`, newMember)
+    return axios.post(`/api/teams/${team_id}`, newMember)
     .then(function (response) {
       const teamCopy = [...props.team, newMember]
       props.setTeam(teamCopy)
@@ -80,7 +84,7 @@ export default function Form(props) {
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
+          <PersonAddIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
           Add New Team Member
