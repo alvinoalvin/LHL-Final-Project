@@ -34,12 +34,13 @@ export default function Report(props) {
       .then(function(response) {
         setcsvData(response.data)
       })
-  })
+  }, [])
 
 
   const teamList = team.map(member => {
     return (
       <Member
+      key={member.id}
       member={member}
       setTeam={setTeam}
       team={team}
@@ -61,6 +62,7 @@ export default function Report(props) {
             <TableRow>
               <TableCell />
               <TableCell>Name</TableCell>
+              <TableCell align="right">Skills</TableCell>
               <TableCell align="right">Staged</TableCell>
               <TableCell align="right">In Progress</TableCell>
               <TableCell align="right">Completed</TableCell>

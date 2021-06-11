@@ -12,6 +12,9 @@ import Typography from '@material-ui/core/Typography';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import Skill from './Skill';
+import Grid from '@material-ui/core/Grid';
+
+import SkillViewAll from '../../SkillViewAll';
 
 import axios from "axios";
 
@@ -62,6 +65,7 @@ export default function Member(props) {
           {props.member.first_name} {props.member.last_name}
           {props.member.id === userID && <span> (Me)</span>}
         </TableCell>
+        <TableCell align="right">2</TableCell>
         <TableCell align="right">{props.member.staged_count}</TableCell>
         <TableCell align="right">{props.member.in_progress_count}</TableCell>
         <TableCell align="right">{props.member.completed_count}</TableCell>
@@ -71,20 +75,9 @@ export default function Member(props) {
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box margin={1}>
-              <Table size="small" aria-label="purchases">
-                <TableHead>
-                  <TableRow >
-                    <TableCell />
-                    <TableCell>Name</TableCell>
-                    <TableCell align="right">Tasks</TableCell>
-                    <TableCell align="right">Resources</TableCell>
-                    <TableCell align="right">Total Time Esimate (h)</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                    {skillList}
-                </TableBody>
-              </Table>
+              <Grid container spacing={8}>
+                <SkillViewAll />
+              </Grid>
             </Box>
           </Collapse>
         </TableCell>

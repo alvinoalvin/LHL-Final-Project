@@ -1,4 +1,4 @@
-import React, {useState, useEffect } from 'react';
+import React, {useState, useEffect, useContext } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,8 +12,15 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 
 import axios from 'axios';
+import { authContext } from '../../providers/AuthProvider';
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -51,10 +58,19 @@ export default function Recommend(props) {
   const [time, setTime] = useState('');
   const [link, setLink] = useState('');
   const [notes, setNotes] = useState('');
-  const [submission, setSubmission] = useState('')
 
-  const team_id = 1;
-  const user_id = 1;
+  const [snack, setSnack] = useState(false);
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setSnack(false);
+  };
+
+  const { id, team_id } = useContext(authContext);
+  const user_id = id;
 
   const [userList, setUserList] = useState([]);
 
@@ -67,7 +83,7 @@ export default function Recommend(props) {
 
   const userChoice = userList.map(userInfo => {
     return (
-      <MenuItem value={userInfo.id}>{userInfo.first_name} {userInfo.last_name}</MenuItem>
+      <MenuItem key={userInfo.id} value={userInfo.id}>{userInfo.first_name} {userInfo.last_name}</MenuItem>
     )
   })
 
@@ -82,7 +98,7 @@ export default function Recommend(props) {
 
   const typeChoice = typeList.map(typeInfo => {
     return (
-      <MenuItem value={typeInfo.id}>{typeInfo.type}</MenuItem>
+      <MenuItem key={typeInfo.id} value={typeInfo.id}>{typeInfo.type}</MenuItem>
     )
   })
 
@@ -101,7 +117,7 @@ export default function Recommend(props) {
   
   const skillChoice = skillList.map(skillInfo => {
     return (
-      <MenuItem value={skillInfo.skill_id}>{skillInfo.name}</MenuItem>
+      <MenuItem key={skillInfo.skill_id} value={skillInfo.skill_id}>{skillInfo.name}</MenuItem>
     )
   })
 
@@ -118,17 +134,12 @@ export default function Recommend(props) {
       link: link
     }
 
-    axios.post(`/api/deliverables`, newDeliverable)
-    .then(function(response) {
-      setSubmission('Success')
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+    return axios.post(`/api/deliverables`, newDeliverable)
   }
 
 
   return (
+    <>
     <Container component="main">
       <CssBaseline />
       <div className={classes.paper}>
@@ -233,17 +244,32 @@ export default function Recommend(props) {
             color="primary"
             className={classes.submit}
             onClick={(event) => {
-              event.preventDefault()
+              console.log("***EVENT***", event)
               addDeliverable()
+              .then(function(response) {
+                console.log("***RESPONSE***", response)
+                setSnack(true)
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
+              event.preventDefault()
               }}
           >
             Submit
           </Button>
         </form>
-        <div>
-          {submission}
-        </div>
       </div>
     </Container>
+      <Snackbar
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        open={snack}
+        key={'report-snack-bar'}
+        autoHideDuration={6000}
+        onClose={handleClose}
+      >
+        <Alert onClose={handleClose} severity="success">Recommendation Submitted!</Alert>
+      </Snackbar>
+    </>
   );
 }
