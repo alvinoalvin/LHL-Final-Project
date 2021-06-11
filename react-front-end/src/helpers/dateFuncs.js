@@ -5,7 +5,7 @@ function getDate(dateStr) {
   const date = new Date(dateStr);
   const year = date.getFullYear();
   let month = date.getMonth() + 1;
-  let dt = date.getDate();
+  let dt = date.getDate()+1;
 
   if (dt < 10) {
     dt = '0' + dt;

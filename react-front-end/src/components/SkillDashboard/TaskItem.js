@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import { TableCell, TableRow, Checkbox, Input, Select, MenuItem } from '@material-ui/core';
+import { TableCell, TableRow, Checkbox, Input, Select, MenuItem, TextField } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { getDate } from "../../helpers/dateFuncs"
@@ -30,39 +30,98 @@ const useStyles = makeStyles(theme => ({
     height: 40
   },
   input: {
+    width: 110,
+    height: 40,
+    padding: 0
+  },
+  select: {
     width: 130,
     height: 40
   }
 }));
 
 
-const CustomTableCell = ({ row, name, onChange }) => {
+const CustomTableCell = ({ row, name, onChange, attr, type }) => {
   const classes = useStyles();
   const { isEditMode } = row;
+  function renderAttr() {
+    if (type === "link" || type === "Link") {
+      return (<a href={row.link}>{row.link !== "No Link Needed?" && row.link !== "" ? "Link" : ""}</a>)
+    }
+    if (type === "date" || type === "Date") {
+      return getDate(row[attr])
+    }
+    return row[attr]
+  }
+  function renderInput() {
+    if (type === "date") {
+      return (
+        <Input
+          type="date"
+          defaultValue={Date.now().toISOString}
+          className={classes.input}
+          InputLabelProps={{
+            shrink: true,
+          }}
+          onChange={(e, value) => { onChange(e, row, attr) }}
+          size="small"
+        />)
+    }
+    if (type === "number") {
+      return (<Input
+        id="create-task-est-dur-input"
+        label="Estimated Duration (mins)"
+        type="number"
+        className={classes.input}
+        onChange={(e, value) => { onChange(e, row, attr) }}
+      />)
+    }
+    return (
+      <Input
+        name={name}
+        onChange={(e, value) => { onChange(e, row, attr) }}
+        className={classes.input}
+        defaultValue={row[attr]}
+        size="small"
+
+      />
+    )
+  }
   return (
     <TableCell align="left" className={classes.tableCell}
       component="th"
       padding="2px"
     >
       {isEditMode ? (
-        <Input
-          name={name}
-          onChange={(e, value) => { onChange(e, row) }}
-          className={classes.input}
-          defaultValue={row["name"]}
-        />
-      ) : (
-        row.name
+        <>
+          {renderInput()}
+        </>
+      ) : (<>
+        {renderAttr()}
+      </>
       )}
     </TableCell>
   );
 };
 
-const CustomStatusCell = ({ row, status, onStatusChange }) => {
+const CustomStatusCell = ({ row, status, onStatusChange, statusMap }) => {
   const classes = useStyles();
   const { isEditMode } = row;
-  // const [status, setStatus] = React.useState('');
 
+  function getKey(key) {
+    for (let row of statusMap) {
+      if (row.status === key) {
+        return row.id
+      }
+    }
+  }
+  function createMenu() {
+    const menu = []
+    for (let row of statusMap) {
+      menu.push(<MenuItem value={row.id}>{row.status}</MenuItem>)
+    }
+    return menu
+  }
 
   return (
     <TableCell align="left" className={classes.statusCell}
@@ -71,12 +130,12 @@ const CustomStatusCell = ({ row, status, onStatusChange }) => {
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={status}
-          onChange={onStatusChange}
+          className={classes.select}
+
+          value={getKey(status)}
+          onChange={(e) => { console.log(statusMap); onStatusChange(e, row, statusMap) }}
         >
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
+          {createMenu()}
         </Select>
 
       ) : (
@@ -124,6 +183,7 @@ export default function TaskItem(props) {
     setTasks((state) => {
       return tasks.map((task) => {
         if (task.id === id) {
+          setPrevious({ "task": task })
           return { ...task, isEditMode: !task.isEditMode };
         }
         return task;
@@ -132,7 +192,7 @@ export default function TaskItem(props) {
     /* run axios api to update tasks on db here. */
   };
 
-  const onChange = (e, task) => {
+  const onChange = (e, task, attr) => {
     if (!previous["task"]) {
       setPrevious({ "task": task });
     }
@@ -140,22 +200,35 @@ export default function TaskItem(props) {
     const { id } = task;
     const newTasks = tasks.map((task) => {
       if (task.id === id) {
-        return { ...task, "name": value };
+        console.log(attr)
+        task[attr] = value
+        return task;
       }
       return task;
     });
     setTasks(newTasks);
   };
 
-  const onStatusChange = (e, task) => {
+  const onStatusChange = (e, task, statusMap) => {
+    function getStatus(id) {
+      for (const status of statusMap) {
+        if (status.id === id) {
+          return status.status
+        }
+      }
+    }
     if (!previous["task"]) {
       setPrevious({ "task": task });
     }
+
     const value = e.target.value;
+    const status = getStatus(value);
+
+
     const { id } = task;
     const newTasks = tasks.map((task) => {
       if (task.id === id) {
-        return { ...task, "status": value, "status": value };
+        return { ...task, "status_id": value, "status": status };
       }
       return task;
     });
@@ -163,20 +236,20 @@ export default function TaskItem(props) {
   };
 
   const onRevert = (id) => {
+
     const newTasks = tasks.map((task) => {
       if (task.id === id) {
         task.name = previous.task.name
         task.status = previous.task.status
         task.status_id = previous.task.status_id
+        task.link = previous.task.link
+        task.end_date = previous.task.end_date
+        task.time_estimate_minutes = previous.task.time_estimate_minutes
       }
       return task;
     });
-    console.log(tasks)
     setTasks(newTasks);
-    setPrevious((state) => {
-      delete state[id];
-      return state;
-    });
+    setPrevious({});
     onToggleEditMode(id);
   };
   return (
@@ -198,12 +271,20 @@ export default function TaskItem(props) {
       </TableCell>
 
       <CustomTableCell
-        {...{ row: task, name: task.name, onChange }}
+        {...{ row: task, name: task.name, onChange, attr: "name", type: "text" }}
       />
-      <TableCell align="left">{task.status}</TableCell>
-      <TableCell align="left">{getDate(task.end_date)}</TableCell>
-      <TableCell align="left">{task.time_estimate_minutes}</TableCell>
-      <TableCell align="left"><a href={task.link}>{task.link !== "No Link Needed?" && task.link !== "" ? "Link" : ""}</a></TableCell>
+      <CustomStatusCell
+        {...{ row: task, status: task.status, onStatusChange, statusMap }}
+      />
+      <CustomTableCell
+        {...{ row: task, name: getDate(task.end_date), onChange, attr: "end_date", type: "date" }}
+      />
+      <CustomTableCell
+        {...{ row: task, name: task.time_estimate_minutes, onChange, attr: "time_estimate_minutes", type: "number" }}
+      />
+      <CustomTableCell
+        {...{ row: task, name: task.name, onChange, attr: "link", type: "link" }}
+      />
       <TableCell align="left" >
         < Checkbox
           disabled
@@ -219,12 +300,6 @@ export default function TaskItem(props) {
             >
               <DoneIcon />
             </IconButton>
-            <IconButton
-              aria-label="revert"
-              onClick={() => onRevert(task.id)}
-            >
-              <RevertIcon />
-            </IconButton>
           </>
         ) : (
           <IconButton
@@ -233,18 +308,27 @@ export default function TaskItem(props) {
           >
             <EditIcon />
           </IconButton>
+
         )}
       </TableCell>
       <TableCell align="left">
-        <IconButton
-          aria-label="delete"
-          onClick={(event) => {
-            if (window.confirm('Are you sure you want to delete?')) {
-              deleteTask(task.id);
-            }
-          }}>
-          <DeleteIcon />
-        </IconButton>
+        {task.isEditMode ? (
+          <IconButton
+            aria-label="revert"
+            onClick={() => onRevert(task.id)}
+          >
+            <RevertIcon />
+          </IconButton>
+        ) : (
+          <IconButton
+            aria-label="delete"
+            onClick={(event) => {
+              if (window.confirm('Are you sure you want to delete?')) {
+                deleteTask(task.id);
+              }
+            }}>
+            <DeleteIcon />
+          </IconButton>)}
       </TableCell>
     </TableRow>
   )
