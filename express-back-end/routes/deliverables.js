@@ -137,7 +137,7 @@ module.exports = db => {
   router.get("/deliverables/users/skills/:user_id&:skill_id", (request, response) => {
     db.query(
       `
-      SELECT deliverables.name as deliverable_name, type.type, time_estimate_minutes, end_date, status.status
+      SELECT deliverables.id as deliverable_id, deliverables.name as deliverable_name, type.type, time_estimate_minutes, end_date, status.status
       FROM deliverables
       JOIN users ON assigned_to=users.id
       JOIN teams ON users.team_id = teams.id
@@ -146,6 +146,7 @@ module.exports = db => {
       JOIN status ON status_id = status.id
       WHERE users.id=${request.params.user_id}
       AND skills.id =${request.params.skill_id}
+      AND type.id=1
       AND deleted=false
       ORDER BY type
       `

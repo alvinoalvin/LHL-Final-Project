@@ -12,7 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 
-import { authContext } from '../../providers/AuthProvider';
+import { authContext } from '../../../providers/AuthProvider';
 import axios from "axios";
 
 function Copyright() {
