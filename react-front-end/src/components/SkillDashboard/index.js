@@ -1,14 +1,27 @@
 /* Custom Components */
-import React from 'react';
+import React, { useEffect } from 'react';
 import TasksList from './TasksList';
 import ResourceList from './ResourceList';
 import '../../styles/SkillItemDashboard.scss';
+const axios = require('axios');
+
 export default function SkillDashboard() {
   const skillID = 1;
   const userID = 1;
+  const [skill, setSkill] = React.useState("");
+
+  useEffect(() => {
+    axios.get(`/api/skills`)
+      .then(response => {
+        console.log("responseData: ", response.data);
+        setSkill(response.data.find(x => x.id === skillID).name);
+      }).catch(error => console.log("ERROR: ", error));
+  }, [skillID]);
+
+
   return (
     <div id="skill-item-container">
-      <div id="dashboardHeader"><h1>Ruby on Rails</h1></div>
+      <div id="dashboardHeader"><h1>{skill}</h1></div>
       <TasksList
         key={skillID}
         skillID={skillID}
