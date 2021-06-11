@@ -23,7 +23,7 @@ export default function SkillViewAll() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/analytics/time-estimate", {
+      .get("api/analytics/time-estimate", {
         headers: {
           "Content-Type": "application/json",
         },
@@ -52,17 +52,17 @@ export default function SkillViewAll() {
       });
   }, []);
 
-  console.log("data", data);
+  // console.log("data", data);
   return (
     <div className={classes.root}>
       <Grid container spacing={6}>
         {Object.keys(data).map((skill_id) => (
-          <Grid item xs={4}>
-          <Paper className={classes.paper}>
-            <h2>{data[skill_id].name}</h2><h3>Total time in minutes</h3>
-            <Doughnut data={data[skill_id].chartData} />
-          </Paper>
-        </Grid>
+          <Grid item xs={4} key={skill_id}>
+            <Paper className={classes.paper}>
+              <h2>{data[skill_id].name}</h2><h3>Total time in minutes</h3>
+              <Doughnut data={data[skill_id].chartData} />
+            </Paper>
+          </Grid>
         ))}
       </Grid>
     </div>

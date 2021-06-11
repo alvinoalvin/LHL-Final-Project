@@ -1,31 +1,49 @@
 import React, { useEffect, useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Box from '@material-ui/core/Box';
-import Collapse from '@material-ui/core/Collapse';
-import IconButton from '@material-ui/core/IconButton';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Typography from '@material-ui/core/Typography';
-import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+import { makeStyles, lighten } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
 import axios from 'axios';
+import {Doughnut} from 'react-chartjs-2';
+import Modal from '@material-ui/core/Modal';
+import Backdrop from '@material-ui/core/Backdrop';
+import Fade from '@material-ui/core/Fade';
 
+
+import Table from "./Table";
 import Deliverable from "./Deliverable";
 
-const useRowStyles = makeStyles({
+
+const useStyles = makeStyles((theme) => ({
   root: {
+    flexGrow: 1,
     '& > *': {
       borderBottom: 'unset',
     },
   },
-});
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  paper: {
+    backgroundColor: theme.palette.background.paper,
+    border: '2px solid #000',
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+  },
+}));
+
 
 export default function Skill(props) {
   const [open, setOpen] = useState(false);
-  const classes = useRowStyles();
+  const classes = useStyles();
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose2 = () => {
+    setOpen(false);
+  };
 
   const [deliverables, setDeliverables] = useState([]);
 
@@ -39,47 +57,86 @@ export default function Skill(props) {
 
   const deliverableList = deliverables.map(deliverable => {
     return (
-      <Deliverable deliverable={deliverable}/>
+      <Deliverable key={deliverable.deliverable_id} deliverable={deliverable}/>
     )
   })
 
+  const [pieData, setPieData] = useState({})
+
+  useEffect(() => {
+    axios.get(`/api/skills/report/time/users/${props.userID}&${props.skill.skill_id}`)
+    .then(function(response) {
+      const responseData = response.data
+      let staged_time = 0;
+      let progress_time = 0;
+      let completed_time = 0;
+
+      for (let object of responseData) {
+        if (object.status_id === 1) {
+          staged_time = object.total_estimate
+        }
+
+        if (object.status_id === 2) {
+          progress_time = object.total_estimate
+        }
+
+        if (object.status_id === 3) {
+          completed_time = object.total_estimate
+        }
+      }
+
+      const data = {
+        labels: [
+          'Staged',
+          'In Progress',
+          'Completed'
+        ],
+        datasets: [{
+          label: props.skill.skill_name,
+          data: [staged_time, progress_time, completed_time],
+          backgroundColor: [
+            'rgb(255, 99, 132)',
+            'rgb(54, 162, 235)',
+            'rgb(255, 205, 86)'
+          ],
+          hoverOffset: 4
+        }]
+      };
+
+      setPieData(data)
+    })
+  }, [])
+
+
   return (
-    <React.Fragment>
-      <TableRow className={classes.root}>
-        <TableCell>
-          <IconButton disabled={!props.skill.task_count && !props.skill.resource_count} aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
-            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-          </IconButton>
-        </TableCell>
-        <TableCell component="th" scope="row">
-          {props.skill.skill_name}
-        </TableCell>
-        <TableCell align="right">{props.skill.task_count}</TableCell>
-        <TableCell align="right">{props.skill.resource_count}</TableCell>
-        <TableCell align="right">{Math.round(props.skill.total_time / 60)}</TableCell>
-      </TableRow>
-      <TableRow>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
-          <Collapse in={open} timeout="auto" unmountOnExit>
-            <Box margin={1}>
-              <Table size="small" aria-label="purchases">
-                <TableHead>
-                  <TableRow >
-                    <TableCell>Name</TableCell>
-                    <TableCell>Status</TableCell>
-                    <TableCell>Type</TableCell>
-                    <TableCell>Due Date</TableCell>
-                    <TableCell align="right">Time Esimate (min)</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {deliverableList}
-                </TableBody>
-              </Table>
-            </Box>
-          </Collapse>
-        </TableCell>
-      </TableRow>
-    </React.Fragment>
+    <Grid item xs={4}>
+      <Doughnut data={pieData} />
+      <button type="button" onClick={handleOpen}>
+        View Details
+      </button>
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        className={classes.modal}
+        open={open}
+        onClose={handleClose2}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+      <Fade in={open}>
+        <div className={classes.paper}>
+          <Table/>
+          <button type="button" onClick={handleClose2}>
+            Close
+          </button>
+        </div>
+      </Fade>
+    </Modal>
+    </Grid>
+
+
   )
 }

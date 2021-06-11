@@ -71,6 +71,22 @@ module.exports = db => {
     });
   });
 
+  router.get("/skills/report/time/users/:user_id&:skill_id", (request, response) => {
+    db.query(
+      `
+      Select deliverables.skill_id, skills.name, deliverables.status_id, status.status, Sum(time_estimate_minutes) AS total_estimate
+      From deliverables
+      INNER JOIN skills ON deliverables.skill_id=skills.id
+      INNER JOIN status ON deliverables.status_id=status.id
+      WHERE deliverables.assigned_to = ${request.params.user_id}
+      AND skill_id=${request.params.skill_id}
+      Group By deliverables.skill_id, skills.name, deliverables.status_id, status.status
+      ORDER BY status_id
+      `
+    ).then(({ rows: skills }) => {
+      response.json(skills);
+    });
+  });
 
 
   return router;
