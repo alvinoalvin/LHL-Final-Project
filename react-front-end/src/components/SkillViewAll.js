@@ -66,7 +66,8 @@ export default function SkillViewAll() {
         ))}
       </Grid>
     </div>
-    // continuous load for all skill graphs
+    // STILL TO DO
+    // rename labels for time estimates
     // make each container onClick go to skill page
     // wrap paper in <a
   );

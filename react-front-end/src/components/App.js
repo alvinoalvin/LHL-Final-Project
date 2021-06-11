@@ -178,10 +178,6 @@ export default function Application() {
 }
 
 
-
-
-
-
 /* Template data */
 // class App extends Component {
 //   constructor(props) {
