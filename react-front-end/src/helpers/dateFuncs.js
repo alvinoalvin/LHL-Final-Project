@@ -16,6 +16,7 @@ function getDate(dateStr, plus1) {
   if (month < 10) {
     month = '0' + month;
   }
-  return (year + '-' + month + '-' + dt)
+  return (month + '-' + dt + '-' + year)
+  // return (year + '-' + month + '-' + dt)
 }
 module.exports = { getDate }

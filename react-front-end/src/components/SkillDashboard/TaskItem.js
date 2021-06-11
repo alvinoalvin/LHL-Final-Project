@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 
-import { TableCell, TableRow, Checkbox, Input, Select, MenuItem, TextField } from '@material-ui/core';
+import { TableCell, TableRow, Checkbox, Input, Select, MenuItem, TextField, } from '@material-ui/core';
+import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
+
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { getDate } from "../../helpers/dateFuncs"
@@ -46,7 +49,7 @@ const CustomTableCell = ({ row, name, onChange, attr, type }) => {
   const { isEditMode } = row;
   function renderAttr() {
     if (type === "link" || type === "Link") {
-      return (<a href={row.link}>{row.link !== "No Link Needed?" && row.link !== "" ? "Link" : ""}</a>)
+      return (<a href={row.link}>{row.link !== "No Link Needed?" && row.link !== "" ? "Task Link" : ""}</a>)
     }
     if (type === "date" || type === "Date") {
       return getDate(row[attr])
@@ -56,21 +59,38 @@ const CustomTableCell = ({ row, name, onChange, attr, type }) => {
   function renderInput() {
     if (type === "date") {
       return (
-        <Input
-          type="date"
-          defaultValue={Date.now().toISOString}
-          className={classes.input}
-          InputLabelProps={{
-            shrink: true,
-          }}
-          onChange={(e, value) => { onChange(e, row, attr) }}
-          size="small"
-        />)
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+          <KeyboardDatePicker
+            className={classes.input}
+            disableToolbar
+            format="MM/dd/yyyy"
+            margin="normal"
+            id="date-picker-inline"
+            value={row.end_date}
+            onChange={(value) => { onChange(value, row, attr, "date") }}
+            KeyboardButtonProps={{
+              'aria-label': 'change date',
+            }}
+            width="200"
+          />
+        </MuiPickersUtilsProvider>
+        // <Input
+        //   type="date"
+        //   defaultValue={Date.now().toISOString}
+        //   className={classes.input}
+        //   InputLabelProps={{
+        //     shrink: true,
+        //   }}
+        //   onChange={(e, value) => { onChange(e, row, attr) }}
+        //   size="small"
+        // />
+      )
     }
     if (type === "number") {
       return (<Input
         id="create-task-est-dur-input"
         label="Estimated Duration (mins)"
+        defaultValue={row[attr]}
         type="number"
         className={classes.input}
         onChange={(e, value) => { onChange(e, row, attr) }}
@@ -133,7 +153,7 @@ const CustomStatusCell = ({ row, status, onStatusChange, statusMap }) => {
           className={classes.select}
 
           value={getKey(status)}
-          onChange={(e) => { console.log(statusMap); onStatusChange(e, row, statusMap) }}
+          onChange={(e) => {onStatusChange(e, row, statusMap) }}
         >
           {createMenu()}
         </Select>
@@ -146,7 +166,7 @@ const CustomStatusCell = ({ row, status, onStatusChange, statusMap }) => {
 };
 
 export default function TaskItem(props) {
-  const { task, tasks, setTasks, isItemSelected, labelId, handleClick, selected, setSelected } = props;
+  const { row, rows, setRows, isItemSelected, labelId, handleClick, selected, setSelected } = props;
   const [previous, setPrevious] = React.useState({});
   const [statusMap, setStatusMap] = React.useState({});
   const classes = useStyles();
@@ -161,7 +181,7 @@ export default function TaskItem(props) {
   function deleteTask(id) {
     return axios.delete(`api/deliverables/?array=[${id}]`, { id })
       .then(function(response) {
-        const taskCopy = tasks.filter((task) => {
+        const taskCopy = rows.filter((task) => {
           if (task.id !== props.task.id) {
             return task
           }
@@ -172,7 +192,7 @@ export default function TaskItem(props) {
           }
         });
         setSelected(selectedCopy);
-        setTasks(taskCopy);
+        setRows(taskCopy);
       })
       .catch(function(error) {
         console.log(error);
@@ -180,8 +200,8 @@ export default function TaskItem(props) {
   }
 
   const onToggleEditMode = (id, updateDb) => {
-    setTasks((state) => {
-      return tasks.map((task) => {
+    setRows((state) => {
+      return rows.map((task) => {
         if (task.id === id) {
           setPrevious({ "task": task })
           return { ...task, isEditMode: !task.isEditMode };
@@ -191,7 +211,7 @@ export default function TaskItem(props) {
     });
     /* run axios api to update tasks on db here. */
     if (updateDb) {
-      return axios.post(`api/tasks/${id}`, { task })
+      return axios.post(`api/tasks/${id}`, { task: row })
         .then(function(response) {
           console.log(response)
         })
@@ -201,21 +221,31 @@ export default function TaskItem(props) {
     }
   };
 
-  const onChange = (e, task, attr) => {
+  const onChange = (e, task, attr, type) => {
     if (!previous["task"]) {
       setPrevious({ "task": task });
     }
-    const value = e.target.value;
+    console.log(typeof e)
+    
+    let value;
+    if (type = "date") {
+      value = e.toISOString();
+      console.log(task)
+      console.log(value)
+    } else {
+      value = e.target.value;
+    }
+    
     const { id } = task;
-    const newTasks = tasks.map((task) => {
+    const newTasks = rows.map((task) => {
       if (task.id === id) {
-        console.log(attr)
         task[attr] = value
+        console.log(task[attr])
         return task;
       }
       return task;
     });
-    setTasks(newTasks);
+    setRows(newTasks);
   };
 
   const onStatusChange = (e, task, statusMap) => {
@@ -235,18 +265,21 @@ export default function TaskItem(props) {
 
 
     const { id } = task;
-    const newTasks = tasks.map((task) => {
+    const newTasks = rows.map((task) => {
       if (task.id === id) {
-        return { ...task, "status_id": value, "status": status };
+
+        return {
+          ...task, "status_id": value, "status": status, "is_completed": status === "Completed" ? true : false
+        };
       }
       return task;
     });
-    setTasks(newTasks);
+    setRows(newTasks);
   };
 
   const onRevert = (id) => {
 
-    const newTasks = tasks.map((task) => {
+    const newTasks = rows.map((task) => {
       if (task.id === id) {
         task.name = previous.task.name
         task.status = previous.task.status
@@ -254,21 +287,26 @@ export default function TaskItem(props) {
         task.link = previous.task.link
         task.end_date = previous.task.end_date
         task.time_estimate_minutes = previous.task.time_estimate_minutes
+        if (task.status == "Completed") {
+          task.is_completed = true;
+        } else {
+          task.is_completed = false;
+        }
       }
       return task;
     });
-    setTasks(newTasks);
+    setRows(newTasks);
     setPrevious({});
     onToggleEditMode(id, false);
   };
   return (
-    <TableRow key={task.id}
+    <TableRow key={row.id}
       hover
-      onClick={(event) => handleClick(event, task.id)}
+      onClick={(event) => handleClick(event, row.id)}
       role="checkbox"
       aria-checked={isItemSelected}
       tabIndex={-1}
-      key={task.id}
+      key={row.id}
       selected={isItemSelected}
     >
 
@@ -280,32 +318,32 @@ export default function TaskItem(props) {
       </TableCell>
 
       <CustomTableCell
-        {...{ row: task, name: task.name, onChange, attr: "name", type: "text" }}
+        {...{ row: row, name: row.name, onChange, attr: "name", type: "text" }}
       />
       <CustomStatusCell
-        {...{ row: task, status: task.status, onStatusChange, statusMap }}
+        {...{ row: row, status: row.status, onStatusChange, statusMap }}
       />
       <CustomTableCell
-        {...{ row: task, name: getDate(task.end_date), onChange, attr: "end_date", type: "date" }}
+        {...{ row: row, name: getDate(row.end_date), onChange, attr: "end_date", type: "date" }}
       />
       <CustomTableCell
-        {...{ row: task, name: task.time_estimate_minutes, onChange, attr: "time_estimate_minutes", type: "number" }}
+        {...{ row: row, name: row.time_estimate_minutes, onChange, attr: "time_estimate_minutes", type: "number" }}
       />
       <CustomTableCell
-        {...{ row: task, name: task.name, onChange, attr: "link", type: "link" }}
+        {...{ row: row, name: row.name, onChange, attr: "link", type: "link" }}
       />
       <TableCell align="left" >
         < Checkbox
           disabled
-          checked={task.is_completed}
+          checked={row.is_completed}
         />
       </TableCell>
       <TableCell className={classes.selectTableCell}>
-        {task.isEditMode ? (
+        {row.isEditMode ? (
           <>
             <IconButton
               aria-label="done"
-              onClick={() => onToggleEditMode(task.id, true)}
+              onClick={() => onToggleEditMode(row.id, true)}
             >
               <DoneIcon />
             </IconButton>
@@ -313,7 +351,7 @@ export default function TaskItem(props) {
         ) : (
           <IconButton
             aria-label="delete"
-            onClick={() => onToggleEditMode(task.id, false)}
+            onClick={() => onToggleEditMode(row.id, false)}
           >
             <EditIcon />
           </IconButton>
@@ -321,10 +359,10 @@ export default function TaskItem(props) {
         )}
       </TableCell>
       <TableCell align="left">
-        {task.isEditMode ? (
+        {row.isEditMode ? (
           <IconButton
             aria-label="revert"
-            onClick={() => onRevert(task.id)}
+            onClick={() => onRevert(row.id)}
           >
             <RevertIcon />
           </IconButton>
@@ -333,7 +371,7 @@ export default function TaskItem(props) {
             aria-label="delete"
             onClick={(event) => {
               if (window.confirm('Are you sure you want to delete?')) {
-                deleteTask(task.id);
+                deleteTask(row.id);
               }
             }}>
             <DeleteIcon />
