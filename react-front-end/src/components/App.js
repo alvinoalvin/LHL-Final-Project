@@ -23,6 +23,7 @@ import Team from "./Team";
 import Recommend from "./Recommend";
 import Report from "./Report";
 import Test from "./Test";
+import LineGraph from "./LineGraph"
 
 /* import icons */
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
@@ -50,6 +51,10 @@ export default function Application() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  function onClick(text){
+    console.log("onClick", onClick, text)
+  }
 
   return (
     <Router>
@@ -115,6 +120,12 @@ export default function Application() {
                 <ListItemText primary='Skill'></ListItemText>
               </ListItem>
             </Link>
+            <Link to="/allSkills">
+              <ListItem>
+                <ListItemIcon><AccountCircleIcon /></ListItemIcon>
+                <ListItemText primary='allSkills'></ListItemText>
+              </ListItem>
+            </Link>
             <Link to="/report">
               <ListItem>
                 <ListItemIcon><AssessmentIcon /></ListItemIcon>
@@ -131,6 +142,12 @@ export default function Application() {
               <ListItem>
                 <ListItemIcon><MailIcon /></ListItemIcon>
                 <ListItemText primary='Test'></ListItemText>
+              </ListItem>
+            </Link>
+            <Link to="/Form">
+              <ListItem>
+                <ListItemIcon><LockOpenIcon /></ListItemIcon>
+                <ListItemText primary='Form'></ListItemText>
               </ListItem>
             </Link>
             <Link to="/signup">
@@ -159,10 +176,13 @@ export default function Application() {
               <Report />
             </Route>
             <Route path="/allSkills">
-              <SkillViewAll />
+              <SkillViewAll/>
             </Route>
             <Route path="/recommend">
               <Recommend />
+            </Route>
+            <Route path="/lineGraph">
+              <LineGraph />
             </Route>
             <Route path="/test">
               <Test />
@@ -177,38 +197,3 @@ export default function Application() {
   );
 }
 
-
-/* Template data */
-// class App extends Component {
-//   constructor(props) {
-//     super(props)
-//     this.state = {
-//       message: 'Click the button to load data!'
-//     }
-//   }
-
-//   fetchData = () => {
-//     axios.get('/api/data') // You can simply make your requests to "/api/whatever you want"
-//     .then((response) => {
-//       // handle success
-//       console.log(response.data) // The entire response from the Rails API
-
-//       console.log(response.data.message) // Just the message
-//       this.setState({
-//         message: response.data.message
-//       });
-//     }) 
-//   }
-
-//   render() {
-//     return (
-//       <div className="App">
-//         <h1>{ this.state.message }</h1>
-//         <button onClick={this.fetchData} >
-//           Fetch Data
-//         </button>        
-//       </div>
-//     );
-//   }
-// }
-// export default App;
