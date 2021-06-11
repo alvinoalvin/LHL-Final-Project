@@ -9,7 +9,6 @@ import Fade from '@material-ui/core/Fade';
 
 
 import Table from "./Table";
-import Deliverable from "./Deliverable";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -44,22 +43,6 @@ export default function Skill(props) {
   const handleClose2 = () => {
     setOpen(false);
   };
-
-  const [deliverables, setDeliverables] = useState([]);
-
-
-  useEffect(() => {
-    axios.get(`/api/deliverables/users/skills/${props.userID}&${props.skill.skill_id}`)
-    .then(function(response) {
-      setDeliverables(response.data)
-    })
-  }, [])
-
-  const deliverableList = deliverables.map(deliverable => {
-    return (
-      <Deliverable key={deliverable.deliverable_id} deliverable={deliverable}/>
-    )
-  })
 
   const [pieData, setPieData] = useState({})
 
@@ -128,10 +111,14 @@ export default function Skill(props) {
       >
       <Fade in={open}>
         <div className={classes.paper}>
-          <Table/>
+          <h1>Tasks: {props.skill.skill_name}</h1>
           <button type="button" onClick={handleClose2}>
             Close
           </button>
+          <Table
+            userID={props.userID}
+            skill={props.skill}
+          />
         </div>
       </Fade>
     </Modal>
