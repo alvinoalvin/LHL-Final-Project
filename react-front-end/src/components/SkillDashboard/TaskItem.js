@@ -179,7 +179,7 @@ export default function TaskItem(props) {
       });
   }
 
-  const onToggleEditMode = (id) => {
+  const onToggleEditMode = (id, updateDb) => {
     setTasks((state) => {
       return tasks.map((task) => {
         if (task.id === id) {
@@ -190,6 +190,15 @@ export default function TaskItem(props) {
       });
     });
     /* run axios api to update tasks on db here. */
+    if (updateDb) {
+      return axios.post(`api/tasks/${id}`, { task })
+        .then(function(response) {
+          console.log(response)
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    }
   };
 
   const onChange = (e, task, attr) => {
@@ -250,7 +259,7 @@ export default function TaskItem(props) {
     });
     setTasks(newTasks);
     setPrevious({});
-    onToggleEditMode(id);
+    onToggleEditMode(id, false);
   };
   return (
     <TableRow key={task.id}
@@ -296,7 +305,7 @@ export default function TaskItem(props) {
           <>
             <IconButton
               aria-label="done"
-              onClick={() => onToggleEditMode(task.id)}
+              onClick={() => onToggleEditMode(task.id, true)}
             >
               <DoneIcon />
             </IconButton>
@@ -304,7 +313,7 @@ export default function TaskItem(props) {
         ) : (
           <IconButton
             aria-label="delete"
-            onClick={() => onToggleEditMode(task.id)}
+            onClick={() => onToggleEditMode(task.id, false)}
           >
             <EditIcon />
           </IconButton>
