@@ -1,6 +1,6 @@
 const router = require("express").Router();
 
-module.exports = db => {
+module.exports = (db) => {
   router.get("/analytics/skill-status", (request, response) => {
     db.query(
       `
@@ -31,5 +31,17 @@ module.exports = db => {
     });
   });
 
+  router.get("/analytics/completion-rate", (request, response) => {
+    db.query(
+      `Select end_date, skill_id, skills.name AS skill_name, deliverables.name
+        From deliverables
+        INNER JOIN skills ON deliverables.skill_id=skills.id
+        Where assigned_to = 1 AND type_id = 1 AND status_id = 3
+      `
+    ).then(({ rows: skills }) => {
+      response.json(skills);
+    });
+  });
+
   return router;
-}
+};
