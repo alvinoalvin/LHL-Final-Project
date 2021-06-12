@@ -1,16 +1,23 @@
 /* Custom Components */
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import TasksList from './TasksList';
 import ResourceList from './ResourceList';
 import NotesList from './Notes';
 import CustomProgressBar from './progressBar';
 import '../../styles/SkillItemDashboard.scss';
+import { authContext } from '../../providers/AuthProvider';
+import { useLocation } from "react-router-dom";
 
 const axios = require('axios');
 
 export default function SkillDashboard() {
-  const skillID = 1;
-  const userID = 1;
+  const { id } = useContext(authContext);
+  const location = useLocation();
+  const paramSkill = location.state.skillId;
+
+  const skillID = paramSkill;
+  const userID = id;
+  
   const [skill, setSkill] = React.useState("");
 
   useEffect(() => {
@@ -46,7 +53,7 @@ export default function SkillDashboard() {
         />
       </div>
       <div class="progressCont">
-        <CustomProgressBar/>
+        <CustomProgressBar />
       </div>
     </div>
   );
