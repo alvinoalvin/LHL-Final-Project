@@ -1,5 +1,5 @@
 /* React Libraries */
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 
 /* Material Ui */
 import { Button, Modal, Backdrop, Fade } from "@material-ui/core";
@@ -53,12 +53,11 @@ export default function ListComponent(props) {
   };
 
   useEffect(() => {
-    // console.log("ListComponent")
     axios.get(`/api/tasks/${props.userID}/${props.skillID}`)
       .then(response => {
         setRows(response.data);
       }).catch(error => console.log(error));
-  }, []);
+  }, [props.userID, props.skillID, setRows]);
 
   return (
     <div class="list-component" >

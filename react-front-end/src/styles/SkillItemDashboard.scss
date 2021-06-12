@@ -24,7 +24,7 @@
     @include areaBorder(taskList);
   }
 
-  .progress {
+  .progressCont {
     @include areaBorder(progress);
   }
   .notes {
@@ -58,9 +58,8 @@
       max-width: 100%;
     }
 
-    .progress {
+    .progressCont {
       @include areaBorder(progress);
-      display: none;
     }
     .notes {
       @include areaBorder(notes);

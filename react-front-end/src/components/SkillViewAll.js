@@ -26,8 +26,8 @@ export default function SkillViewAll(props) {
   const [mode, setMode] = useState("donought");
   const history = useHistory();
 
-  function handleClick() {
-    history.push("/skill");
+  function handleClick(id) {
+    history.push("/skill", { skillId: id });
   }
 
   useEffect(() => {
@@ -69,14 +69,14 @@ export default function SkillViewAll(props) {
         <Grid item xs={4}>
           <Paper className={classes.paper}>
             <div>
-              <Form/>
+              <Form />
             </div>
-            </Paper>
+          </Paper>
         </Grid>
 
         {Object.keys(data).map((skill_id) => (
           <Grid item xs={4}>
-            <div onClick={handleClick}>
+            <div onClick={()=>{handleClick(skill_id)}}>
               <Paper className={classes.paper}>
                 <h2>{data[skill_id].name}</h2>
                 <h3>Time in Minutes</h3>
@@ -86,7 +86,7 @@ export default function SkillViewAll(props) {
           </Grid>
         ))}
       </Grid>
-      
+
     </div>
   );
 }

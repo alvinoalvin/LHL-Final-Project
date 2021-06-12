@@ -3,7 +3,7 @@ import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import axios from "axios";
 
-import { Avatar, CssBaseline, TextField, Input, Grid, Typography, Container } from '@material-ui/core/';
+import { CssBaseline, TextField, Grid, Typography, Container } from '@material-ui/core/';
 import SaveIcon from '@material-ui/icons/Save';
 
 const useStyles = makeStyles((theme) => ({

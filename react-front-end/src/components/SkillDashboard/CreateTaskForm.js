@@ -127,7 +127,7 @@ export default function CreateTaskForm(props) {
               if (!nameInput.value) {
                 alert("Please enter a name")
               }
-              else if (estDurInput.validity.badInput == true || estDurInput.value < 0) {
+              else if (estDurInput.validity.badInput === true || estDurInput.value < 0) {
                 alert("Please enter a postive number for Estimated Duration")
               }
               else {
