@@ -28,6 +28,8 @@ const csv = require("./routes/csv");
 App.use("/api", csv(db));
 const status = require("./routes/status");
 App.use("/api", status(db));
+const notes = require("./routes/notes");
+App.use("/api", notes(db));
 
 // Sample GET route
 App.get('/api/data', (req, res) => res.json({

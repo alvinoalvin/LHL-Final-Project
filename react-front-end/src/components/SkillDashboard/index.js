@@ -2,6 +2,7 @@
 import React, { useEffect } from 'react';
 import TasksList from './TasksList';
 import ResourceList from './ResourceList';
+import NotesList from './Notes';
 import '../../styles/SkillItemDashboard.scss';
 const axios = require('axios');
 
@@ -36,11 +37,7 @@ export default function SkillDashboard() {
         />
       </div>
       <div class="notes">
-        <ResourceList
-          key={skillID}
-          skillID={skillID}
-          userID={userID}
-        />
+        <NotesList />
       </div>
 
     </div>
