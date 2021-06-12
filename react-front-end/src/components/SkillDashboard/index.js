@@ -13,11 +13,10 @@ const axios = require('axios');
 export default function SkillDashboard() {
   const { id } = useContext(authContext);
   const location = useLocation();
-  const paramSkill = location.state.skillId;
+  const skillID = location.state.skillId;
 
-  const skillID = paramSkill;
   const userID = id;
-  
+
   const [skill, setSkill] = React.useState("");
 
   useEffect(() => {
