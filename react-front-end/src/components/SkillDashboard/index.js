@@ -14,20 +14,13 @@ export default function SkillDashboard() {
     axios.get(`/api/skills`)
       .then(response => {
         setSkill(response.data.find(x => x.id === skillID).name);
-      }).catch(error => console.log( error));
+      }).catch(error => console.log(error));
   }, [skillID]);
 
 
   return (
     <div id="skill-item-container">
       <div id="dashboardHeader"><h1>{skill}</h1></div>
-      <TasksList
-        key={skillID}
-        skillID={skillID}
-        userID={userID}
-      />
-      <div class="progress"> <h3> Progress bar</h3></div>
-      <div class="notes"> <h3> notes</h3></div>
       <div class="resources">
         <ResourceList
           key={skillID}
@@ -35,6 +28,16 @@ export default function SkillDashboard() {
           userID={userID}
         />
       </div>
+      <div class="tasks">
+        <TasksList
+          key={skillID}
+          skillID={skillID}
+          userID={userID}
+        />
+      </div>
+      <div class="progress"> <h3> Progress bar</h3></div>
+      <div class="notes"> <h3> notes</h3></div>
+
     </div>
   );
 }

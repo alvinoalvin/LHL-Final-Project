@@ -20,7 +20,7 @@
   .header {
     @include areaBorder(header);
   }
-  .task-list-component {
+  .tasks {
     @include areaBorder(taskList);
   }
 
@@ -53,7 +53,7 @@
     .header {
       @include areaBorder(header);
     }
-    .task-list-component {
+    .tasks {
       @include areaBorder(taskList);
       max-width: 100%;
     }

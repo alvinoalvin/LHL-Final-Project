@@ -73,7 +73,7 @@ export default function ListComponent(props) {
       />
 
       <Button variant="outlined" color="primary" onClick={setOpen}>
-        Add Task
+        {props.addName}
       </Button>
       <Modal
         aria-labelledby="transition-modal-title"
@@ -92,8 +92,8 @@ export default function ListComponent(props) {
             <CreateForm
               userID={props.userID}
               skillID={props.skillID}
-              setTasks={setRows}
-              tasks={rows}
+              setRows={setRows}
+              rows={rows}
               handleClose={handleClose}
             />
           </div>

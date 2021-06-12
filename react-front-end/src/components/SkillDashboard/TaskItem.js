@@ -8,7 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { getDate } from "../../helpers/dateFuncs"
 
-import { makeStyles } from '@material-ui/core/styles';
+import rowStyle from '../../helpers/deliverableRowStyles';
 
 import EditIcon from "@material-ui/icons/EditOutlined";
 import DoneIcon from "@material-ui/icons/DoneAllTwoTone";
@@ -16,34 +16,7 @@ import RevertIcon from "@material-ui/icons/NotInterestedOutlined";
 
 import axios from "axios";
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    width: "100%",
-    marginTop: theme.spacing(3),
-    overflowX: "auto"
-  },
-  table: {
-    minWidth: 650,
-    height: 500
-  },
-  selectTableCell: {
-    width: 60
-  },
-  tableCell: {
-    width: 130,
-    height: 40
-  },
-  input: {
-    width: 110,
-    height: 40,
-    padding: 0
-  },
-  select: {
-    width: 130,
-    height: 40
-  }
-}));
-
+const useStyles = rowStyle;
 
 const CustomTableCell = ({ row, name, onChange, attr, type }) => {
   const classes = useStyles();

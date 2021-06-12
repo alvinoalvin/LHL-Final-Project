@@ -3,7 +3,7 @@ import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import axios from "axios";
 
-import { CssBaseline, TextField,  Grid, Typography, Container } from '@material-ui/core/';
+import { Avatar, CssBaseline, TextField, Input, Grid, Typography, Container } from '@material-ui/core/';
 import SaveIcon from '@material-ui/icons/Save';
 
 const useStyles = makeStyles((theme) => ({
@@ -15,35 +15,27 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function CreateTaskForm(props) {
+export default function CreateResourceForm(props) {
   const classes = useStyles();
   const [name, setName] = useState("");
-  const [estDuration, setEstDuration] = useState();
-  const [dueDate, setDueDate] = useState();
   const [link, setLink] = useState("");
-  // const [description, setDescription] = useState("");
 
-  function addTask() {
-    const newTask = {
+  function addResource() {
+    const newResource = {
       creator: props.userID,
       assigned_to: props.userID,
       skill_id: props.skillID,
-      status_id: 2,
-      time_estimate_minutes: estDuration,
-      end_date: dueDate,
-      type_id: 1,
+      type_id: 2,
       name: name,
-      // notes: description,
       link: link,
       create_date: new Date().toISOString()
     }
 
-    return axios.post(`/api/tasks`, newTask)
+    return axios.post(`/api/tasks`, newResource)
       .then(function(response) {
-        newTask.id = response.data.result.id
-        newTask.status = "In Progress"
-        const taskCopy = [...props.rows, newTask]
-        props.setRows(taskCopy)
+        newResource.id = response.data.result.id
+        const resourceCopy = [...props.rows, newResource]
+        props.setRows(resourceCopy)
       })
       .catch(function(error) {
         console.log(error);
@@ -55,19 +47,19 @@ export default function CreateTaskForm(props) {
       <CssBaseline />
       <div className={classes.paper}>
         <Typography component="h1" variant="h5" className={classes.h5}>
-          Add New Task
+          Add New Resource
         </Typography>
         <form className='new-member-form' noValidate>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
-                id="create-task-name-input"
+                id="create-resource-name-input"
                 name="name"
                 variant="outlined"
                 required
                 fullWidth
-                placeholder="Task"
-                label="Task Name"
+                placeholder="Resource"
+                label="Resource Name"
                 value={name}
                 onChange={(event) => setName(event.target.value)}
                 autoFocus
@@ -76,9 +68,10 @@ export default function CreateTaskForm(props) {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                id="create-task-link-input"
+                id="create-resource-link-input"
                 name="link"
                 variant="outlined"
+                required
                 fullWidth
                 placeholder="Link"
                 label="Resource Link"
@@ -87,33 +80,6 @@ export default function CreateTaskForm(props) {
                 size="small"
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                id="create-task-due-date-input"
-                label="Due Date"
-                type="date"
-                defaultValue={Date.now().toISOString}
-                className={classes.textField}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                onChange={(event) => setDueDate(event.target.value)}
-                size="small"
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                id="create-task-est-dur-input"
-                label="Estimated Duration (mins)"
-                type="number"
-                className={classes.numInput}
-                InputLabelProps={{
-                  shrink: true, min: "0", step: "1"
-                }}
-                onChange={(event) => setEstDuration(event.target.value)}
-              />
-            </Grid>
-
           </Grid>
           <Button
             variant="contained"
@@ -121,17 +87,17 @@ export default function CreateTaskForm(props) {
             className={classes.button}
             startIcon={<SaveIcon />}
             onClick={(event) => {
-              const nameInput = document.getElementById("create-task-name-input");
-              const estDurInput = document.getElementById("create-task-est-dur-input");
+              const nameInput = document.getElementById("create-resource-name-input");
+              const linkInput = document.getElementById("create-resource-link-input");
 
               if (!nameInput.value) {
                 alert("Please enter a name")
               }
-              else if (estDurInput.validity.badInput == true || estDurInput.value < 0) {
-                alert("Please enter a postive number for Estimated Duration")
+              else if (!linkInput.value) {
+                alert("Please enter a link")
               }
               else {
-                addTask()
+                addResource()
                 props.handleClose()
               }
             }

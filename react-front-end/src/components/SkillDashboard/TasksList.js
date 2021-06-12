@@ -60,6 +60,7 @@ export default function TasksList(props) {
       tableName={"All Tasks"}
       userID={props.userID}
       skillID={props.skillID}
+      addName={"Add Task"}
     />
   );
 }
