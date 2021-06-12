@@ -67,6 +67,9 @@ export default function Team(props) {
       .then(function(response) {
         setTeam(response.data)
       })
+      .catch(function (error) {
+        console.log("ERROR: ", error);
+      });
   }, [])
 
   const teamList = team.map(member => {
@@ -92,7 +95,7 @@ export default function Team(props) {
               <TableCell>Name</TableCell>
               <TableCell>Email</TableCell>
               <TableCell>Position</TableCell>
-              <TableCell>Edit</TableCell>
+              <TableCell></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

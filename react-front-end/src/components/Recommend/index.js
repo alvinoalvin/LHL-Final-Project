@@ -84,7 +84,10 @@ export default function Recommend(props) {
     .then(function(response) {
       setUserList(response.data)
     })
-  }, []);
+    .catch(function (error) {
+      console.log("ERROR: ", error);
+    });
+  }, [team_id]);
 
   const userChoice = userList.map(userInfo => {
     return (
@@ -99,6 +102,9 @@ export default function Recommend(props) {
     .then(function(response) {
       setTypeList(response.data)
     })
+    .catch(function (error) {
+      console.log("ERROR: ", error);
+    });
   }, []);
 
   const typeChoice = typeList.map(typeInfo => {
@@ -118,6 +124,9 @@ export default function Recommend(props) {
     .then(function(response) {
       setSkillList(response.data)
     })
+    .catch(function (error) {
+      console.log("ERROR: ", error);
+    });
   }, [userID])
   
   const skillChoice = skillList.map(skillInfo => {
@@ -140,6 +149,9 @@ export default function Recommend(props) {
     }
 
     return axios.post(`/api/deliverables`, newDeliverable)
+    .catch(function (error) {
+      console.log("ERROR: ", error);
+    });
   }
 
   function checkRec() {
@@ -260,7 +272,7 @@ export default function Recommend(props) {
           />
           <TextField
             // How can i conditionally tack this one??
-            error
+            error={true}
             id="outlined-error-helper-text"
             label="Error"
             defaultValue=""

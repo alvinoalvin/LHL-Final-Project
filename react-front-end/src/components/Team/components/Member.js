@@ -22,7 +22,7 @@ export default function Member(props) {
       props.setTeam(teamCopy);
     })
     .catch(function (error) {
-      console.log(error);
+      console.log("ERROR: ", error);
     });
   }
 

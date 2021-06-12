@@ -29,7 +29,6 @@ const columns = [
   },
 ];
 
-
 const useStyles = makeStyles({
   root: {
     width: '100%',
@@ -61,7 +60,10 @@ export default function StickyHeadTable(props) {
     .then(function(response) {
       setDeliverables(response.data)
     })
-  }, [])
+    .catch(function (error) {
+      console.log("ERROR: ", error);
+    });
+  }, [props.userID, props.skill.skill_id])
 
   const deliverableList = deliverables.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(deliverable => {
     return (

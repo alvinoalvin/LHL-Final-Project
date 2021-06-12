@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { makeStyles, lighten } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import axios from 'axios';
 import {Doughnut} from 'react-chartjs-2';
@@ -88,7 +88,10 @@ export default function Skill(props) {
 
       setPieData(data)
     })
-  }, [])
+    .catch(function (error) {
+      console.log("ERROR: ", error);
+    });
+  }, [props.userID, props.skill.skill_id])
 
 
   return (

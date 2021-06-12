@@ -1,4 +1,4 @@
-import React, { Component, useContext } from 'react';
+import React, { useContext } from 'react';
 import '../styles/App.scss';
 import clsx from 'clsx';
 
@@ -36,6 +36,8 @@ import LockOpenIcon from '@material-ui/icons/LockOpen';
 import HomeIcon from '@material-ui/icons/Home';
 import AssessmentIcon from '@material-ui/icons/Assessment';
 import FaceIcon from '@material-ui/icons/Face';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUserAstronaut } from '@fortawesome/free-solid-svg-icons'
 
 import { authContext } from '../providers/AuthProvider';
 
@@ -57,11 +59,6 @@ export default function Application() {
     setOpen(false);
   };
 
-  function onClick(text){
-    console.log("onClick", onClick, text)
-  }
-
-  console.log(first_name);
   return (
     <Router>
       <div className={classes.root}>
@@ -72,7 +69,7 @@ export default function Application() {
             [classes.appBarShift]: open,
           })}
         >
-          <Toolbar>
+          <Toolbar className='tool-bar'>
             <IconButton
               color="inherit"
               aria-label="open drawer"
@@ -84,10 +81,14 @@ export default function Application() {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" noWrap> Life Long Learning</Typography>
-            <Typography variant="h6" noWrap align='right'>{first_name+' '+last_name}</Typography>
-            <Typography variant="h6" noWrap align='right'>{position}</Typography>
-            <FaceIcon />
+            <div className='website-info-container'>
+              <Typography variant="h6" noWrap id='website-logo'> Life Long Learning</Typography>
+              <div className='user-info-container'>
+                <Typography variant="h6" noWrap align='right' id='user-name'>{first_name+' '+last_name}</Typography>
+                <Typography variant="h6" noWrap align='right' id='user-position'>{position}</Typography>
+              </div>
+            </div>
+            <FontAwesomeIcon id='user-icon' icon={faUserAstronaut} size="3x"/>
           </Toolbar>
         </AppBar>
 

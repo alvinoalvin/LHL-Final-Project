@@ -1,3 +1,5 @@
+@import "./variables.scss";
+
 .App {
   text-align: center;
   h1 {
@@ -33,3 +35,50 @@
     transform: rotate(360deg);
   }
 }
+
+.tool-bar {
+  background-color: $purple-dark;
+  width: 100%;
+
+  #website-logo {
+    font-family: $title-font;
+    font-size: 40px;
+  }
+
+  .website-info-container{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    #user-name {
+      font-family: $header-font;
+      font-size: 24px;
+    }
+
+    #user-position {
+      font-family: $text-font;
+      font-size: 18px;
+    }
+
+  }
+}
+
+a {
+  text-decoration: none;
+}
+
+a:link {
+  text-decoration: none;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+a:active {
+  text-decoration: none;
+} 

@@ -27,6 +27,9 @@ export default function Report(props) {
       .then(function(response) {
         setTeam(response.data)
       })
+      .catch(function (error) {
+        console.log("ERROR: ", error);
+      });
   }, [])
 
   useEffect(() => {
@@ -34,6 +37,9 @@ export default function Report(props) {
       .then(function(response) {
         setcsvData(response.data)
       })
+      .catch(function (error) {
+        console.log("ERROR: ", error);
+      });
   }, [])
 
 
