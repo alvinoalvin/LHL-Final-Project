@@ -56,7 +56,7 @@ export default function ListComponent(props) {
     axios.get(`/api/tasks/${props.userID}/${props.skillID}`)
       .then(response => {
         setRows(response.data);
-      }).catch(error => console.log("ERROR: ", error));
+      }).catch(error => console.log(error));
   }, [rows]);
 
   return (

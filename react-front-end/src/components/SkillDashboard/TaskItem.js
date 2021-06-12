@@ -121,7 +121,6 @@ const CustomStatusCell = ({ row, status, onStatusChange, statusMap }) => {
 
   function getKey(key) {
     if (statusMap != {}) {
-      console.log(statusMap)
       for (let row of statusMap) {
         if (row.status === key) {
           return row.id
@@ -147,7 +146,7 @@ const CustomStatusCell = ({ row, status, onStatusChange, statusMap }) => {
           className={classes.select}
 
           value={getKey(status)}
-          onChange={(e) => { console.log("status"); onStatusChange(e, row, statusMap) }}
+          onChange={(e) => { onStatusChange(e, row, statusMap) }}
         >
           {createMenu()}
         </Select>
@@ -180,15 +179,12 @@ export default function TaskItem(props) {
             return task
           }
         });
-        console.log(taskCopy);
 
         const selectedCopy = selected.filter((selectedTask) => {
           if (selectedTask !== row.id) {
             return selectedTask
           }
         });
-        console.log("id to delete:", id)
-        console.log("TaskCopy:", taskCopy)
         setSelected(selectedCopy);
         setRows(taskCopy);
       })
@@ -209,10 +205,8 @@ export default function TaskItem(props) {
     });
     /* run axios api to update tasks on db here. */
     if (updateDb) {
-      console.log("id: ", id, "row: ", row)
       return axios.post(`http://localhost:8080/api/tasks/${id}`, { task: row })
         .then(function(response) {
-          console.log("id: ", id, "row: ", row)
           console.log(response)
         })
         .catch(function(error) {
@@ -225,14 +219,10 @@ export default function TaskItem(props) {
     if (!previous["task"]) {
       setPrevious({ "task": task });
     }
-    console.log(typeof e)
 
     let value;
     if (type === "date") {
-      console.log("etoIso error: ", e)
       value = e.toISOString();
-      console.log(task)
-      console.log(value)
     } else {
       value = e.target.value;
     }
@@ -241,7 +231,6 @@ export default function TaskItem(props) {
     const newTasks = rows.map((task) => {
       if (task.id === id) {
         task[attr] = value
-        console.log(task[attr])
         return task;
       }
       return task;

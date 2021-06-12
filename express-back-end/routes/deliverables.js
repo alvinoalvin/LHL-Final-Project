@@ -47,7 +47,6 @@ module.exports = db => {
   router.post("/tasks/:task_id", (request, response) => {
     const { name, status_id, link, end_date, time_estimate_minutes } = request.body.task
     const values = [request.params.task_id, name, status_id, link, end_date, time_estimate_minutes]
-    console.log("Hello world")
     const queryString =
       `
     update deliverables SET
@@ -135,7 +134,6 @@ module.exports = db => {
 
   router.delete("/deliverables", (request, response) => {
     const arr = JSON.parse(request.query.array);
-    console.log("deleting", request.query.array)
     let paramStr = "(";
     for (let i = 1; i <= arr.length; i++) {
       if (i != arr.length) {
