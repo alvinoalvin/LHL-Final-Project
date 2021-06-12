@@ -47,7 +47,7 @@ export default function TasksList(props) {
         console.log(error);
       });
   }
-
+  
   return (
     <ListComponent
       headCells={headCells}
@@ -57,6 +57,8 @@ export default function TasksList(props) {
       RowComponent={TaskItem}
       CreateForm={CreateTaskForm}
       tableName={"All Tasks"}
+      userID={props.userID}
+      skillID={props.skillID}
     />
   );
 }

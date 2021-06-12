@@ -23,7 +23,8 @@ const useStyles = makeStyles(theme => ({
     overflowX: "auto"
   },
   table: {
-    minWidth: 650
+    minWidth: 650,
+    height: 500
   },
   selectTableCell: {
     width: 60
@@ -74,16 +75,6 @@ const CustomTableCell = ({ row, name, onChange, attr, type }) => {
             width="200"
           />
         </MuiPickersUtilsProvider>
-        // <Input
-        //   type="date"
-        //   defaultValue={Date.now().toISOString}
-        //   className={classes.input}
-        //   InputLabelProps={{
-        //     shrink: true,
-        //   }}
-        //   onChange={(e, value) => { onChange(e, row, attr) }}
-        //   size="small"
-        // />
       )
     }
     if (type === "number") {
@@ -129,9 +120,12 @@ const CustomStatusCell = ({ row, status, onStatusChange, statusMap }) => {
   const { isEditMode } = row;
 
   function getKey(key) {
-    for (let row of statusMap) {
-      if (row.status === key) {
-        return row.id
+    if (statusMap != {}) {
+      console.log(statusMap)
+      for (let row of statusMap) {
+        if (row.status === key) {
+          return row.id
+        }
       }
     }
   }
@@ -153,7 +147,7 @@ const CustomStatusCell = ({ row, status, onStatusChange, statusMap }) => {
           className={classes.select}
 
           value={getKey(status)}
-          onChange={(e) => {onStatusChange(e, row, statusMap) }}
+          onChange={(e) => { console.log("status"); onStatusChange(e, row, statusMap) }}
         >
           {createMenu()}
         </Select>
@@ -176,21 +170,25 @@ export default function TaskItem(props) {
       .then(response => {
         setStatusMap(response.data)
       }).catch(error => console.log(error));
-  }, []);
+  }, [statusMap]);
 
   function deleteTask(id) {
     return axios.delete(`api/deliverables/?array=[${id}]`, { id })
       .then(function(response) {
         const taskCopy = rows.filter((task) => {
-          if (task.id !== props.task.id) {
+          if (task.id !== row.id) {
             return task
           }
         });
+        console.log(taskCopy);
+
         const selectedCopy = selected.filter((selectedTask) => {
-          if (selectedTask !== props.task.id) {
+          if (selectedTask !== row.id) {
             return selectedTask
           }
         });
+        console.log("id to delete:", id)
+        console.log("TaskCopy:", taskCopy)
         setSelected(selectedCopy);
         setRows(taskCopy);
       })
@@ -211,8 +209,10 @@ export default function TaskItem(props) {
     });
     /* run axios api to update tasks on db here. */
     if (updateDb) {
-      return axios.post(`api/tasks/${id}`, { task: row })
+      console.log("id: ", id, "row: ", row)
+      return axios.post(`http://localhost:8080/api/tasks/${id}`, { task: row })
         .then(function(response) {
+          console.log("id: ", id, "row: ", row)
           console.log(response)
         })
         .catch(function(error) {
@@ -226,16 +226,17 @@ export default function TaskItem(props) {
       setPrevious({ "task": task });
     }
     console.log(typeof e)
-    
+
     let value;
-    if (type = "date") {
+    if (type === "date") {
+      console.log("etoIso error: ", e)
       value = e.toISOString();
       console.log(task)
       console.log(value)
     } else {
       value = e.target.value;
     }
-    
+
     const { id } = task;
     const newTasks = rows.map((task) => {
       if (task.id === id) {
