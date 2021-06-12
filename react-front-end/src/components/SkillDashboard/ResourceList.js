@@ -16,11 +16,12 @@ export default function ResourceListComponent(props) {
   const [resources, setResources] = useState([]);
 
   useEffect(() => {
+    // console.log("ResourceList")
     axios.get(`/api/resources/${props.userID}/${props.skillID}`)
       .then(response => {
         setResources(response.data);
       }).catch(error => console.log(error));
-  }, [resources]);
+  }, []);
 
   /* make sure ids match db column names */
   const headCells = [

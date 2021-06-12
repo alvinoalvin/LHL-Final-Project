@@ -53,11 +53,12 @@ export default function ListComponent(props) {
   };
 
   useEffect(() => {
+    // console.log("ListComponent")
     axios.get(`/api/tasks/${props.userID}/${props.skillID}`)
       .then(response => {
         setRows(response.data);
       }).catch(error => console.log(error));
-  }, [rows]);
+  }, []);
 
   return (
     <div class="task-list-component" >

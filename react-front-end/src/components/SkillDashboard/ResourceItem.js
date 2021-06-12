@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import { TableCell, TableRow, Checkbox, Input } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
@@ -19,7 +19,8 @@ const useStyles = makeStyles(theme => ({
     overflowX: "auto"
   },
   table: {
-    minWidth: 650
+    minWidth: 650,
+    height: 500
   },
   selectTableCell: {
     width: 60
@@ -59,7 +60,6 @@ const CustomTableCell = ({ row, name, onChange, attr, type }) => {
         className={classes.input}
         defaultValue={row[attr]}
         size="small"
-
       />
     )
   }
@@ -94,8 +94,9 @@ export default function ResourceItem(props) {
             return resource
           }
         });
+
         const selectedCopy = selected.filter((selectedResource) => {
-          if (selectedResource !== props.row.id) {
+          if (selectedResource !== row.id) {
             return selectedResource
           }
         });
@@ -119,7 +120,7 @@ export default function ResourceItem(props) {
     });
     /* run axios api to update tasks on db here. */
     if (updateDb) {
-      return axios.post(`api/tasks/${id}`, { row })
+      return axios.post(`api/tasks/${id}`, { task: row })
         .then(function(response) {
           console.log(response)
         })
@@ -133,11 +134,12 @@ export default function ResourceItem(props) {
     if (!previous["resource"]) {
       setPrevious({ "resource": resource });
     }
+
     const value = e.target.value;
+
     const { id } = resource;
     const newResources = rows.map((resource) => {
       if (resource.id === id) {
-        console.log(attr)
         resource[attr] = value
         return resource;
       }
@@ -169,7 +171,6 @@ export default function ResourceItem(props) {
       key={row.id}
       selected={isItemSelected}
     >
-
       <TableCell align="left">
         < Checkbox
           checked={isItemSelected}
@@ -183,12 +184,6 @@ export default function ResourceItem(props) {
       <CustomTableCell
         {...{ row: row, name: row.name, onChange, attr: "link", type: "link" }}
       />
-      <TableCell align="left" >
-        < Checkbox
-          disabled
-          checked={row.is_completed}
-        />
-      </TableCell>
       <TableCell className={classes.selectTableCell}>
         {row.isEditMode ? (
           <>
@@ -201,7 +196,7 @@ export default function ResourceItem(props) {
           </>
         ) : (
           <IconButton
-            aria-label="delete"
+            aria-label="edit"
             onClick={() => onToggleEditMode(row.id, false)}
           >
             <EditIcon />

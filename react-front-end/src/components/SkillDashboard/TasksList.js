@@ -16,6 +16,7 @@ export default function TasksList(props) {
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
+    // console.log("TaskList")
     axios.get(`/api/tasks/${props.userID}/${props.skillID}`)
       .then(response => {
         setTasks(response.data);
