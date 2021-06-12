@@ -8,12 +8,19 @@ import '../../styles/SkillItemDashboard.scss';
 import { authContext } from '../../providers/AuthProvider';
 import { useLocation } from "react-router-dom";
 
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+
 const axios = require('axios');
 
 export default function SkillDashboard() {
   const { id } = useContext(authContext);
   const location = useLocation();
-  const skillID = location.state.skillId;
+  const skillID = location.state ? location.state.skillId : undefined;
 
   const userID = id;
 
@@ -27,33 +34,40 @@ export default function SkillDashboard() {
   }, [skillID]);
 
 
-  return (
-    <div id="skill-item-container">
-      <div id="dashboardHeader"><h1>{skill}</h1></div>
-      <div class="resources">
-        <ResourceList
-          key={skillID}
-          skillID={skillID}
-          userID={userID}
-        />
-      </div>
-      <div class="tasks">
-        <TasksList
-          key={skillID}
-          skillID={skillID}
-          userID={userID}
-        />
-      </div>
-      <div class="notes">
-        <NotesList
-          key={skillID}
-          skillID={skillID}
-          userID={userID}
-        />
-      </div>
-      <div class="progressCont">
-        <CustomProgressBar />
-      </div>
-    </div>
+  return (<>
+    {
+      skillID === undefined ? (
+        <Link to="/">
+          {'Skill not selected, please click here to go back to home page'}
+        </Link>
+      ) : (
+        <div id="skill-item-container">
+          <div id="dashboardHeader"><h1>{skill}</h1></div>
+          <div class="resources">
+            <ResourceList
+              key={skillID}
+              skillID={skillID}
+              userID={userID}
+            />
+          </div>
+          <div class="tasks">
+            <TasksList
+              key={skillID}
+              skillID={skillID}
+              userID={userID}
+            />
+          </div>
+          <div class="notes">
+            <NotesList
+              key={skillID}
+              skillID={skillID}
+              userID={userID}
+            />
+          </div>
+          <div class="progressCont">
+            <CustomProgressBar />
+          </div>
+        </div>)
+    }</>
   );
 }
