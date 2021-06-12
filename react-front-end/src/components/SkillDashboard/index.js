@@ -37,7 +37,11 @@ export default function SkillDashboard() {
         />
       </div>
       <div class="notes">
-        <NotesList />
+        <NotesList
+          key={skillID}
+          skillID={skillID}
+          userID={userID}
+        />
       </div>
 
     </div>

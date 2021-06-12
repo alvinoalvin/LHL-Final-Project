@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Card, CardActions, CardContent, Button, Typography} from '@material-ui/core';
+import { Card, CardActions, CardContent, Button, Input, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles({
   root: {
@@ -24,33 +24,53 @@ const axios = require('axios');
 
 export default function NotesList(props) {
   const classes = useStyles();
+  const [notes, setNotes] = useState("");
+  const bull = <span className={classes.bullet}>• &nbsp;</span>;
 
+  useEffect(() => {
+    axios.get(`/api/notes/${props.userID}/${props.skillID}`)
+      .then(response => {
+        const data = response.data.map(note => {
+          return <div>{bull}{note.note}</div>
+        })
+        setNotes(data);
+        console.log(data)
+      })
+      .catch(error => console.log(error));
+  }, []);
 
-  // useEffect(() => {
-  //   // console.log("ResourceList")
-  //   axios.get(`/api/notes/${props.userID}/${props.skillID}`)
-  //     .then(response => {
-  //       setNotes(response.data);
-  //       console.log(response.data)
-  //     }).catch(error => console.log(error));
-  // }, []);
+  function addNote(note) {
+    const newNote = {
+      user_id: props.userID,
+      skill_id: props.skillID,
+      note: note,
 
-  /* make sure ids match db column names */
+    }
 
+    return axios.post(`/api/notes`, newNote)
+      .then(function(response) {
+        newNote.id = response.data.result.id
+        const notesCopy = [...props.notes, newNote]
+        props.setNote(notesCopy)
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+  }
   return (
     <Card className={classes.root}>
       <CardContent>
-        <Typography className={classes.pos} color="textSecondary">
-          adjective
-        </Typography>
-        <Typography variant="body2" component="p">
-          well meaning and kindly.
-          <br />
-          {'"a benevolent smile"'}
+
+        <Typography gutterBottom variant="h6" component="h4">
+          Notes
+          </Typography>
+        <Typography className={classes.pos} >
+          {notes}
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Learn More</Button>
+        <Input />
+        <Button size="small">add Note</Button>
       </CardActions>
     </Card>
   );

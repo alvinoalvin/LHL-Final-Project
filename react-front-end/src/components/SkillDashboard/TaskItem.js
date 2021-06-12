@@ -94,7 +94,7 @@ const CustomStatusCell = ({ row, status, onStatusChange, statusMap }) => {
   const { isEditMode } = row;
 
   function getKey(key) {
-    if (statusMap != {}) {
+    if (statusMap !== {}) {
       // console.log(statusMap)
       for (let row of statusMap) {
         if (row.status === key) {
@@ -182,7 +182,7 @@ export default function TaskItem(props) {
     /* run axios api to update tasks on db here. */
     if (updateDb) {
       console.log("id: ", id, "row: ", row)
-      return axios.post(`http://localhost:8080/api/tasks/${id}`, { task: row })
+      return axios.post(`/api/tasks/${id}`, { task: row })
         .then(function(response) {
           console.log("id: ", id, "row: ", row)
           console.log(response)
