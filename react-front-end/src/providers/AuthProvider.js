@@ -5,7 +5,7 @@ export default function AuthProvider(props) {
     id: 1,
     first_name: 'Donny',
     last_name: 'Li',
-    position: 'Team',
+    position: 'Team Lead',
     team_id: 1,
     email: 'donny@donny@live.com'
   }
