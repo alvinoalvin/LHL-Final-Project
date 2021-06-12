@@ -5,10 +5,9 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import { Doughnut } from "react-chartjs-2";
 import { red } from "@material-ui/core/colors";
-import { authContext } from '../providers/AuthProvider';
+import { authContext } from "../providers/AuthProvider";
 import { useHistory } from "react-router-dom";
-import Form from "./NewSkill/components/Form"
-
+import Form from "./NewSkill/components/Form";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,13 +20,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
-
-
 export default function SkillViewAll(props) {
   const classes = useStyles();
   const [data, setData] = useState({});
-  const [mode, setMode] = useState('donought')
+  const [mode, setMode] = useState("donought");
   const history = useHistory();
 
   function handleClick() {
@@ -42,22 +38,24 @@ export default function SkillViewAll(props) {
         },
       })
       .then((response) => {
-
         const pieData = response.data.reduce((acc, dataPoint) => {
           const skill = acc[dataPoint.skill_id] || {
             name: dataPoint.name,
             chartData: {
               labels: [],
-              datasets: [{
-                data:[],
-                backgroundColor: ["#91C4F2", "#576AB3", "#7E1F86"]
-              }],
+              datasets: [
+                {
+                  data: [],
+                  backgroundColor: ["#91C4F2", "#576AB3", "#7E1F86"],
+                },
+              ],
             },
           };
-          skill.chartData.labels.push(dataPoint.status)
-          skill.chartData.datasets[0].data.push(dataPoint.total_estimate)
+          skill.chartData.labels.push(dataPoint.status);
+          skill.chartData.datasets[0].data.push(dataPoint.total_estimate);
           return {
-            ...acc, [dataPoint.skill_id]: skill
+            ...acc,
+            [dataPoint.skill_id]: skill,
           };
         }, {});
 
@@ -65,40 +63,30 @@ export default function SkillViewAll(props) {
       });
   }, []);
 
-
-
-  
   return (
-    
     <div className={classes.root}>
-      <Grid container spacing={6}>
+      <Grid container spacing={4}>
+        <Grid item xs={4}>
+          <Paper className={classes.paper}>
+            <div>
+              <Form/>
+            </div>
+            </Paper>
+        </Grid>
+
         {Object.keys(data).map((skill_id) => (
           <Grid item xs={4}>
-          <div onClick={handleClick}>
-          <Paper className={classes.paper}>
-            <h2>{data[skill_id].name}</h2><h3>Time in Minutes</h3>
-          <Doughnut data={data[skill_id].chartData} />
-          </Paper>
-          </div>
-        </Grid>
+            <div onClick={handleClick}>
+              <Paper className={classes.paper}>
+                <h2>{data[skill_id].name}</h2>
+                <h3>Time in Minutes</h3>
+                <Doughnut data={data[skill_id].chartData} />
+              </Paper>
+            </div>
+          </Grid>
         ))}
       </Grid>
+      
     </div>
-
-//  const { id, team_id } = useContext(authContext);
-
-// make onclick function
-///deliverables/users/skills/:user_id&:skill_id
-
-// pass <div onClick={handleClick (
-//  skill_id
-// )}>
-
-// :user_id&:skill_id pass to useHistory (onClick === (skill_id))
-
-    // STILL TO DO
-    // rename labels for time estimates
-    // make each container onClick go to skill page
-
   );
 }
