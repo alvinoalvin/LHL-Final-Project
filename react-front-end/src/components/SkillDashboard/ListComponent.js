@@ -61,7 +61,7 @@ export default function ListComponent(props) {
   }, []);
 
   return (
-    <div class="task-list-component" >
+    <div class="list-component" >
       <EnhancedTable
         key={1}
         rows={rows}
@@ -70,11 +70,13 @@ export default function ListComponent(props) {
         RowComponent={RowComponent}
         handleDelete={handleDelete}
         tableName={tableName}
+        numRows={props.numRows}
       />
-
-      <Button variant="outlined" color="primary" onClick={setOpen}>
-        {props.addName}
-      </Button>
+      <div class="btnContainer">
+        <Button variant="outlined" color="primary" onClick={setOpen}>
+          {props.addName}
+        </Button>
+      </div>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"

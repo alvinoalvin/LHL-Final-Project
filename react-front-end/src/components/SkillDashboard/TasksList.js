@@ -61,6 +61,7 @@ export default function TasksList(props) {
       userID={props.userID}
       skillID={props.skillID}
       addName={"Add Task"}
+      numRows={15}
     />
   );
 }

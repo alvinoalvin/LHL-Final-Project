@@ -56,8 +56,9 @@ export default function ResourceListComponent(props) {
       CreateForm={CreateResourceForm}
       tableName="All Resources"
       addName={"Add Resource"}
-      userID ={props.userID}
-      skillID ={props.skillID}
+      userID={props.userID}
+      skillID={props.skillID}
+      numRows={5}
     />
   );
 }
