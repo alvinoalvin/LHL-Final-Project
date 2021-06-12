@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useContext } from 'react';
 import '../styles/App.scss';
 import clsx from 'clsx';
 
@@ -35,6 +35,9 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import HomeIcon from '@material-ui/icons/Home';
 import AssessmentIcon from '@material-ui/icons/Assessment';
+import FaceIcon from '@material-ui/icons/Face';
+
+import { authContext } from '../providers/AuthProvider';
 
 
 const useStyles = reactStyles;
@@ -43,6 +46,8 @@ export default function Application() {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+
+  const { first_name, last_name, position } = useContext(authContext);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -56,6 +61,7 @@ export default function Application() {
     console.log("onClick", onClick, text)
   }
 
+  console.log(first_name);
   return (
     <Router>
       <div className={classes.root}>
@@ -79,6 +85,9 @@ export default function Application() {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" noWrap> Life Long Learning</Typography>
+            <Typography variant="h6" noWrap align='right'>{first_name+' '+last_name}</Typography>
+            <Typography variant="h6" noWrap align='right'>{position}</Typography>
+            <FaceIcon />
           </Toolbar>
         </AppBar>
 

@@ -12,8 +12,16 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 
 import axios from 'axios';
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
+
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -63,6 +71,22 @@ export default function Form(props) {
     });
   }
 
+  const [alert, setAlert] = useState({
+    message: '',
+    severity: ''
+  });
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setSnack(false);
+  };
+
+
+  const [snack, setSnack] = useState(false);
+
   return (
     <div className={classes.paper}>
       <Avatar className={classes.avatar}>
@@ -77,7 +101,6 @@ export default function Form(props) {
           fullWidth
           name="skillName"
           variant="outlined"
-          required
           id="skillName"
           label="Skill Name"
           autoFocus
@@ -90,12 +113,27 @@ export default function Form(props) {
           color="primary"
           className={classes.submit}
           onClick={(event) => {
-            addSkill()
+            if (!skillName) {
+              event.preventDefault()
+              setAlert({message: 'Please Enter A Skill Name', severity: 'error'})
+              setSnack(true)
+            } else {
+              addSkill()
+            }
             }}
         >
           Add
         </Button>
       </form>
+      <Snackbar
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        open={snack}
+        key={'report-snack-bar'}
+        autoHideDuration={6000}
+        onClose={handleClose}
+      >
+        <Alert onClose={handleClose} severity={alert.severity}>{alert.message}</Alert>
+      </Snackbar>
     </div>
   )
 }

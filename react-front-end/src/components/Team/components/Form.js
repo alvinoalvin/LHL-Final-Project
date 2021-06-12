@@ -11,9 +11,15 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 
 import { authContext } from '../../../providers/AuthProvider';
 import axios from "axios";
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 function Copyright() {
   return (
@@ -77,6 +83,44 @@ export default function Form(props) {
       console.log(error);
     });
   }
+
+  const [snack, setSnack] = useState(false);
+  const [alert, setAlert] = useState({
+    message: '',
+    severity: ''
+  });
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setSnack(false);
+  };
+
+  function checkRec() {
+    if (!firstName) {
+      setAlert({ message: 'Please enter first name!', severity: 'warning'})
+      return false
+    }
+  
+    if (!lastName) {
+      setAlert({ message: 'Please enter last name!', severity: 'warning'})
+      return false
+    }
+  
+    if (!email) {
+      setAlert({ message: 'Please enter email!', severity: 'warning'})
+      return false
+    }
+  
+    if (!position) {
+      setAlert({ message: 'Please enter position', severity: 'warning'})
+      return false
+    }
+  
+    return true;
+  };
 
   return (
 
@@ -152,14 +196,27 @@ export default function Form(props) {
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={() => {
-              addMember()
-              }
+            onClick={(event) => {
+              if (!checkRec()) {
+                event.preventDefault()
+                setSnack(true)
+              } else {
+                addMember()
+              }}
             }
           >
             Add
           </Button>
         </form>
+        <Snackbar
+          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+          open={snack}
+          key={'report-snack-bar'}
+          autoHideDuration={6000}
+          onClose={handleClose}
+        >
+          <Alert onClose={handleClose} severity={alert.severity}>{alert.message}</Alert>
+        </Snackbar>
       </div>
       <Box mt={5}>
         <Copyright />
