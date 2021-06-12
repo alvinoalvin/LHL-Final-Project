@@ -18,6 +18,7 @@ import MuiAlert from '@material-ui/lab/Alert';
 import axios from 'axios';
 import { authContext } from '../../providers/AuthProvider';
 
+ 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
@@ -58,6 +59,10 @@ export default function Recommend(props) {
   const [time, setTime] = useState('');
   const [link, setLink] = useState('');
   const [notes, setNotes] = useState('');
+  const [alert, setAlert] = useState({
+    message: '',
+    severity: ''
+  });
 
   const [snack, setSnack] = useState(false);
 
@@ -137,6 +142,41 @@ export default function Recommend(props) {
     return axios.post(`/api/deliverables`, newDeliverable)
   }
 
+  function checkRec() {
+    if (!userID) {
+      setAlert({ message: 'Please pick a user!', severity: 'warning'})
+      return false
+    }
+  
+    if (!type) {
+      setAlert({ message: 'Please pick a type!', severity: 'warning'})
+      return false
+    }
+  
+    if (!skill) {
+      setAlert({ message: 'Please pick a skill!', severity: 'warning'})
+      return false
+    }
+  
+    if (!deliverableName) {
+      setAlert({ message: 'Please enter a description', severity: 'warning'})
+      return false
+    }
+  
+    if (!time) {
+      setAlert({ message: 'Please enter an estimated time', severity: 'warning'})
+      return false
+    }
+  
+    if (isNaN(Number(time))) {
+      setAlert({ message: 'Please enter a number', severity: 'error'})
+      return false
+    }
+  
+    return true;
+  };
+
+  console.log(isNaN(Number(time)))
 
   return (
     <>
@@ -219,6 +259,15 @@ export default function Recommend(props) {
             onChange={(event) => setTime(event.target.value)}
           />
           <TextField
+            // How can i conditionally tack this one??
+            error
+            id="outlined-error-helper-text"
+            label="Error"
+            defaultValue=""
+            helperText="Please Enter A Number"
+            variant="outlined"
+          />
+          <TextField
             variant="outlined"
             fullWidth
             id="deliverableLink"
@@ -244,17 +293,20 @@ export default function Recommend(props) {
             color="primary"
             className={classes.submit}
             onClick={(event) => {
-              console.log("***EVENT***", event)
-              addDeliverable()
-              .then(function(response) {
-                console.log("***RESPONSE***", response)
-                setSnack(true)
-              })
-              .catch(function (error) {
-                console.log(error);
-              });
               event.preventDefault()
-              }}
+              if(!checkRec()) {
+                setSnack(true)
+              } else {
+                addDeliverable()
+                .then(function(response) {
+                  setAlert({message: 'Submit Success!', severity: 'success'})
+                  setSnack(true)
+                })
+                .catch(function (error) {
+                  console.log(error);
+                });
+              }
+            }}
           >
             Submit
           </Button>
@@ -268,7 +320,7 @@ export default function Recommend(props) {
         autoHideDuration={6000}
         onClose={handleClose}
       >
-        <Alert onClose={handleClose} severity="success">Recommendation Submitted!</Alert>
+        <Alert onClose={handleClose} severity={alert.severity}>{alert.message}</Alert>
       </Snackbar>
     </>
   );
