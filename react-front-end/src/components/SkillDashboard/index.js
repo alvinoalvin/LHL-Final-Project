@@ -13,7 +13,6 @@ export default function SkillDashboard() {
   useEffect(() => {
     axios.get(`/api/skills`)
       .then(response => {
-        console.log("responseData: ", response.data);
         setSkill(response.data.find(x => x.id === skillID).name);
       }).catch(error => console.log("ERROR: ", error));
   }, [skillID]);

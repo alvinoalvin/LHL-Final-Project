@@ -19,8 +19,7 @@ export default function ResourceListComponent(props) {
     axios.get(`/api/resources/${props.userID}/${props.skillID}`)
       .then(response => {
         setResources(response.data);
-        console.log(response)
-      }).catch(error => console.log("ERROR: ", error));
+      }).catch(error => console.log(error));
   }, [resources]);
 
   /* make sure ids match db column names */
