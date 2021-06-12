@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 
 /* Custom components */
 import ResourceItem from './ResourceItem';
-import CreateTaskForm from './CreateTaskForm';
+import CreateResourceForm from './CreateResourceForm';
 import ListComponent from './ListComponent';
 
 /* scss */
@@ -16,12 +16,13 @@ export default function ResourceListComponent(props) {
   const [resources, setResources] = useState([]);
 
   useEffect(() => {
+    // console.log("ResourceList")
     axios.get(`/api/resources/${props.userID}/${props.skillID}`)
       .then(response => {
         setResources(response.data);
-        console.log(response)
-      }).catch(error => console.log("ERROR: ", error));
-  }, [resources]);
+        console.log(response.data)
+      }).catch(error => console.log(error));
+  }, []);
 
   /* make sure ids match db column names */
   const headCells = [
@@ -52,8 +53,12 @@ export default function ResourceListComponent(props) {
       setRows={setResources}
       handleDelete={handleDelete}
       RowComponent={ResourceItem}
-      CreateForm={CreateTaskForm}
+      CreateForm={CreateResourceForm}
       tableName="All Resources"
+      addName={"Add Resource"}
+      userID={props.userID}
+      skillID={props.skillID}
+      numRows={5}
     />
   );
 }

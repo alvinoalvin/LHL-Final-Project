@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import { TableCell, TableRow, Checkbox, Input, Select, MenuItem, TextField, } from '@material-ui/core';
+import { TableCell, TableRow, Checkbox, Input, Select, MenuItem } from '@material-ui/core';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 
@@ -8,7 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { getDate } from "../../helpers/dateFuncs"
 
-import { makeStyles } from '@material-ui/core/styles';
+import rowStyle from '../../helpers/deliverableRowStyles';
 
 import EditIcon from "@material-ui/icons/EditOutlined";
 import DoneIcon from "@material-ui/icons/DoneAllTwoTone";
@@ -16,37 +16,12 @@ import RevertIcon from "@material-ui/icons/NotInterestedOutlined";
 
 import axios from "axios";
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    width: "100%",
-    marginTop: theme.spacing(3),
-    overflowX: "auto"
-  },
-  table: {
-    minWidth: 650
-  },
-  selectTableCell: {
-    width: 60
-  },
-  tableCell: {
-    width: 130,
-    height: 40
-  },
-  input: {
-    width: 110,
-    height: 40,
-    padding: 0
-  },
-  select: {
-    width: 130,
-    height: 40
-  }
-}));
-
+const useStyles = rowStyle;
 
 const CustomTableCell = ({ row, name, onChange, attr, type }) => {
   const classes = useStyles();
   const { isEditMode } = row;
+
   function renderAttr() {
     if (type === "link" || type === "Link") {
       return (<a href={row.link}>{row.link !== "No Link Needed?" && row.link !== "" ? "Task Link" : ""}</a>)
@@ -56,6 +31,7 @@ const CustomTableCell = ({ row, name, onChange, attr, type }) => {
     }
     return row[attr]
   }
+  
   function renderInput() {
     if (type === "date") {
       return (
@@ -74,16 +50,6 @@ const CustomTableCell = ({ row, name, onChange, attr, type }) => {
             width="200"
           />
         </MuiPickersUtilsProvider>
-        // <Input
-        //   type="date"
-        //   defaultValue={Date.now().toISOString}
-        //   className={classes.input}
-        //   InputLabelProps={{
-        //     shrink: true,
-        //   }}
-        //   onChange={(e, value) => { onChange(e, row, attr) }}
-        //   size="small"
-        // />
       )
     }
     if (type === "number") {
@@ -103,7 +69,6 @@ const CustomTableCell = ({ row, name, onChange, attr, type }) => {
         className={classes.input}
         defaultValue={row[attr]}
         size="small"
-
       />
     )
   }
@@ -129,9 +94,12 @@ const CustomStatusCell = ({ row, status, onStatusChange, statusMap }) => {
   const { isEditMode } = row;
 
   function getKey(key) {
-    for (let row of statusMap) {
-      if (row.status === key) {
-        return row.id
+    if (statusMap !== {}) {
+      // console.log(statusMap)
+      for (let row of statusMap) {
+        if (row.status === key) {
+          return row.id
+        }
       }
     }
   }
@@ -153,7 +121,7 @@ const CustomStatusCell = ({ row, status, onStatusChange, statusMap }) => {
           className={classes.select}
 
           value={getKey(status)}
-          onChange={(e) => {onStatusChange(e, row, statusMap) }}
+          onChange={(e) => { console.log("status"); onStatusChange(e, row, statusMap) }}
         >
           {createMenu()}
         </Select>
@@ -172,6 +140,7 @@ export default function TaskItem(props) {
   const classes = useStyles();
 
   useEffect(() => {
+    console.log("TaskItem")
     axios.get(`/api/status`)
       .then(response => {
         setStatusMap(response.data)
@@ -182,12 +151,13 @@ export default function TaskItem(props) {
     return axios.delete(`api/deliverables/?array=[${id}]`, { id })
       .then(function(response) {
         const taskCopy = rows.filter((task) => {
-          if (task.id !== props.task.id) {
+          if (task.id !== row.id) {
             return task
           }
         });
+
         const selectedCopy = selected.filter((selectedTask) => {
-          if (selectedTask !== props.task.id) {
+          if (selectedTask !== row.id) {
             return selectedTask
           }
         });
@@ -211,8 +181,10 @@ export default function TaskItem(props) {
     });
     /* run axios api to update tasks on db here. */
     if (updateDb) {
-      return axios.post(`api/tasks/${id}`, { task: row })
+      console.log("id: ", id, "row: ", row)
+      return axios.post(`/api/tasks/${id}`, { task: row })
         .then(function(response) {
+          console.log("id: ", id, "row: ", row)
           console.log(response)
         })
         .catch(function(error) {
@@ -225,17 +197,17 @@ export default function TaskItem(props) {
     if (!previous["task"]) {
       setPrevious({ "task": task });
     }
-    console.log(typeof e)
-    
+
     let value;
-    if (type = "date") {
+    if (type === "date") {
+      console.log("etoIso error: ", e)
       value = e.toISOString();
       console.log(task)
       console.log(value)
     } else {
       value = e.target.value;
     }
-    
+
     const { id } = task;
     const newTasks = rows.map((task) => {
       if (task.id === id) {
@@ -350,7 +322,7 @@ export default function TaskItem(props) {
           </>
         ) : (
           <IconButton
-            aria-label="delete"
+            aria-label="edit"
             onClick={() => onToggleEditMode(row.id, false)}
           >
             <EditIcon />

@@ -53,14 +53,15 @@ export default function ListComponent(props) {
   };
 
   useEffect(() => {
+    // console.log("ListComponent")
     axios.get(`/api/tasks/${props.userID}/${props.skillID}`)
       .then(response => {
         setRows(response.data);
-      }).catch(error => console.log("ERROR: ", error));
-  }, [rows]);
+      }).catch(error => console.log(error));
+  }, []);
 
   return (
-    <div class="task-list-component" >
+    <div class="list-component" >
       <EnhancedTable
         key={1}
         rows={rows}
@@ -69,11 +70,13 @@ export default function ListComponent(props) {
         RowComponent={RowComponent}
         handleDelete={handleDelete}
         tableName={tableName}
+        numRows={props.numRows}
       />
-
-      <Button variant="outlined" color="primary" onClick={setOpen}>
-        Add Task
-      </Button>
+      <div class="btnContainer">
+        <Button variant="outlined" color="primary" onClick={setOpen}>
+          {props.addName}
+        </Button>
+      </div>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -91,8 +94,8 @@ export default function ListComponent(props) {
             <CreateForm
               userID={props.userID}
               skillID={props.skillID}
-              setTasks={setRows}
-              tasks={rows}
+              setRows={setRows}
+              rows={rows}
               handleClose={handleClose}
             />
           </div>

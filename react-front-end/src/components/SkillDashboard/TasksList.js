@@ -16,6 +16,7 @@ export default function TasksList(props) {
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
+    // console.log("TaskList")
     axios.get(`/api/tasks/${props.userID}/${props.skillID}`)
       .then(response => {
         setTasks(response.data);
@@ -47,7 +48,7 @@ export default function TasksList(props) {
         console.log(error);
       });
   }
-
+  
   return (
     <ListComponent
       headCells={headCells}
@@ -57,6 +58,10 @@ export default function TasksList(props) {
       RowComponent={TaskItem}
       CreateForm={CreateTaskForm}
       tableName={"All Tasks"}
+      userID={props.userID}
+      skillID={props.skillID}
+      addName={"Add Task"}
+      numRows={15}
     />
   );
 }
