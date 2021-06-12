@@ -17,7 +17,7 @@ module.exports = db => {
     }
   });
 
-  router.get("/tasks/", (request, response) => {
+  router.get("/tasks", (request, response) => {
     const queryString = `
       SELECT *, deliverables.id as id, (users.first_name ||' ' || users.last_name) as full_name
       FROM deliverables
@@ -99,7 +99,9 @@ module.exports = db => {
         queryString, [request.params.task_id]
       ).then(({ rows: deliverables }) => {
         response.json(deliverables);
-      });
+      }).catch((err) => {
+        console.log(err.message)
+      });;
     } catch (err) {
       next(err);
     }
@@ -125,7 +127,9 @@ module.exports = db => {
         queryString, [request.params.user_id, request.params.skill_id]
       ).then(({ rows: deliverables }) => {
         response.json(deliverables);
-      });
+      }).catch((err) => {
+        console.log(err.message)
+      });;
     } catch (err) {
       next(err);
     }
@@ -144,7 +148,9 @@ module.exports = db => {
         queryString, [request.params.user_id, request.params.skill_id]
       ).then(({ rows: deliverables }) => {
         response.json(deliverables);
-      });
+      }).catch((err) => {
+        console.log(err.message)
+      });;
     } catch (err) {
       next(err);
     }
@@ -196,7 +202,9 @@ module.exports = db => {
     )
       .then(({ rows: deliverables }) => {
         response.json(deliverables);
-      });
+      }).catch((err) => {
+        console.log(err.message)
+      });;
   })
 
   router.post("/deliverables", (request, response) => {

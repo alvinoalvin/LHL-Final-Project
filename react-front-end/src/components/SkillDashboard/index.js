@@ -3,7 +3,9 @@ import React, { useEffect } from 'react';
 import TasksList from './TasksList';
 import ResourceList from './ResourceList';
 import NotesList from './Notes';
+import CustomProgressBar from './progressBar';
 import '../../styles/SkillItemDashboard.scss';
+
 const axios = require('axios');
 
 export default function SkillDashboard() {
@@ -43,7 +45,9 @@ export default function SkillDashboard() {
           userID={userID}
         />
       </div>
-
+      <div class="progressCont">
+        <CustomProgressBar/>
+      </div>
     </div>
   );
 }

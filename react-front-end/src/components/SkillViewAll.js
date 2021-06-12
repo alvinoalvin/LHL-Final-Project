@@ -71,9 +71,6 @@ export default function SkillViewAll(props) {
   return (
     
     <div className={classes.root}>
-      
-
-
       <Grid container spacing={6}>
         {Object.keys(data).map((skill_id) => (
           <Grid item xs={4}>
