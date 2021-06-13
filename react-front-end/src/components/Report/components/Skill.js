@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { makeStyles, lighten } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import axios from 'axios';
 import {Doughnut} from 'react-chartjs-2';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
-
-
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 import Table from "./Table";
 
 
@@ -24,11 +24,33 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
   },
   paper: {
-    backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
+    backgroundColor: 'var(--content)',
+    border: '2px solid var(--nav)',
+    borderRadius: '50px',
     boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
+    padding: '4rem 3rem',
   },
+  grid: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+  },
+  add: {
+    fontFamily: 'var(--header-font)',
+    backgroundColor: 'var(--button)',
+    color: '#fff',
+    '&:hover': {
+      backgroundColor: 'var(--button-hover)',
+      color: '#fff',
+    },
+    margin: '1rem 0rem',
+  },
+  skillName: {
+    fontFamily: 'var(--header-font)',
+    fontSize: '24px',
+    marginBottom: '1rem',
+  }
 }));
 
 
@@ -45,6 +67,7 @@ export default function Skill(props) {
   };
 
   const [pieData, setPieData] = useState({})
+  const [totalTime, setTotalTime] = useState(0)
 
   useEffect(() => {
     axios.get(`/api/skills/report/time/users/${props.userID}&${props.skill.skill_id}`)
@@ -87,16 +110,26 @@ export default function Skill(props) {
       };
 
       setPieData(data)
+      setTotalTime(Number(staged_time) + Number(progress_time) + Number(completed_time))
     })
-  }, [])
+    .catch(function (error) {
+      console.log("ERROR: ", error);
+    });
+  }, [props.userID, props.skill.skill_id])
 
 
   return (
-    <Grid item xs={4}>
+    <Grid className={classes.grid} item xs={4}>
+      <Typography className='skill-info'>
+        {props.skill.skill_name}
+      </Typography>
+      <Typography className='skill-info'>
+        Time: {Math.round(totalTime / 60)}h
+      </Typography>
       <Doughnut data={pieData} />
-      <button type="button" onClick={handleOpen}>
+      <Button variant="contained" className={classes.add} type="button" onClick={handleOpen}>
         View Details
-      </button>
+      </Button>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -111,10 +144,9 @@ export default function Skill(props) {
       >
       <Fade in={open}>
         <div className={classes.paper}>
-          <h1>Tasks: {props.skill.skill_name}</h1>
-          <button type="button" onClick={handleClose2}>
-            Close
-          </button>
+          <Typography className={classes.skillName}>
+            Skill: {props.skill.skill_name}
+          </Typography>
           <Table
             userID={props.userID}
             skill={props.skill}

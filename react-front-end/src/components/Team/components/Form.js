@@ -1,38 +1,26 @@
 import React, { useState, useContext } from 'react';
 import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
+import { purple } from "@material-ui/core/colors";
 
 import { authContext } from '../../../providers/AuthProvider';
 import axios from "axios";
+
+import "../../../styles/variables.scss";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -43,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: 'var(--button)',
   },
   form: {
     width: '100%', // Fix IE 11 issue.
@@ -51,11 +39,23 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
+    backgroundColor: 'var(--button)',
+    color: '#fff',
+    fontFamily: 'var(--header-font)',
   },
   button: {
     margin: theme.spacing(1),
   },
+  text: {
+    fontFamily: 'var(--text-font)'
+  },
 }));
+
+const theme = createMuiTheme({
+  palette: {
+    primary: purple,
+  }
+});
 
 export default function Form(props) {
   const classes = useStyles();
@@ -80,7 +80,7 @@ export default function Form(props) {
       props.setTeam(teamCopy)
     })
     .catch(function (error) {
-      console.log(error);
+      console.log("ERROR: ", error);
     });
   }
 
@@ -134,6 +134,7 @@ export default function Form(props) {
           Add New Team Member
         </Typography>
         <form className={classes.form} noValidate>
+        <ThemeProvider theme={theme}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -190,11 +191,11 @@ export default function Form(props) {
               />
             </Grid>
           </Grid>
+          </ThemeProvider>
           <Button
             type="submit"
             fullWidth
             variant="contained"
-            color="primary"
             className={classes.submit}
             onClick={(event) => {
               if (!checkRec()) {
@@ -218,9 +219,6 @@ export default function Form(props) {
           <Alert onClose={handleClose} severity={alert.severity}>{alert.message}</Alert>
         </Snackbar>
       </div>
-      <Box mt={5}>
-        <Copyright />
-      </Box>
     </Container>
 
   )

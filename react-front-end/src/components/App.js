@@ -1,4 +1,4 @@
-import React, { Component, useContext } from 'react';
+import React, { useContext } from 'react';
 import '../styles/App.scss';
 import clsx from 'clsx';
 
@@ -35,7 +35,9 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import HomeIcon from '@material-ui/icons/Home';
 import AssessmentIcon from '@material-ui/icons/Assessment';
-import FaceIcon from '@material-ui/icons/Face';
+import ShareIcon from '@material-ui/icons/Share';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUserAstronaut } from '@fortawesome/free-solid-svg-icons'
 
 import { authContext } from '../providers/AuthProvider';
 
@@ -57,11 +59,6 @@ export default function Application() {
     setOpen(false);
   };
 
-  function onClick(text){
-    console.log("onClick", onClick, text)
-  }
-
-  console.log(first_name);
   return (
     <Router>
       <div className={classes.root}>
@@ -72,7 +69,7 @@ export default function Application() {
             [classes.appBarShift]: open,
           })}
         >
-          <Toolbar>
+          <Toolbar className='tool-bar'>
             <IconButton
               color="inherit"
               aria-label="open drawer"
@@ -84,10 +81,17 @@ export default function Application() {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" noWrap> Life Long Learning</Typography>
-            <Typography variant="h6" noWrap align='right'>{first_name+' '+last_name}</Typography>
-            <Typography variant="h6" noWrap align='right'>{position}</Typography>
-            <FaceIcon />
+            <div className='website-info-container'>
+              <Typography variant="h6" noWrap id='website-logo'> Life Long Learning</Typography>
+              <div className='user-container'>
+                <div className='user-info-container'>
+                  <Typography noWrap align='right' id='user-name'>{first_name+' '+last_name}</Typography>
+                  <Typography noWrap align='right' id='user-position'>{position}</Typography>
+                </div>
+                <FontAwesomeIcon id='user-icon' icon={faUserAstronaut} size="3x"/>
+              </div>
+            </div>
+
           </Toolbar>
         </AppBar>
 
@@ -103,6 +107,7 @@ export default function Application() {
               [classes.drawerClose]: !open,
             }),
           }}
+          
         >
           <div className={classes.toolbar}>
             <IconButton onClick={handleDrawerClose}>
@@ -114,15 +119,27 @@ export default function Application() {
             <Link to="/">
               <ListItem>
                 <ListItemIcon><HomeIcon /></ListItemIcon>
-                <ListItemText primary='Home'></ListItemText>
+                <ListItemText disableTypography className='tab-item' primary='Home'></ListItemText>
               </ListItem>
             </Link>
             <Link to="/team">
               <ListItem>
                 <ListItemIcon><GroupIcon /></ListItemIcon>
-                <ListItemText primary='Team'></ListItemText>
+                <ListItemText disableTypography className='tab-item' primary='Team'></ListItemText>
               </ListItem>
             </Link>
+            <Link to="/report">
+              <ListItem>
+                <ListItemIcon><AssessmentIcon /></ListItemIcon>
+                <ListItemText disableTypography className='tab-item' primary='Report'></ListItemText>
+              </ListItem>
+            </Link>
+            <Link to="/recommend">
+              <ListItem>
+                <ListItemIcon><ShareIcon /></ListItemIcon>
+                <ListItemText disableTypography className='tab-item' primary='Recommend'></ListItemText>
+              </ListItem>
+              <Divider />
             <Link to="/skill">
               <ListItem>
                 <ListItemIcon><AccountCircleIcon /></ListItemIcon>
@@ -135,17 +152,6 @@ export default function Application() {
                 <ListItemText primary='allSkills'></ListItemText>
               </ListItem>
             </Link>
-            <Link to="/report">
-              <ListItem>
-                <ListItemIcon><AssessmentIcon /></ListItemIcon>
-                <ListItemText primary='Report'></ListItemText>
-              </ListItem>
-            </Link>
-            <Link to="/recommend">
-              <ListItem>
-                <ListItemIcon><MailIcon /></ListItemIcon>
-                <ListItemText primary='Recommend'></ListItemText>
-              </ListItem>
             </Link>
             <Link to="/test">
               <ListItem>

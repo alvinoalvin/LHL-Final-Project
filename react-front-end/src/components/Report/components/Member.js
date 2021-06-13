@@ -3,18 +3,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Typography from '@material-ui/core/Typography';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import Skill from './Skill';
 import Grid from '@material-ui/core/Grid';
 
-import SkillViewAll from '../../SkillViewAll';
 
 import axios from "axios";
 
@@ -23,6 +18,8 @@ const useRowStyles = makeStyles({
     '& > *': {
       borderBottom: 'unset',
     },
+    borderBottom: '1px solid var(--table-body)',
+    borderTop: '1px solid var(--table-body)',
   },
 });
 
@@ -43,7 +40,10 @@ export default function Member(props) {
     .then(function(response) {
       setSkills(response.data)
     })
-  }, [])
+    .catch(function (error) {
+      console.log("ERROR: ", error);
+    });
+  }, [props.member.id])
 
   const skillList = skills.map(skill => {
     return (
@@ -59,20 +59,19 @@ export default function Member(props) {
   return (
     <React.Fragment>
       <TableRow className={classes.root}>
-        <TableCell>
+        <TableCell className='table-body-cell'>
           <IconButton disabled={!total} aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <TableCell component="th" scope="row">
+        <TableCell className='table-body-cell' component="th" scope="row">
           {props.member.first_name} {props.member.last_name}
           {props.member.id === userID && <span> (Me)</span>}
         </TableCell>
-        <TableCell align="right">2</TableCell>
-        <TableCell align="right">{props.member.staged_count}</TableCell>
-        <TableCell align="right">{props.member.in_progress_count}</TableCell>
-        <TableCell align="right">{props.member.completed_count}</TableCell>
-        <TableCell align="right">{total}</TableCell>
+        <TableCell className='table-body-cell' align="right">{props.member.staged_count}</TableCell>
+        <TableCell className='table-body-cell' align="right">{props.member.in_progress_count}</TableCell>
+        <TableCell className='table-body-cell' align="right">{props.member.completed_count}</TableCell>
+        <TableCell className='table-body-cell'align="right">{total}</TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>

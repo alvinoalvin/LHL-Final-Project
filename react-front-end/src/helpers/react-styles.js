@@ -1,4 +1,6 @@
 import {makeStyles} from '@material-ui/core/styles';
+import "../styles/variables.scss";
+
 
 const drawerWidth = 240;
 export default makeStyles((theme) => ({
@@ -37,6 +39,7 @@ export default makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
+    backgroundColor: '#4F4E66'
   },
   drawerClose: {
     transition: theme.transitions.create('width', {
@@ -48,6 +51,7 @@ export default makeStyles((theme) => ({
     [theme.breakpoints.up('sm')]: {
       width: theme.spacing(9) + 1,
     },
+    backgroundColor: '#4F4E66'
   },
   toolbar: {
     display: 'flex',
@@ -59,6 +63,7 @@ export default makeStyles((theme) => ({
   },
   content: {
     flexGrow: 1,
+    backgroundColor: '#AEB5CA',
     // padding: theme.spacing(3),
   },
 }));
