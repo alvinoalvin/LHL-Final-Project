@@ -12,12 +12,14 @@ import TableRow from '@material-ui/core/TableRow';
 import axios from "axios";
 import Deliverable from "./Deliverable";
 
+import '../../../styles/variables.scss';
+
 const columns = [
   { id: 'name', label: 'Name', minWidth: 170 },
   { id: 'status', label: 'Status', minWidth: 100 },
   {
     id: 'date',
-    label: 'completion',
+    label: 'Date Completed',
     minWidth: 170,
     align: 'right',
   },
@@ -36,6 +38,10 @@ const useStyles = makeStyles({
   container: {
     maxHeight: 440,
   },
+  tableHeaderRow: {
+    backgroundColor: 'var(--table-header)',
+    fontFamily: 'var(--header-font)',
+  }
 });
 
 export default function StickyHeadTable(props) {
@@ -74,9 +80,9 @@ export default function StickyHeadTable(props) {
   return (
     <Paper className={classes.root}>
       <TableContainer className={classes.container}>
-        <Table stickyHeader aria-label="sticky table">
+        <Table className='deliverable-table' stickyHeader aria-label="sticky table">
           <TableHead>
-            <TableRow>
+            <TableRow >
               {columns.map((column) => (
                 <TableCell
                   key={column.id}

@@ -29,15 +29,16 @@ export default function Member(props) {
   // to do: add customization to existing team members
   return (
     <>
-    {!props.member.delete && <TableRow key={props.member.id}>
-    <TableCell >
+    {!props.member.delete && <TableRow className='table-body-row' key={props.member.id} >
+    <TableCell className='table-body-cell'>
       {props.member.first_name + ' ' + props.member.last_name}
       {props.member.id === userID && <span> (Me)</span>}
     </TableCell>
-    <TableCell >{props.member.email}</TableCell>
-    <TableCell >{props.member.position}</TableCell>
-    <TableCell >      
-      <IconButton 
+    <TableCell align='right' className='table-body-cell'>{props.member.email}</TableCell>
+    <TableCell align='right' className='table-body-cell'>{props.member.position}</TableCell>
+    <TableCell align='right' className='table-body-cell'>      
+      <IconButton
+        className='table-body-delete'
         aria-label="delete" 
         onClick={(event) => 
           { if (window.confirm('Are you sure you want to delete?'))   deleteMember(props.member.id) 

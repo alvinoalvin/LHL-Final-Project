@@ -18,6 +18,8 @@ const useRowStyles = makeStyles({
     '& > *': {
       borderBottom: 'unset',
     },
+    borderBottom: '1px solid var(--table-body)',
+    borderTop: '1px solid var(--table-body)',
   },
 });
 
@@ -57,20 +59,19 @@ export default function Member(props) {
   return (
     <React.Fragment>
       <TableRow className={classes.root}>
-        <TableCell>
+        <TableCell className='table-body-cell'>
           <IconButton disabled={!total} aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <TableCell component="th" scope="row">
+        <TableCell className='table-body-cell' component="th" scope="row">
           {props.member.first_name} {props.member.last_name}
           {props.member.id === userID && <span> (Me)</span>}
         </TableCell>
-        <TableCell align="right">2</TableCell>
-        <TableCell align="right">{props.member.staged_count}</TableCell>
-        <TableCell align="right">{props.member.in_progress_count}</TableCell>
-        <TableCell align="right">{props.member.completed_count}</TableCell>
-        <TableCell align="right">{total}</TableCell>
+        <TableCell className='table-body-cell' align="right">{props.member.staged_count}</TableCell>
+        <TableCell className='table-body-cell' align="right">{props.member.in_progress_count}</TableCell>
+        <TableCell className='table-body-cell' align="right">{props.member.completed_count}</TableCell>
+        <TableCell className='table-body-cell'align="right">{total}</TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>

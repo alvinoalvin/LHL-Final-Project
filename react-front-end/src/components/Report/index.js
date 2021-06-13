@@ -8,15 +8,30 @@ import TableRow from '@material-ui/core/TableRow';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
-
+import { makeStyles } from '@material-ui/core/styles';
 import { CSVLink } from "react-csv";
-
 import axios from "axios";
 
 import Member from "./components/Member"
 
+import "./styles.scss";
+
+const useStyles = makeStyles((theme) => ({
+  add: {
+    fontFamily: 'var(--header-font)',
+    backgroundColor: 'var(--button)',
+    color: '#fff',
+    '&:hover': {
+      backgroundColor: 'var(--button-hover)',
+      color: '#fff',
+    },
+    marginRight: '6rem' 
+  },
+}));
+
 
 export default function Report(props) {
+  const classes = useStyles();
   const [team, setTeam] = useState([]);
   const [csvData, setcsvData] = useState([]);
 
@@ -55,24 +70,25 @@ export default function Report(props) {
   })
 
   return (
-    <section>
-      <Typography component="h1" variant="h5">
-        Team: Engineering
-      </Typography>
-      <Button variant="contained" color="primary" type="button">
-        <CSVLink data={csvData}>Export</CSVLink>
-      </Button>
-      <TableContainer component={Paper}>
-        <Table aria-label="collapsible table">
+    <section className='report-view'>
+      <div className='team-info'>
+        <Typography id='team-title'>
+          Team: Engineering
+        </Typography>
+        <Button className={classes.add} variant="contained" color="primary" type="button" id='export-data'>
+          <CSVLink data={csvData}>Export</CSVLink>
+        </Button>
+      </div> 
+      <TableContainer className='report-table-container' component={Paper}>
+        <Table className='report-table' aria-label="collapsible table">
           <TableHead>
-            <TableRow>
+            <TableRow className='table-header-row'>
               <TableCell />
-              <TableCell>Name</TableCell>
-              <TableCell align="right">Skills</TableCell>
-              <TableCell align="right">Staged</TableCell>
-              <TableCell align="right">In Progress</TableCell>
-              <TableCell align="right">Completed</TableCell>
-              <TableCell align="right">Total</TableCell>
+              <TableCell className='table-header-cell'>Name</TableCell>
+              <TableCell align="right" className='table-header-cell'>Staged</TableCell>
+              <TableCell align="right" className='table-header-cell'>In Progress</TableCell>
+              <TableCell align="right" className='table-header-cell'>Completed</TableCell>
+              <TableCell align="right" className='table-header-cell'>Total</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

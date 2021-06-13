@@ -4,7 +4,7 @@ import Member from "./components/Member";
 import Form from "./components/Form";
 import "./styles.scss"
 
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -17,6 +17,7 @@ import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import Typography from '@material-ui/core/Typography';
+import "../../styles/variables.scss";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
   table: {
     minWidth: 650,
+    borderRadius: 50,
   },
   modal: {
     display: 'flex',
@@ -33,15 +35,29 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
   },
   paper: {
-    backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
+    backgroundColor: "var(--content)",
+    border: '2px solid var(--nav)',
+    borderRadius: '50px',
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
+    height: '600px',
   },
   dialogPaper: {
     height : '400px'
   },
+  add: {
+    fontFamily: 'var(--header-font)',
+    backgroundColor: 'var(--button)',
+    color: '#fff',
+    '&:hover': {
+      backgroundColor: 'var(--button-hover)',
+      color: '#fff',
+    },
+    marginRight: '6rem' 
+  },
 }));
+
+
 
 
 export default function Team(props) {
@@ -84,29 +100,30 @@ export default function Team(props) {
   })
 
   return (
-    <div>
-      <Typography component="h1" variant="h5">
-        Team: {team_name}
-      </Typography>
-      <TableContainer component={Paper}>
+    <div className='team-view'>
+      <div className='team-info'>
+        <Typography id='team-title'>
+          Team: {team_name}
+        </Typography>
+        <Button variant="contained" className={classes.add} type="button" onClick={handleOpen}>
+          Add New Member
+        </Button>
+      </div>
+      <TableContainer className='table-container' component={Paper} maxWidth={900}>
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
-            <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell>Email</TableCell>
-              <TableCell>Position</TableCell>
-              <TableCell></TableCell>
+            <TableRow className='table-header-row'>
+              <TableCell className='table-header'>Name</TableCell>
+              <TableCell align='right' className='table-header'>Email</TableCell>
+              <TableCell align='right' className='table-header'>Position</TableCell>
+              <TableCell align='right' className='table-header'></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {teamList}
-
           </TableBody>
         </Table>
       </TableContainer>
-      <Button variant="contained" color="primary" type="button" onClick={handleOpen}>
-        Add New Member
-      </Button>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"

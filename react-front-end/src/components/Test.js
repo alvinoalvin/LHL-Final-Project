@@ -1,6 +1,7 @@
 import React from 'react';
 
 import NewSkill from "./NewSkill";
+import Input from "./Input";
 
 export default function Test(props) {
   
@@ -8,6 +9,7 @@ export default function Test(props) {
     <div>    
       <h1>I'm a test page</h1>
       <NewSkill />
+      <Input />
     </div>
 
   )
