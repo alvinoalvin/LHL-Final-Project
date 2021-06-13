@@ -236,7 +236,6 @@ module.exports = db => {
     try {
       db.query(queryString, [request.params.userID, request.params.skillID])
         .then(({ rows: deliverables }) => {
-          console.log(deliverables)
           response.json(deliverables);
         });
     } catch (err) {
