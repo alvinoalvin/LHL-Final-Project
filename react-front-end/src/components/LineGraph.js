@@ -3,10 +3,7 @@ import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
-import { Doughnut } from "react-chartjs-2";
 import { Line } from "react-chartjs-2";
-import { Bar } from "react-chartjs-2";
-import SkillViewAll from './SkillViewAll';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,15 +18,12 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CenteredGrid() {
   const classes = useStyles();
-  //update wth actual datacalls
   const [testdata, setData] = useState();
-
   const [labels, setLabels] = useState();
 
-  //only run on first load []
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/analytics/skill-status", {
+      .get("http://localhost:8080/api/analytics/completion-rate", {
         headers: {
           "Content-Type": "application/json",
         },
@@ -38,16 +32,16 @@ export default function CenteredGrid() {
         // handle success
         console.log(response.data);
         const newLabels = response.data.reduce((acc, dataPoint) => {
-          if (acc.includes(dataPoint.name)) {
+          if (acc.includes(dataPoint.end_date)) {
             return acc;
           } else {
-            acc.push(dataPoint.name);
+            acc.push(dataPoint.end_date);
           }
           return acc;
         }, []);
         setLabels(newLabels);
 
-        const stackBarData = response.data.reduce((acc, dataPoint) => {
+        const dataState = response.data.reduce((acc, dataPoint) => {
           if (acc[dataPoint.status]) {
             acc[dataPoint.status].push(Number(dataPoint.count));
           } else {
@@ -55,31 +49,25 @@ export default function CenteredGrid() {
           }
           return acc;
         }, {});
-        console.log(stackBarData);
-        setData(stackBarData);
+        console.log({dataState: response.data})
+        setData(response.data);
       });
   }, []);
 
-  // change string to number
+// only show last 7 days date library (moment js)
+// Array.filter (moments is between date x y, today and a week ago)
+// date fns, Date Object (js)
+// filter (homepage)
 
-  //Bar chart real data
-  const data = {
-    labels: labels,
-    datasets: Object.entries(testdata || {}).map(([label, values], i) => ({
-      label,
-      data: values,
-      backgroundColor: `rgba(${i * 100},145,250)`,
-    })),
-  };
 
-  console.log("datasets?", data);
 
   //placeholder for line chart
   const lineData = {
-    labels: ["January", "February", "March", "April", "May", "June", "July"],
-    datasets: [
-      {
-        label: "Completed",
+    labels,
+    datasets: Object.entries(testdata || {}).map(([label, values]) => {
+      console.log(label, values)
+      return {
+        label: values.name,
         fill: false,
         lineTension: 0.1,
         backgroundColor: "rgba(75,192,192,0.4)",
@@ -97,9 +85,10 @@ export default function CenteredGrid() {
         pointHoverBorderWidth: 2,
         pointRadius: 1,
         pointHitRadius: 10,
-        data: [65, 59, 80, 81, 56, 55, 40],
-      },
-    ],
+        data: values.end_date,
+      }
+    },
+    ),
   };
 
   return (
@@ -107,45 +96,19 @@ export default function CenteredGrid() {
 
       <Grid container spacing={6}>
       
-        
-        <Grid item xs={6}>
+          
+            
+          <Grid item xs={6}>
           <Paper className={classes.paper}>
-            <div>
-              <h2>Progress this week</h2>
-              <Bar
-                data={data}
-                width={100}
-                height={50}
-                options={{
-                  plugins: {
-                    title: {
-                      display: true,
-                      text: "Number of Tasks",
-                    },
-                  },
-                  responsive: true,
-                  scales: {
-                    x: {
-                      stacked: true,
-                    },
-                    y: {
-                      stacked: true,
-                    },
-                  },
-                }}
-              />
-            </div>
-          </Paper>
-        </Grid>
-        <Grid item xs={6}>
-          <Paper className={classes.paper}>
-            <h2>Completion Rate</h2>
+            <h2>All Completed Tasks in the Last Week</h2>
             <Line data={lineData} />
           </Paper>
         </Grid>
-        {/* <Grid item xs={3}>
-          <Paper className={classes.paper}><h3>Newest Skill</h3><h2>Javascript</h2><Doughnut data={pieData}/></Paper>
-        </Grid> */}
+          
+
+
+         
+          
       </Grid>
     </div>
   );
