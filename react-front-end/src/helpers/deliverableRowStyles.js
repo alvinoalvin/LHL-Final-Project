@@ -23,5 +23,9 @@ export default makeStyles((theme) => ({
   select: {
     width: 130,
     height: 40
+  },
+  link: {
+    color: "black",
+    textDecoration: "underline black"
   }
 }));

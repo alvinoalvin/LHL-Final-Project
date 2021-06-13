@@ -20,6 +20,10 @@ const useStyles = makeStyles({
   pos: {
     marginBottom: 12,
   },
+  link: {
+    color: "black",
+    textDecoration: "underline black"
+  }
 });
 
 /* Libraries */
@@ -96,7 +100,10 @@ export default function StagedList(props) {
                   <CloseIcon />
                 </IconButton>
                 <div class="divItem1">{stagedDeliv[id].type}</div>
-                <div class="divItem2">{stagedDeliv[id].name}</div>
+                {stagedDeliv[id].link ? (
+                  <a class={classes.link} href={stagedDeliv[id].link}><div class="divItem2" style={{ textDecoration: 'underline black' }}>{stagedDeliv[id].name}</div></a>) : (
+                  <div class="divItem2">{stagedDeliv[id].name}</div>)
+                }
               </div>
             </>
             )

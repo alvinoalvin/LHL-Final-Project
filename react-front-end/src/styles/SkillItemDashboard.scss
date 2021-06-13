@@ -26,6 +26,7 @@
     .flexcontainer {
       display: flex;
       flex-direction: row;
+      
       .divItem2 {
         padding: 12px;
         margin-left: 30px;
@@ -49,6 +50,10 @@
 
   .notes {
     @include areaBorder(notes);
+    .MuiCardActions-root{
+      padding:25px;
+      padding-top:8px;
+    }
   }
 
   .resources {

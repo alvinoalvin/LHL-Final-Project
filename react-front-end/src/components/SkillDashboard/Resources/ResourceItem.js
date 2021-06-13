@@ -20,7 +20,7 @@ const CustomTableCell = ({ row, name, onChange, attr, type }) => {
 
   function renderAttr() {
     if (type === "link" || type === "Link") {
-      return (<a href={row.link}>{row.link !== "No Link Needed?" && row.link !== "" ? "Resource Link" : ""}</a>)
+      return (<a class={classes.link} style={{ textDecoration: 'underline black' }} href={row.link}>{row.link !== "No Link Needed?" && row.link !== "" ? "Resource Link" : ""}</a>)
     }
     return row[attr]
   }

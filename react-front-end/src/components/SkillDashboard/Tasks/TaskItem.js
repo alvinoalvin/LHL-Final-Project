@@ -24,7 +24,7 @@ const CustomTableCell = ({ row, name, onChange, attr, type }) => {
 
   function renderAttr() {
     if (type === "link" || type === "Link") {
-      return (<a href={row.link}>{row.link !== "No Link Needed?" && row.link !== "" ? "Task Link" : ""}</a>)
+      return (<a class={classes.link} style={{ textDecoration: 'underline black' }} href={row.link}>{row.link !== "No Link Needed?" && row.link !== "" ? "Task Link" : ""}</a>)
     }
     if (type === "date" || type === "Date") {
       return getDate(row[attr])
