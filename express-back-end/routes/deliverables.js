@@ -205,8 +205,9 @@ module.exports = db => {
   });
 
   router.get("/deliverables/users/skills/:user_id&:skill_id", (request, response) => {
-    db.query(
-      `
+    try {
+      db.query(
+        `
       SELECT deliverables.id as deliverable_id, deliverables.name as deliverable_name, type.type, time_estimate_minutes, end_date, status.status
       FROM deliverables
       JOIN users ON assigned_to=users.id
@@ -220,12 +221,15 @@ module.exports = db => {
       AND deleted=false
       ORDER BY type
       `
-    )
-      .then(({ rows: deliverables }) => {
-        response.json(deliverables);
-      }).catch((err) => {
-        console.log(err.message)
-      });;
+      )
+        .then(({ rows: deliverables }) => {
+          response.json(deliverables);
+        }).catch((err) => {
+          console.log(err.message)
+        })
+    } catch (err) {
+      next(err);
+    };
   })
 
   router.post("/deliverables", (request, response) => {
@@ -266,18 +270,21 @@ module.exports = db => {
 
   /* WIP Update status to in progress*/
   router.post("/deliverables/staging/:id", (request, response) => {
-    console.log(request.params)
-    const id = parseInt(request.params.id)
-    db.query(
-      `
+    try {
+      const id = parseInt(request.params.id)
+      db.query(
+        `
       UPDATE deliverables SET status_id=2 WHERE id =$1 RETURNING *
       `, [id]
-    )
-      .then(({ rows: deliverables }) => {
-        response.json(deliverables);
-      }).catch((err) => {
-        console.log(err.message)
-      });;
+      )
+        .then(({ rows: deliverables }) => {
+          response.json(deliverables);
+        }).catch((err) => {
+          console.log("HA ERROR", err.message)
+        });;
+    } catch (err) {
+      next(err)
+    }
   })
   return router;
 
