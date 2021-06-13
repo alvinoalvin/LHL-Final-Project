@@ -52,7 +52,6 @@ export default function NotesList(props) {
       .then(function(response) {
         const notesCopy = notes
         notesCopy.push(newNote)
-        console.log(notesCopy)
         setNotes(notesCopy)
       })
       .catch(function(error) {

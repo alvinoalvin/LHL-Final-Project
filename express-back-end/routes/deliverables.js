@@ -280,7 +280,7 @@ module.exports = db => {
         .then(({ rows: deliverables }) => {
           response.json(deliverables);
         }).catch((err) => {
-          console.log("HA ERROR", err.message)
+          console.log(err.message)
         });;
     } catch (err) {
       next(err)

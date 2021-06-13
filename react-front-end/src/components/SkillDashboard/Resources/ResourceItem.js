@@ -95,7 +95,6 @@ export default function ResourceItem(props) {
     if (updateDb) {
       return axios.post(`api/tasks/${id}`, { task: row })
         .then(function(response) {
-          console.log(response)
         })
         .catch(function(error) {
           console.log(error);

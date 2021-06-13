@@ -36,18 +36,16 @@ export default function SkillDashboard() {
 
 
   useEffect(() => {
-    // console.log("TaskList")
     axios.get(`/api/tasks/${userID}/${skillID}`)
       .then(response => {
         setTasks(response.data);
-      }).catch(error => console.log("ERROR: ", error));
+      }).catch(error => console.log(error));
   }, []);
 
   useEffect(() => {
     axios.get(`/api/resources/${userID}/${skillID}`)
       .then(response => {
         setResources(response.data);
-        console.log("Resources: ", resources)
       }).catch(error => console.log(error));
   }, []);
 
@@ -55,7 +53,6 @@ export default function SkillDashboard() {
     axios.get(`/api/deliverables/${userID}/${skillID}/staged`)
       .then(response => {
         setStagedDeliv(response.data);
-        console.log("STaged: ", stagedDeliv)
       }).catch(error => console.log(error));
   }, []);
 

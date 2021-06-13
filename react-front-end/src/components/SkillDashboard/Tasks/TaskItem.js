@@ -95,7 +95,6 @@ const CustomStatusCell = ({ row, status, onStatusChange, statusMap }) => {
 
   function getKey(key) {
     if (statusMap !== {}) {
-      // console.log(statusMap)
       for (let row of statusMap) {
         if (row.status === key) {
           return row.id
@@ -121,7 +120,7 @@ const CustomStatusCell = ({ row, status, onStatusChange, statusMap }) => {
           className={classes.select}
 
           value={getKey(status)}
-          onChange={(e) => { console.log("status"); onStatusChange(e, row, statusMap) }}
+          onChange={(e) => { onStatusChange(e, row, statusMap) }}
         >
           {createMenu()}
         </Select>
@@ -140,7 +139,6 @@ export default function TaskItem(props) {
   const classes = useStyles();
 
   useEffect(() => {
-    console.log("TaskItem")
     axios.get(`/api/status`)
       .then(response => {
         setStatusMap(response.data)
@@ -181,10 +179,8 @@ export default function TaskItem(props) {
     });
     /* run axios api to update tasks on db here. */
     if (updateDb) {
-      console.log("id: ", id, "row: ", row)
       return axios.post(`/api/tasks/${id}`, { task: row })
         .then(function(response) {
-          console.log("id: ", id, "row: ", row)
           console.log(response)
         })
         .catch(function(error) {
@@ -200,10 +196,7 @@ export default function TaskItem(props) {
 
     let value;
     if (type === "date") {
-      console.log("etoIso error: ", e)
       value = e.toISOString();
-      console.log(task)
-      console.log(value)
     } else {
       value = e.target.value;
     }
@@ -212,7 +205,6 @@ export default function TaskItem(props) {
     const newTasks = rows.map((task) => {
       if (task.id === id) {
         task[attr] = value
-        console.log(task[attr])
         return task;
       }
       return task;

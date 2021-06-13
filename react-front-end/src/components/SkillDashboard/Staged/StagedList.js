@@ -32,7 +32,6 @@ export default function StagedList(props) {
   function addStaged(stageItem) {
     return axios.post(`api/deliverables/staging/${stageItem.id}`, { stageItem })
       .then(function(response) {
-        console.log(response)
         const stagedCopy = stagedDeliv.filter((staged) => {
           if (staged.id !== stageItem.id) {
             return staged
