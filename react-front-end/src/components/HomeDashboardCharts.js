@@ -3,10 +3,9 @@ import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
-import { Doughnut } from "react-chartjs-2";
-import { Line } from "react-chartjs-2";
 import { Bar } from "react-chartjs-2";
-import SkillViewAll from './SkillViewAll';
+import HomePieGraphs from "./HomePieGraphs";
+import LineGraph from "./LineGraph";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,12 +20,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CenteredGrid() {
   const classes = useStyles();
-  //update wth actual datacalls
   const [testdata, setData] = useState();
-
   const [labels, setLabels] = useState();
 
-  //only run on first load []
   useEffect(() => {
     axios
       .get("http://localhost:8080/api/analytics/skill-status", {
@@ -59,8 +55,6 @@ export default function CenteredGrid() {
         setData(stackBarData);
       });
   }, []);
-
-  // change string to number
 
   //Bar chart real data
   const data = {
@@ -104,16 +98,8 @@ export default function CenteredGrid() {
 
   return (
     <div className={classes.root}>
-      <SkillViewAll />
-      <Grid container spacing={6}>
-        
-        {/* <Grid item xs={4}>
-          <Paper className={classes.paper}>
-            <h3>Most in-progress</h3>
-            <h2>React</h2>
-            <Doughnut data={pieData} />
-          </Paper>
-        </Grid> */}
+      <HomePieGraphs />
+      <Grid container spacing={6}>  
         
         <Grid item xs={6}>
           <Paper className={classes.paper}>
@@ -147,12 +133,9 @@ export default function CenteredGrid() {
         <Grid item xs={6}>
           <Paper className={classes.paper}>
             <h2>Completion Rate</h2>
-            <Line data={lineData} />
+            {/* <LineGraph /> */}
           </Paper>
         </Grid>
-        {/* <Grid item xs={3}>
-          <Paper className={classes.paper}><h3>Newest Skill</h3><h2>Javascript</h2><Doughnut data={pieData}/></Paper>
-        </Grid> */}
       </Grid>
     </div>
   );
