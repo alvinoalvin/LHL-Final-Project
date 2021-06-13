@@ -223,5 +223,24 @@ module.exports = db => {
       next(err);
     }
   })
+
+  router.get("/deliverables/counts/:userID/:skillID", (request, response) => {
+    const queryString = `
+      select status, count(deliverables.id)
+      from deliverables
+      inner JOIN status on status_id = status.id
+      inner JOIN users on assigned_to = users.id
+      where type_id = 1 and assigned_to = $1 and deleted = false and skill_id = $2
+      group by status
+      `;
+    try {
+      db.query(queryString, [request.params.userID, request.params.skillID])
+        .then(({ rows: deliverables }) => {
+          response.json(deliverables);
+        });
+    } catch (err) {
+      next(err);
+    }
+  })
   return router;
 }

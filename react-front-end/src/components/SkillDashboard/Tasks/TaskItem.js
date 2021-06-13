@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 
 import { TableCell, TableRow, Checkbox, Input, Select, MenuItem } from '@material-ui/core';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
@@ -6,9 +6,9 @@ import DateFnsUtils from '@date-io/date-fns';
 
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { getDate } from "../../helpers/dateFuncs"
+import { getDate } from "../../../helpers/dateFuncs"
 
-import rowStyle from '../../helpers/deliverableRowStyles';
+import rowStyle from '../../../helpers/deliverableRowStyles';
 
 import EditIcon from "@material-ui/icons/EditOutlined";
 import DoneIcon from "@material-ui/icons/DoneAllTwoTone";
@@ -259,7 +259,7 @@ export default function TaskItem(props) {
         task.link = previous.task.link
         task.end_date = previous.task.end_date
         task.time_estimate_minutes = previous.task.time_estimate_minutes
-        if (task.status == "Completed") {
+        if (task.status === "Completed") {
           task.is_completed = true;
         } else {
           task.is_completed = false;
@@ -272,7 +272,7 @@ export default function TaskItem(props) {
     onToggleEditMode(id, false);
   };
   return (
-    <TableRow key={row.id}
+    <TableRow
       hover
       onClick={(event) => handleClick(event, row.id)}
       role="checkbox"
