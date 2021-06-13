@@ -4,10 +4,10 @@ import React, { useState, useEffect } from "react";
 /* Custom components */
 import TaskItem from './TaskItem';
 import CreateTaskForm from './CreateTaskForm';
-import ListComponent from './ListComponent';
+import ListComponent from '../ListComponent';
 
 /* scss */
-import '../../styles/TasksListComponent.scss';
+import '../../../styles/TasksListComponent.scss';
 
 /* Libraries */
 const axios = require('axios');

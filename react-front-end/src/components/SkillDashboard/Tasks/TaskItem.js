@@ -6,9 +6,9 @@ import DateFnsUtils from '@date-io/date-fns';
 
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { getDate } from "../../helpers/dateFuncs"
+import { getDate } from "../../../helpers/dateFuncs"
 
-import rowStyle from '../../helpers/deliverableRowStyles';
+import rowStyle from '../../../helpers/deliverableRowStyles';
 
 import EditIcon from "@material-ui/icons/EditOutlined";
 import DoneIcon from "@material-ui/icons/DoneAllTwoTone";

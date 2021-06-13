@@ -37,14 +37,11 @@ export default function NotesList(props) {
           return note
         })
         setNotes(data);
-        console.log("Notes:", data)
       })
       .catch(error => console.log(error));
   }, [notes]);
 
   function addNote() {
-    console.log("button called")
-    console.log(inputRef.current.lastChild.value)
     const newNote = {
       user_id: props.userID,
       skill_id: props.skillID,
@@ -67,7 +64,6 @@ export default function NotesList(props) {
   function deleteTask(id) {
     return axios.delete(`api/notes/${id}`, { id })
       .then(function(response) {
-        console.log("bloop")
         const noteCopy = notes.filter((note) => {
           if (note.id !== id) {
             note.key = note.id
@@ -108,8 +104,8 @@ export default function NotesList(props) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Input ref={inputRef}/>
-        <Button size="small" onClick={() => { addNote()}}>add Note</Button>
+        <Input ref={inputRef} />
+        <Button size="small" onClick={() => { addNote() }}>add Note</Button>
       </CardActions>
     </Card>
   );

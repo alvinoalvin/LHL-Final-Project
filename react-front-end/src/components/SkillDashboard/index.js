@@ -1,9 +1,9 @@
 /* Custom Components */
 import React, { useEffect, useContext } from 'react';
-import TasksList from './TasksList';
-import ResourceList from './ResourceList';
-import NotesList from './Notes';
-import CustomProgressBar from './progressBar';
+import TasksList from './Tasks/TasksList';
+import ResourceList from './Resources/ResourceList';
+import NotesList from './Notes/Notes';
+import CustomProgressBar from './Progress/progressBar';
 import '../../styles/SkillItemDashboard.scss';
 import { authContext } from '../../providers/AuthProvider';
 import { useLocation } from "react-router-dom";
@@ -26,7 +26,7 @@ export default function SkillDashboard() {
   useEffect(() => {
     axios.get(`/api/skills`)
       .then(response => {
-        setSkill(response.data.find(x => x.id === skillID).name);
+        setSkill(response.data.find(x => x.id === parseInt(skillID)).name);
       }).catch(error => console.log(error));
   }, [skillID]);
 
@@ -62,7 +62,10 @@ export default function SkillDashboard() {
             />
           </div>
           <div class="progressCont">
-            <CustomProgressBar />
+              <CustomProgressBar
+                skillID={skillID}
+                userID={userID}
+              />
           </div>
         </div>)
     }</>
