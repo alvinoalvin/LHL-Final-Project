@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CenteredGrid() {
+export default function LineGraph() {
   const classes = useStyles();
   const [testdata, setData] = useState();
   const [labels, setLabels] = useState();
@@ -41,15 +41,15 @@ export default function CenteredGrid() {
         }, []);
         setLabels(newLabels);
 
-        const dataState = response.data.reduce((acc, dataPoint) => {
-          if (acc[dataPoint.status]) {
-            acc[dataPoint.status].push(Number(dataPoint.count));
-          } else {
-            acc[dataPoint.status] = [Number(dataPoint.count)];
-          }
-          return acc;
-        }, {});
-        console.log({dataState: response.data})
+        // const dataState = response.data.reduce((acc, dataPoint) => {
+        //   if (acc[dataPoint.status]) {
+        //     acc[dataPoint.status].push(Number(dataPoint.count));
+        //   } else {
+        //     acc[dataPoint.status] = [Number(dataPoint.count)];
+        //   }
+        //   return acc;
+        // }, {});
+        // console.log({dataState: response.data})
         setData(response.data);
       });
   }, []);
@@ -96,19 +96,13 @@ export default function CenteredGrid() {
 
       <Grid container spacing={6}>
       
-          
-            
           <Grid item xs={6}>
           <Paper className={classes.paper}>
             <h2>All Completed Tasks in the Last Week</h2>
             <Line data={lineData} />
           </Paper>
         </Grid>
-          
 
-
-         
-          
       </Grid>
     </div>
   );
