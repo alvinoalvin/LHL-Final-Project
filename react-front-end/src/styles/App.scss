@@ -1,3 +1,4 @@
+@import "./variables.scss";
 .App {
   text-align: center;
   h1 {
@@ -32,4 +33,81 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+main {
+  min-height: 100vh;
+}
+
+.tool-bar {
+  background-color: var(--nav);
+  width: 100%;
+  padding-bottom: 0.5rem;
+
+  #website-logo {
+    font-family: var(--title-font);
+    font-size: 40px;
+  }
+
+  .website-info-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .user-container {
+      display: flex;
+      align-items: center;
+
+      .user-info-container {
+        padding-right: 1rem;
+
+        #user-name {
+          font-family: var(--header-font);
+          font-size: 24px;
+          margin-top: 0.5rem;
+          margin-bottom: -0.5rem;
+        }
+
+        #user-position {
+          font-family: var(--text-font);
+          font-size: 18px;
+        }
+      }
+
+      #user-icon {
+        margin-top: 0.5rem;
+      }
+    }
+  }
+}
+
+a {
+  text-decoration: none;
+  color: #fff;
+
+  svg {
+    color: #fff;
+  }
+
+  .tab-item {
+    font-family: var(--header-font);
+    font-size: 20px;
+  }
+}
+
+a:link {
+  text-decoration: none;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+a:active {
+  text-decoration: none;
 }

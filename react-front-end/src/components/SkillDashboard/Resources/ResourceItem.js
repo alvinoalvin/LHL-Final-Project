@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 import { TableCell, TableRow, Checkbox, Input } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 
-import rowStyle from '../../helpers/deliverableRowStyles';
+import rowStyle from '../../../helpers/deliverableRowStyles';
 
 import EditIcon from "@material-ui/icons/EditOutlined";
 import DoneIcon from "@material-ui/icons/DoneAllTwoTone";
@@ -20,7 +20,7 @@ const CustomTableCell = ({ row, name, onChange, attr, type }) => {
 
   function renderAttr() {
     if (type === "link" || type === "Link") {
-      return (<a href={row.link}>{row.link !== "No Link Needed?" && row.link !== "" ? "Resource Link" : ""}</a>)
+      return (<a class={classes.link} style={{ textDecoration: 'underline black' }} href={row.link}>{row.link !== "No Link Needed?" && row.link !== "" ? "Resource Link" : ""}</a>)
     }
     return row[attr]
   }
@@ -95,7 +95,6 @@ export default function ResourceItem(props) {
     if (updateDb) {
       return axios.post(`api/tasks/${id}`, { task: row })
         .then(function(response) {
-          console.log(response)
         })
         .catch(function(error) {
           console.log(error);

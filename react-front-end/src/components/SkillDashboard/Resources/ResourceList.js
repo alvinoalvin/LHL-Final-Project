@@ -1,28 +1,19 @@
 /* React Libraries */
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 /* Custom components */
 import ResourceItem from './ResourceItem';
 import CreateResourceForm from './CreateResourceForm';
-import ListComponent from './ListComponent';
+import ListComponent from '../ListComponent';
 
 /* scss */
-import '../../styles/TasksListComponent.scss';
+import '../../../styles/TasksListComponent.scss';
 
 /* Libraries */
 const axios = require('axios');
 
 export default function ResourceListComponent(props) {
-  const [resources, setResources] = useState([]);
-
-  useEffect(() => {
-    // console.log("ResourceList")
-    axios.get(`/api/resources/${props.userID}/${props.skillID}`)
-      .then(response => {
-        setResources(response.data);
-        console.log(response.data)
-      }).catch(error => console.log(error));
-  }, []);
+  const { resources, setResources } = props
 
   /* make sure ids match db column names */
   const headCells = [

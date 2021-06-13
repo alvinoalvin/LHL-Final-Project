@@ -3,7 +3,7 @@ import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import axios from "axios";
 
-import { Avatar, CssBaseline, TextField, Input, Grid, Typography, Container } from '@material-ui/core/';
+import { CssBaseline, TextField, Grid, Typography, Container } from '@material-ui/core/';
 import SaveIcon from '@material-ui/icons/Save';
 
 const useStyles = makeStyles((theme) => ({
@@ -50,7 +50,7 @@ export default function CreateResourceForm(props) {
           Add New Resource
         </Typography>
         <form className='new-member-form' noValidate>
-          <Grid container spacing={2}>
+          <Grid container spacing={3}>
             <Grid item xs={12}>
               <TextField
                 id="create-resource-name-input"

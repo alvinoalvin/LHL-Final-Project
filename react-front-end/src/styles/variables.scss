@@ -1,0 +1,43 @@
+
+
+
+
+
+:root {
+  // CSS Variables
+
+  // fonts
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&family=Yellowtail&display=swap');
+  --title-font: 'Yellowtail', cursive;
+
+  @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+  --header-font: 'Roboto Condensed', sans-serif;
+
+  @import url('https://fonts.googleapis.com/css2?family=Coustard&family=Lato:ital,wght@0,100;0,300;0,400;0,700;1,100;1,300;1,400;1,700&family=Roboto:wght@100&family=Yellowtail&display=swap');
+  --text-font: 'Lato', serif; 
+
+  // color palette:
+  // https://coolors.co/91c4f2-576ab3-9d79bc-a14da0-7e1f86
+  --blue-light: #91C4F2;
+  --blue-dark: #576AB3;
+  --purple-light: #9D79BC;
+  --purple-medium: #A14DA0;
+  --purple-dark: #7E1F86;
+
+  --paper: rgba(255,255,255,0.5);
+  --content: #eeeeee;
+  --drawer: #4F4E66;
+  --nav: #6F6F8E;
+
+  --button: #A14DA0;
+  --button-hover: #9D79BC;
+
+  --table-header: #A14DA0;
+  --table-body: #9D79BC;
+
+  --white: #fff;
+}
+
+
+
+

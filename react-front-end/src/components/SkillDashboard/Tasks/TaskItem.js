@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 
 import { TableCell, TableRow, Checkbox, Input, Select, MenuItem } from '@material-ui/core';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
@@ -6,9 +6,9 @@ import DateFnsUtils from '@date-io/date-fns';
 
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { getDate } from "../../helpers/dateFuncs"
+import { getDate } from "../../../helpers/dateFuncs"
 
-import rowStyle from '../../helpers/deliverableRowStyles';
+import rowStyle from '../../../helpers/deliverableRowStyles';
 
 import EditIcon from "@material-ui/icons/EditOutlined";
 import DoneIcon from "@material-ui/icons/DoneAllTwoTone";
@@ -24,7 +24,7 @@ const CustomTableCell = ({ row, name, onChange, attr, type }) => {
 
   function renderAttr() {
     if (type === "link" || type === "Link") {
-      return (<a href={row.link}>{row.link !== "No Link Needed?" && row.link !== "" ? "Task Link" : ""}</a>)
+      return (<a class={classes.link} style={{ textDecoration: 'underline black' }} href={row.link}>{row.link !== "No Link Needed?" && row.link !== "" ? "Task Link" : ""}</a>)
     }
     if (type === "date" || type === "Date") {
       return getDate(row[attr])
@@ -95,7 +95,6 @@ const CustomStatusCell = ({ row, status, onStatusChange, statusMap }) => {
 
   function getKey(key) {
     if (statusMap !== {}) {
-      // console.log(statusMap)
       for (let row of statusMap) {
         if (row.status === key) {
           return row.id
@@ -121,7 +120,7 @@ const CustomStatusCell = ({ row, status, onStatusChange, statusMap }) => {
           className={classes.select}
 
           value={getKey(status)}
-          onChange={(e) => { console.log("status"); onStatusChange(e, row, statusMap) }}
+          onChange={(e) => { onStatusChange(e, row, statusMap) }}
         >
           {createMenu()}
         </Select>
@@ -140,7 +139,6 @@ export default function TaskItem(props) {
   const classes = useStyles();
 
   useEffect(() => {
-    console.log("TaskItem")
     axios.get(`/api/status`)
       .then(response => {
         setStatusMap(response.data)
@@ -181,10 +179,8 @@ export default function TaskItem(props) {
     });
     /* run axios api to update tasks on db here. */
     if (updateDb) {
-      console.log("id: ", id, "row: ", row)
       return axios.post(`/api/tasks/${id}`, { task: row })
         .then(function(response) {
-          console.log("id: ", id, "row: ", row)
           console.log(response)
         })
         .catch(function(error) {
@@ -200,10 +196,7 @@ export default function TaskItem(props) {
 
     let value;
     if (type === "date") {
-      console.log("etoIso error: ", e)
       value = e.toISOString();
-      console.log(task)
-      console.log(value)
     } else {
       value = e.target.value;
     }
@@ -212,7 +205,6 @@ export default function TaskItem(props) {
     const newTasks = rows.map((task) => {
       if (task.id === id) {
         task[attr] = value
-        console.log(task[attr])
         return task;
       }
       return task;
@@ -259,7 +251,7 @@ export default function TaskItem(props) {
         task.link = previous.task.link
         task.end_date = previous.task.end_date
         task.time_estimate_minutes = previous.task.time_estimate_minutes
-        if (task.status == "Completed") {
+        if (task.status === "Completed") {
           task.is_completed = true;
         } else {
           task.is_completed = false;
@@ -272,7 +264,7 @@ export default function TaskItem(props) {
     onToggleEditMode(id, false);
   };
   return (
-    <TableRow key={row.id}
+    <TableRow
       hover
       onClick={(event) => handleClick(event, row.id)}
       role="checkbox"

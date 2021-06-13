@@ -5,12 +5,12 @@ VALUES
 
 INSERT INTO users (first_name, last_name, email, password, position, team_id)
 VALUES
-  ('Donny', 'Li', 'donny@donny.com', 'password', 'Team Lead', 1),
-  ('Zea', 'Lingard', 'zea@zea.com', 'password', 'Contributor', 1),
-  ('Alvin', 'Ng', 'alvin@alvin.com', 'password', 'Contributor', 1),
-  ('Harp', 'Sandhu', 'harp@harp.com', 'password', 'Contributor', 1),
-  ('Bradley', 'Fung', 'brad@brad.com', 'password', 'Contributor', 1),
-  ('Andy', 'Lindsay', 'andy@andy.com', 'password', 'Contributor', 1);
+  ('Donny', 'Li', 'donny@gmail.com', 'password', 'Team Lead', 1),
+  ('Zea', 'Lingard', 'zea@gmail.com', 'password', 'Contributor', 1),
+  ('Alvin', 'Ng', 'alvin@gmail.com', 'password', 'Contributor', 1),
+  ('Harp', 'Sandhu', 'harp@gmail.com', 'password', 'Contributor', 1),
+  ('Bradley', 'Fung', 'brad@gmail.com', 'password', 'Contributor', 1),
+  ('Andy', 'Lindsay', 'andy@gmail.com', 'password', 'Contributor', 1);
 
 INSERT INTO status (status)
 VALUES

@@ -5,7 +5,7 @@ import { lighten, makeStyles } from "@material-ui/core/styles";
 import {
   Table, TableBody, TableCell, TableContainer, TableHead,
   TablePagination, TableRow, TableSortLabel, Toolbar,
-  Typography, Paper, Checkbox, IconButton, Tooltip, FormControlLabel, Switch
+  Typography, Paper, Checkbox, IconButton, Tooltip
 } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 
@@ -206,7 +206,7 @@ export default function EnhancedTable(props) {
   const [orderBy, setOrderBy] = React.useState("calories");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
-  const [dense, setDense] = React.useState(true);
+  const [dense] = React.useState(true);
   const [rowsPerPage, setRowsPerPage] = React.useState(props.numRows);
   const rows = props.rows;
 
@@ -254,9 +254,9 @@ export default function EnhancedTable(props) {
     setPage(0);
   };
 
-  const handleChangeDense = (event) => {
-    setDense(event.target.checked);
-  };
+  // const handleChangeDense = (event) => {
+  //   setDense(event.target.checked);
+  // };
   const isSelected = (id) => selected.indexOf(id) !== -1
 
   const emptyRows =

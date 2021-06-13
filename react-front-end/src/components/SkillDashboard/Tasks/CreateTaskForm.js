@@ -51,14 +51,14 @@ export default function CreateTaskForm(props) {
   }
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="xs" >
       <CssBaseline />
-      <div className={classes.paper}>
+      <div className={classes.paper} >
         <Typography component="h1" variant="h5" className={classes.h5}>
           Add New Task
         </Typography>
         <form className='new-member-form' noValidate>
-          <Grid container spacing={2}>
+          <Grid container spacing={3}>
             <Grid item xs={12}>
               <TextField
                 id="create-task-name-input"
@@ -127,7 +127,7 @@ export default function CreateTaskForm(props) {
               if (!nameInput.value) {
                 alert("Please enter a name")
               }
-              else if (estDurInput.validity.badInput == true || estDurInput.value < 0) {
+              else if (estDurInput.validity.badInput === true || estDurInput.value < 0) {
                 alert("Please enter a postive number for Estimated Duration")
               }
               else {

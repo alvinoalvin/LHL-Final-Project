@@ -1,5 +1,5 @@
 /* React Libraries */
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 
 /* Material Ui */
 import { Button, Modal, Backdrop, Fade } from "@material-ui/core";
@@ -32,7 +32,8 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3)
+    padding: theme.spacing(2, 4, 3),
+    height:"500px"
   },
   dialogPaper: {
     height: '400px'
@@ -53,12 +54,11 @@ export default function ListComponent(props) {
   };
 
   useEffect(() => {
-    // console.log("ListComponent")
     axios.get(`/api/tasks/${props.userID}/${props.skillID}`)
       .then(response => {
         setRows(response.data);
       }).catch(error => console.log(error));
-  }, []);
+  }, [props.userID, props.skillID, setRows]);
 
   return (
     <div class="list-component" >
@@ -73,7 +73,7 @@ export default function ListComponent(props) {
         numRows={props.numRows}
       />
       <div class="btnContainer">
-        <Button variant="outlined" color="primary" onClick={setOpen}>
+        <Button variant="contained" color="default" onClick={handleOpen}>
           {props.addName}
         </Button>
       </div>
