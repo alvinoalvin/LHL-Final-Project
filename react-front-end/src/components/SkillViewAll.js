@@ -63,17 +63,15 @@ export default function SkillViewAll(props) {
       });
   }, []);
 
+  const styles = {
+    textDecoration: 'none',
+    '&:hover': {
+      color: 'white'
+    }
+  };
   return (
     <div className={classes.root}>
       <Grid container spacing={4}>
-        <Grid item xs={4}>
-          <Paper className={classes.paper}>
-            <div>
-              <Form/>
-            </div>
-            </Paper>
-        </Grid>
-
         {Object.keys(data).map((skill_id) => (
           <Grid item xs={4}>
             <div onClick={handleClick}>
@@ -85,8 +83,26 @@ export default function SkillViewAll(props) {
             </div>
           </Grid>
         ))}
+
+<Grid item xs={4}>
+          <Paper className={classes.paper}>
+            <h2>Add New Skill</h2>
+            {/* <Form/> */}
+            <div>
+              <main className="appointment__add">
+                <img
+                  className="appointment__add-button"
+                  src="images/add.png"
+                  alt="Add"
+                  onClick={<Form />}
+                  onHover={styles}
+                />
+              </main>
+            </div>
+          </Paper>
+        </Grid>
+        
       </Grid>
-      
     </div>
   );
 }
