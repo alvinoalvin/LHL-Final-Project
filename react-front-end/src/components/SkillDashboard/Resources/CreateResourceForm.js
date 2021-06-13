@@ -50,7 +50,7 @@ export default function CreateResourceForm(props) {
           Add New Resource
         </Typography>
         <form className='new-member-form' noValidate>
-          <Grid container spacing={2}>
+          <Grid container spacing={3}>
             <Grid item xs={12}>
               <TextField
                 id="create-resource-name-input"
