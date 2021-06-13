@@ -52,7 +52,6 @@ export default function NotesList(props) {
       .then(function(response) {
         const notesCopy = notes
         notesCopy.push(newNote)
-        console.log(notesCopy)
         setNotes(notesCopy)
       })
       .catch(function(error) {
@@ -61,7 +60,7 @@ export default function NotesList(props) {
   }
 
 
-  function deleteTask(id) {
+  function deleteNote(id) {
     return axios.delete(`api/notes/${id}`, { id })
       .then(function(response) {
         const noteCopy = notes.filter((note) => {
@@ -78,7 +77,7 @@ export default function NotesList(props) {
   }
   return (
     <Card className={classes.root}>
-      <CardContent>
+      <CardContent style={{ height: 370, overflow: 'auto' }}>
 
         <Typography gutterBottom variant="h6" component="h4">
           Notes
@@ -91,7 +90,7 @@ export default function NotesList(props) {
                   aria-label="delete"
                   onClick={(event) => {
                     if (window.confirm('Are you sure you want to delete?')) {
-                      deleteTask(notes[id].id);
+                      deleteNote(notes[id].id);
                     }
                   }}>
                   <CloseIcon />

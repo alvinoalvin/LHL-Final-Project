@@ -17,7 +17,6 @@ module.exports = db => {
     }
   });
   router.post("/notes", (request, response) => {
-    console.log(request.body)
     try {
       db.query(
         `
@@ -31,22 +30,20 @@ module.exports = db => {
     }
   });
   router.delete("/notes/:note_id", (request, response) => {
-    // try {
-    console.log(request.params.note_id)
+    try {
     db.query(
       `DELETE from notes where id = $1 Returning *`, [request.params.note_id]
     )
       .then((rows) => {
-        console.log(rows)
         response.json(rows);
       }).catch(
         error => {
           console.log(error)
         }
       );
-    // } catch (err) {
-    //   next(err);
-    // }
+    } catch (err) {
+      next(err);
+    }
   });
   return router;
 }

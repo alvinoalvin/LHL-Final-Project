@@ -1,5 +1,5 @@
 /* React Libraries */
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 /* Custom components */
 import ResourceItem from './ResourceItem';
@@ -13,16 +13,7 @@ import '../../../styles/TasksListComponent.scss';
 const axios = require('axios');
 
 export default function ResourceListComponent(props) {
-  const [resources, setResources] = useState([]);
-
-  useEffect(() => {
-    // console.log("ResourceList")
-    axios.get(`/api/resources/${props.userID}/${props.skillID}`)
-      .then(response => {
-        setResources(response.data);
-        console.log(response.data)
-      }).catch(error => console.log(error));
-  }, []);
+  const { resources, setResources } = props
 
   /* make sure ids match db column names */
   const headCells = [

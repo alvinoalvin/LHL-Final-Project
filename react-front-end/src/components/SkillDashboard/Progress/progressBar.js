@@ -34,27 +34,33 @@ export default function CustomProgressBar(props) {
     if (should_round) {
       return Math.floor((100 * partialValue) / totalValue);
     }
-      return (100 * partialValue) / totalValue;
+    return (100 * partialValue) / totalValue;
   }
 
+  function getCount(data, status) {
+    if (data.find(row => row.status === status)) {
+      return parseInt(data.find(row => row.status === status).count)
+    } else {
+      return 0;
+    }
+  }
   useEffect(() => {
     axios.get(`/api/deliverables/counts/${props.userID}/${props.skillID}`)
       .then(response => {
         const data = response.data
-        console.log(data)
 
-        const staged = parseInt(data.find(status => status.status == "Staged").count)
-        const inProg = parseInt(data.find(status => status.status == "In Progress").count)
-        const complted = parseInt(data.find(status => status.status == "Completed").count)
+        const staged = getCount(data, "Staged")
+        const inProg = getCount(data, "In Progress")
+        const completed = getCount(data, "Completed")
 
         setStagedCount(staged)
         setInProgCount(inProg)
-        setCompleteCount(complted)
-             
+        setCompleteCount(completed)
+
         setTotalCount(stagedCount + inProgCount + completeCount);
       })
       .catch(error => console.log(error));
-  }, [stagedCount, inProgCount, ,completeCount,totalCount]);
+  }, [stagedCount, inProgCount, , completeCount, totalCount]);
 
   return (
     <>
@@ -64,9 +70,9 @@ export default function CustomProgressBar(props) {
             Progress
           </Typography>
           <ProgressBar>
-            <ProgressBar striped variant="success" now={getPercent(stagedCount, totalCount, false)} key={1} label={`In Progress ${getPercent(stagedCount, totalCount,true)}%`} />
-            <ProgressBar variant="warning" now={getPercent(inProgCount, totalCount, false)} key={2} label={`Completed ${getPercent(inProgCount, totalCount,true)}%`} />
-            <ProgressBar striped variant="" now={getPercent(completeCount, totalCount, false)} key={3} label={`Staged ${getPercent(completeCount, totalCount,true)}%`} />
+            <ProgressBar striped variant="" now={getPercent(stagedCount, totalCount, false)} key={1} label={`Staging ${getPercent(stagedCount, totalCount, true)}%`} />
+            <ProgressBar variant="warning" now={getPercent(inProgCount, totalCount, false)} key={2} label={`In Progress ${getPercent(inProgCount, totalCount, true)}%`} />
+            <ProgressBar striped variant="success" now={getPercent(completeCount, totalCount, false)} key={3} label={`Completed ${getPercent(completeCount, totalCount, true)}%`} />
           </ProgressBar>
         </CardContent>
       </Card>

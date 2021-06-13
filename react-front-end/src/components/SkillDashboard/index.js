@@ -1,8 +1,9 @@
 /* Custom Components */
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import TasksList from './Tasks/TasksList';
 import ResourceList from './Resources/ResourceList';
 import NotesList from './Notes/Notes';
+import StagedList from './Staged/StagedList';
 import CustomProgressBar from './Progress/progressBar';
 import '../../styles/SkillItemDashboard.scss';
 import { authContext } from '../../providers/AuthProvider';
@@ -22,6 +23,9 @@ export default function SkillDashboard() {
   const userID = id;
 
   const [skill, setSkill] = React.useState("");
+  const [resources, setResources] = useState([]);
+  const [tasks, setTasks] = useState([]);
+  const [stagedDeliv, setStagedDeliv] = useState([]);
 
   useEffect(() => {
     axios.get(`/api/skills`)
@@ -30,6 +34,27 @@ export default function SkillDashboard() {
       }).catch(error => console.log(error));
   }, [skillID]);
 
+
+  useEffect(() => {
+    axios.get(`/api/tasks/${userID}/${skillID}`)
+      .then(response => {
+        setTasks(response.data);
+      }).catch(error => console.log(error));
+  }, []);
+
+  useEffect(() => {
+    axios.get(`/api/resources/${userID}/${skillID}`)
+      .then(response => {
+        setResources(response.data);
+      }).catch(error => console.log(error));
+  }, []);
+
+  useEffect(() => {
+    axios.get(`/api/deliverables/${userID}/${skillID}/staged`)
+      .then(response => {
+        setStagedDeliv(response.data);
+      }).catch(error => console.log(error));
+  }, []);
 
   return (<>
     {
@@ -40,18 +65,22 @@ export default function SkillDashboard() {
       ) : (
         <div id="skill-item-container">
           <div id="dashboardHeader"><h1>{skill}</h1></div>
-          <div class="resources">
-            <ResourceList
-              key={skillID}
+          <div class="progressCont">
+            <CustomProgressBar
               skillID={skillID}
               userID={userID}
             />
           </div>
-          <div class="tasks">
-            <TasksList
-              key={skillID}
+          <div class="staging">
+            <StagedList
               skillID={skillID}
               userID={userID}
+              stagedDeliv={stagedDeliv}
+              setStagedDeliv={setStagedDeliv}
+              tasks={tasks}
+              setTasks={setTasks}
+              resources={resources}
+              setResources={setResources}
             />
           </div>
           <div class="notes">
@@ -61,11 +90,23 @@ export default function SkillDashboard() {
               userID={userID}
             />
           </div>
-          <div class="progressCont">
-              <CustomProgressBar
-                skillID={skillID}
-                userID={userID}
-              />
+          <div class="resources">
+            <ResourceList
+              key={skillID}
+              skillID={skillID}
+              userID={userID}
+              resources={resources}
+              setResources={setResources}
+            />
+          </div>
+          <div class="tasks">
+            <TasksList
+              key={skillID}
+              skillID={skillID}
+              userID={userID}
+              tasks={tasks}
+              setTasks={setTasks}
+            />
           </div>
         </div>)
     }</>

@@ -72,7 +72,7 @@ export default function ListComponent(props) {
         numRows={props.numRows}
       />
       <div class="btnContainer">
-        <Button variant="outlined" color="primary" onClick={handleOpen}>
+        <Button variant="contained" color="default" onClick={handleOpen}>
           {props.addName}
         </Button>
       </div>

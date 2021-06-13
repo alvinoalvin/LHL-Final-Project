@@ -140,12 +140,12 @@ export default function Application() {
                 <ListItemText disableTypography className='tab-item' primary='Recommend'></ListItemText>
               </ListItem>
               <Divider />
-            <Link to="/skill">
+            {/* <Link to="/skill">
               <ListItem>
                 <ListItemIcon><AccountCircleIcon /></ListItemIcon>
                 <ListItemText primary='Skill'></ListItemText>
               </ListItem>
-            </Link>
+            </Link> */}
             <Link to="/allSkills">
               <ListItem>
                 <ListItemIcon><AccountCircleIcon /></ListItemIcon>
