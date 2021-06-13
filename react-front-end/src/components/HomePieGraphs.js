@@ -42,7 +42,8 @@ export default function HomePieGraphs(props) {
               datasets: [
                 {
                   data: [],
-                  backgroundColor: ["#91C4F2", "#576AB3", "#7E1F86"],
+                  backgroundColor: [ "#d4e6a5", "#fcdca5", "#d4d0d0" ]
+                  //"#c991fa", "#6491fa", "#0f91fa" 
                 },
               ],
             },

@@ -39,7 +39,7 @@ export default makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
-    backgroundColor: '#4F4E66'
+    backgroundColor: '#FDC300'
   },
   drawerClose: {
     transition: theme.transitions.create('width', {
@@ -51,7 +51,7 @@ export default makeStyles((theme) => ({
     [theme.breakpoints.up('sm')]: {
       width: theme.spacing(9) + 1,
     },
-    backgroundColor: '#4F4E66'
+    backgroundColor: '#FDC300'
   },
   toolbar: {
     display: 'flex',
@@ -63,7 +63,7 @@ export default makeStyles((theme) => ({
   },
   content: {
     flexGrow: 1,
-    backgroundColor: '#AEB5CA',
+    backgroundColor: '#fff',
     // padding: theme.spacing(3),
   },
 }));
