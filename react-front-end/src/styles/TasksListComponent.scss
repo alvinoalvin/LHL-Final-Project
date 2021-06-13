@@ -1,6 +1,6 @@
 .list-component {
   max-width: 45vw;
-  min-height: 300px;
+  min-height: 700px;
   button {
     margin-top: 10px;
   }
@@ -13,21 +13,21 @@
   .MuiTableCell-sizeSmall.MuiTableCell-paddingCheckbox {
     padding: 15px 14px;
   }
-  .MuiButtonBase-root, .MuiIconButton-root{
-    margin:0;
+  .MuiButtonBase-root,
+  .MuiIconButton-root {
+    margin: 0;
   }
-  .MuiInputBase-input{
-    padding:6px 0 11px;
+  .MuiInputBase-input {
+    padding: 6px 0 11px;
   }
-  #date-picker-inline{
+  #date-picker-inline {
     font-size: 11px;
     padding-bottom: 17px;
   }
-  .btnContainer{
-    width:100%;
+  .btnContainer {
+    width: 100%;
     text-align: right;
   }
-  
 }
 
 label[data-shrink="false"]
@@ -36,4 +36,11 @@ label[data-shrink="false"]
   opacity: 0 !important;
   display: block;
   vertical-align: middle;
+}
+
+@media (max-width: 1670px) {
+  .list-component {
+    max-width: 100vw;
+    min-height: auto;
+  }
 }
