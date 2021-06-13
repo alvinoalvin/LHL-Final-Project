@@ -13,7 +13,7 @@ export default function Deliverable(props) {
     <TableRow hover role="checkbox" tabIndex={-1}>
       <TableCell>{props.deliverable.deliverable_name}</TableCell>
       <TableCell>{props.deliverable.status}</TableCell>
-      <TableCell>{dueDate}</TableCell>
+      <TableCell align="right">{dueDate}</TableCell>
       <TableCell align="right">{props.deliverable.time_estimate_minutes}</TableCell>
     </TableRow>
   )

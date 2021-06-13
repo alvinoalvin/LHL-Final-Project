@@ -4,9 +4,8 @@ import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import MailIcon from '@material-ui/icons/Mail';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
@@ -14,6 +13,10 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
+import ShareIcon from '@material-ui/icons/Share';
+import { purple } from "@material-ui/core/colors";
+
+import "./styles.scss";
 
 import axios from 'axios';
 import { authContext } from '../../providers/AuthProvider';
@@ -29,17 +32,26 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    width: '70%',
+    margin: 'auto',
+    backgroundColor: 'var(--content)',
+    padding: '3rem',
+    borderRadius: '50px',
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor:  'var(--button)',
   },
   form: {
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(3),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
+    backgroundColor:  'var(--button)',
   },
   formControl: {
     margin: theme.spacing(1),
@@ -48,7 +60,19 @@ const useStyles = makeStyles((theme) => ({
   selectEmpty: {
     marginTop: theme.spacing(2),
   },
+  textField: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+
+  }
 }));
+
+const theme = createMuiTheme({
+  palette: {
+    primary: purple,
+  }
+});
+
 
 export default function Recommend(props) {
   const classes = useStyles();
@@ -84,7 +108,10 @@ export default function Recommend(props) {
     .then(function(response) {
       setUserList(response.data)
     })
-  }, []);
+    .catch(function (error) {
+      console.log("ERROR: ", error);
+    });
+  }, [team_id]);
 
   const userChoice = userList.map(userInfo => {
     return (
@@ -99,6 +126,9 @@ export default function Recommend(props) {
     .then(function(response) {
       setTypeList(response.data)
     })
+    .catch(function (error) {
+      console.log("ERROR: ", error);
+    });
   }, []);
 
   const typeChoice = typeList.map(typeInfo => {
@@ -118,6 +148,9 @@ export default function Recommend(props) {
     .then(function(response) {
       setSkillList(response.data)
     })
+    .catch(function (error) {
+      console.log("ERROR: ", error);
+    });
   }, [userID])
   
   const skillChoice = skillList.map(skillInfo => {
@@ -140,6 +173,9 @@ export default function Recommend(props) {
     }
 
     return axios.post(`/api/deliverables`, newDeliverable)
+    .catch(function (error) {
+      console.log("ERROR: ", error);
+    });
   }
 
   function checkRec() {
@@ -184,109 +220,109 @@ export default function Recommend(props) {
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
-          <MailIcon />
+          <ShareIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
           Make a recommendation
         </Typography>
         <form className={classes.form} noValidate>
-          <FormControl className={classes.formControl}>
-            <InputLabel id="demo-simple-select-helper-label">Name</InputLabel>
-            <Select
-              labelId="demo-simple-select-helper-label"
-              id="demo-simple-select-helper"
-              value={userID}
-              onChange={(event) => {
-                setUserID(event.target.value)
-                setSkill('')
-              }}
-            >
-              {userChoice}
-            </Select>
-            <FormHelperText>Team Member</FormHelperText>
-          </FormControl>
-          <FormControl className={classes.formControl}>
-            <InputLabel id="demo-simple-select-helper-label">Type</InputLabel>
-            <Select
-              labelId="demo-simple-select-helper-label"
-              id="demo-simple-select-helper"
-              value={type}
-              onChange={(event) => setType(event.target.value)}
-            >
-              {typeChoice}
-            </Select>
-            <FormHelperText>Type</FormHelperText>
-          </FormControl>
-          <FormControl className={classes.formControl}>
-            <InputLabel id="demo-simple-select-helper-label">Skill</InputLabel>
-            <Select
-              labelId="demo-simple-select-helper-label"
-              id="demo-simple-select-helper"
-              value={skill? skill : ''}
-              onChange={(event) => {
-                setSkill(event.target.value)
-              }
-              }
-            >
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-              {skillChoice}
-            </Select>
-            <FormHelperText>Type</FormHelperText>
-          </FormControl>
-          <TextField
-            autoComplete="dname"
-            fullWidth
-            name="deliverableName"
-            variant="outlined"
-            required
-            id="deliverableName"
-            label="Deliverable Name"
-            autoFocus
-            value={deliverableName}
-            onChange={(event) => setDeliverableName(event.target.value)}
-          />
-          {/* change to only take in number */}
-          <TextField
-            variant="outlined"
-            fullWidth
-            id="time"
-            label="Time Estimate"
-            name="time"
-            autoComplete="time"
-            value={time}
-            onChange={(event) => setTime(event.target.value)}
-          />
-          <TextField
-            // How can i conditionally tack this one??
-            error
-            id="outlined-error-helper-text"
-            label="Error"
-            defaultValue=""
-            helperText="Please Enter A Number"
-            variant="outlined"
-          />
-          <TextField
-            variant="outlined"
-            fullWidth
-            id="deliverableLink"
-            label="Link"
-            name="deliverableLink"
-            autoComplete="dlink"
-            value={link}
-            onChange={(event) => setLink(event.target.value)}
-          />
-          <TextField
-            variant="outlined"
-            id="notes"
-            fullWidth
-            label="Notes/Comments"
-            name="notes"
-            autoComplete="notes"
-            value={notes}
-            onChange={(event) => setNotes(event.target.value)}
-          />
+          <ThemeProvider theme={theme}>
+            <div className='recommend-selector'>
+              <FormControl className={classes.formControl}>
+                <InputLabel id="demo-simple-select-helper-label">Name</InputLabel>
+                <Select
+                  labelId="demo-simple-select-helper-label"
+                  id="demo-simple-select-helper"
+                  value={userID}
+                  onChange={(event) => {
+                    setUserID(event.target.value)
+                    setSkill('')
+                  }}
+                >
+                  {userChoice}
+                </Select>
+                <FormHelperText>Team Member</FormHelperText>
+              </FormControl>
+              <FormControl className={classes.formControl}>
+                <InputLabel id="demo-simple-select-helper-label">Type</InputLabel>
+                <Select
+                  labelId="demo-simple-select-helper-label"
+                  id="demo-simple-select-helper"
+                  value={type}
+                  onChange={(event) => setType(event.target.value)}
+                >
+                  {typeChoice}
+                </Select>
+                <FormHelperText>Type</FormHelperText>
+              </FormControl>
+              <FormControl className={classes.formControl}>
+                <InputLabel id="demo-simple-select-helper-label">Skill</InputLabel>
+                <Select
+                  labelId="demo-simple-select-helper-label"
+                  id="demo-simple-select-helper"
+                  value={skill? skill : ''}
+                  onChange={(event) => {
+                    setSkill(event.target.value)
+                  }
+                  }
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
+                  {skillChoice}
+                </Select>
+                <FormHelperText>Type</FormHelperText>
+              </FormControl>
+            </div>
+            <TextField
+              className={classes.form}
+              autoComplete="dname"
+              fullWidth
+              name="deliverableName"
+              variant="outlined"
+              required
+              id="deliverableName"
+              label="Deliverable Name"
+              autoFocus
+              value={deliverableName}
+              onChange={(event) => setDeliverableName(event.target.value)}
+            />
+            {/* change to only take in number */}
+            <TextField
+              className={classes.form}
+              variant="outlined"
+              fullWidth
+              required
+              id="time"
+              label="Time Estimate (mins)"
+              name="time"
+              autoComplete="time"
+              value={time}
+              onChange={(event) => setTime(event.target.value)}
+            />
+            <TextField
+              className={classes.form}
+              variant="outlined"
+              fullWidth
+              id="deliverableLink"
+              label="Link"
+              name="deliverableLink"
+              autoComplete="dlink"
+              value={link}
+              onChange={(event) => setLink(event.target.value)}
+            />
+            <TextField
+              className={classes.form}
+              variant="outlined"
+              id="notes"
+              fullWidth
+              label="Notes/Comments"
+              name="notes"
+              autoComplete="notes"
+              value={notes}
+              onChange={(event) => setNotes(event.target.value)}
+            />
+          </ThemeProvider>
           <Button
             type="submit"
             variant="contained"
