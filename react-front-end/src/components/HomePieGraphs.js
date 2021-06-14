@@ -4,10 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import { Doughnut } from "react-chartjs-2";
-import { red } from "@material-ui/core/colors";
-import { authContext } from "../providers/AuthProvider";
 import { useHistory } from "react-router-dom";
-import Form from "./NewSkill/components/Form";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,14 +14,12 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     textAlign: "center",
     color: theme.palette.text.secondary,
-    height: "700px",
   },
 }));
 
-export default function SkillViewAll(props) {
+export default function HomePieGraphs(props) {
   const classes = useStyles();
   const [data, setData] = useState({});
-  const [mode, setMode] = useState("donought");
   const history = useHistory();
 
   function handleClick(id) {
@@ -65,25 +60,21 @@ export default function SkillViewAll(props) {
   }, []);
 
   const styles = {
-    textDecoration: 'none',
-    '&:hover': {
-      color: 'white'
-    }
+    textDecoration: "none",
+    "&:hover": {
+      color: "white",
+    },
   };
   return (
     <div className={classes.root}>
       <Grid container spacing={4}>
-        <Grid item xs={4}>
-          <Paper className={classes.paper}>
-            <div>
-              <Form />
-            </div>
-          </Paper>
-        </Grid>
-
         {Object.keys(data).map((skill_id) => (
           <Grid item xs={4}>
-            <div onClick={() => { handleClick(skill_id) }}>
+            <div
+              onClick={() => {
+                handleClick(skill_id);
+              }}
+            >
               <Paper className={classes.paper}>
                 <h2>{data[skill_id].name}</h2>
                 <h3>Time in Minutes</h3>
@@ -92,28 +83,6 @@ export default function SkillViewAll(props) {
             </div>
           </Grid>
         ))}
-
-        <Grid item xs={4}>
-          <Paper className={classes.paper} id="add-skill-container">
-            <h2>Add New Skill</h2>
-            {/* <Form/> */}
-            {/* <div> */}
-            <div className="appointment__add">
-
-              <img
-                className="appointment__add-button"
-                // src="images/add.png"
-                src="images/plus.svg"
-                color="rgb(34, 47, 62)"
-                alt="Add"
-                onClick={<Form />}
-                onHover={styles}
-              />
-            </div>
-            {/* </div> */}
-          </Paper>
-        </Grid>
-
       </Grid>
     </div>
   );
