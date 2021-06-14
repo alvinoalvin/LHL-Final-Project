@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     textAlign: "center",
     color: theme.palette.text.secondary,
+    height: "700px",
   },
 }));
 
@@ -81,11 +82,7 @@ export default function SkillViewAll(props) {
 
         {Object.keys(data).map((skill_id) => (
           <Grid item xs={4}>
-            <div
-              onClick={() => {
-                handleClick(skill_id);
-              }}
-            >
+            <div onClick={() => { handleClick(skill_id) }}>
               <Paper className={classes.paper}>
                 <h2>{data[skill_id].name}</h2>
                 <h3>Time in Minutes</h3>
@@ -96,30 +93,25 @@ export default function SkillViewAll(props) {
         ))}
 
         <Grid item xs={4}>
-          <Paper className={classes.paper}>
-            <div>
-              <Form />
+          <Paper className={classes.paper} id="add-skill-container">
+            <h2>Add New Skill</h2>
+
+            <div className="appointment__add">
+
+              <img
+                className="appointment__add-button"
+                // src="images/add.png"
+                src="images/plus.svg"
+                color="rgb(34, 47, 62)"
+                alt="Add"
+                onClick={<Form />}
+                onHover={styles}
+              />
             </div>
+           
           </Paper>
         </Grid>
 
-        {/* <Grid item xs={4}>
-          <Paper className={classes.paper}>
-            <h2>Add New Skill</h2> */}
-        {/* <Form/> */}
-        {/* <div>
-              <main className="appointment__add">
-                <img
-                  className="appointment__add-button"
-                  src="images/add.png"
-                  alt="Add"
-                  onClick={<Form />}
-                  onHover={styles}
-                />
-              </main>
-            </div>
-          </Paper>
-        </Grid> */}
       </Grid>
     </div>
   );
