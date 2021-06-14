@@ -4,8 +4,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import { Doughnut } from "react-chartjs-2";
-import { red } from "@material-ui/core/colors";
-import { authContext } from "../providers/AuthProvider";
 import { useHistory } from "react-router-dom";
 import Form from "./NewSkill/components/Form";
 
@@ -72,13 +70,14 @@ export default function SkillViewAll(props) {
   return (
     <div className={classes.root}>
       <Grid container spacing={4}>
-        {/* <Grid item xs={4}>
+        <Grid item xs={12}>
           <Paper className={classes.paper}>
-            <div>
-
-            </div>
+            <h5>
+              “You have to invest if you want to progress.” ― Erin Hatzikostas,
+              You Do You(ish)"
+            </h5>
           </Paper>
-        </Grid> */}
+        </Grid>
 
         {Object.keys(data).map((skill_id) => (
           <Grid item xs={4}>
