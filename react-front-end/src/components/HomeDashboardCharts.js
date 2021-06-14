@@ -10,11 +10,13 @@ import BarGraph from "./BarGraph";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    height: "100%",
   },
   paper: {
     padding: theme.spacing(4),
     textAlign: "center",
     color: theme.palette.text.secondary,
+    height: "100%",
   },
 
 }));
