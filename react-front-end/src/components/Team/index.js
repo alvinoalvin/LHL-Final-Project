@@ -53,7 +53,6 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: 'var(--button-hover)',
       color: '#fff',
     },
-    marginRight: '6rem' 
   },
 }));
 
@@ -102,14 +101,17 @@ export default function Team(props) {
   return (
     <div className='team-view'>
       <div className='team-info'>
+      <Typography id='team-title'>
+          Team Overview
+        </Typography>
         <Typography id='team-title'>
-          Team: {team_name}
+          {team_name}
         </Typography>
         <Button variant="contained" className={classes.add} type="button" onClick={handleOpen}>
           Add New Member
         </Button>
       </div>
-      <TableContainer className='table-container' component={Paper} maxWidth={900}>
+      <TableContainer className='table-container' maxWidth={900}>
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
             <TableRow className='table-header-row'>
