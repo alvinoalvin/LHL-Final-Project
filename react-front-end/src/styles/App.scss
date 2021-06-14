@@ -46,7 +46,7 @@ main {
 
   #website-logo {
     font-family: var(--title-font);
-    font-size: 40px;
+    font-size: 18px;
   }
 
   .website-info-container {
@@ -64,7 +64,7 @@ main {
 
         #user-name {
           font-family: var(--header-font);
-          font-size: 24px;
+          font-size: 20px;
           margin-top: 0.5rem;
           margin-bottom: -0.5rem;
         }
@@ -91,24 +91,28 @@ a {
   }
 
   .tab-item {
-    font-family: var(--header-font);
-    font-size: 20px;
+    font-family: var(--title-font);
+    font-size: 18px;
   }
 }
 
 a:link {
+  color: 0b315e;
   text-decoration: none;
 }
 
 a:visited {
+  color: 0b315e;
   text-decoration: none;
 }
 
 a:hover {
+  color: 0b315e;
   text-decoration: none;
 }
 
 a:active {
+  color: 0b315e;
   text-decoration: none;
 }
 

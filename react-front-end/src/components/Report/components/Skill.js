@@ -101,9 +101,7 @@ export default function Skill(props) {
           label: props.skill.skill_name,
           data: [staged_time, progress_time, completed_time],
           backgroundColor: [
-            'rgb(255, 99, 132)',
-            'rgb(54, 162, 235)',
-            'rgb(255, 205, 86)'
+            "#c83cd0", "#643bd1", "#d4d0d0"
           ],
           hoverOffset: 4
         }]
