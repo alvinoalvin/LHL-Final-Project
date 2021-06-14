@@ -31,8 +31,7 @@ export default function CenteredGrid() {
         },
       })
       .then((response) => {
-        // handle success
-        console.log(response.data);
+      
         const newLabels = response.data.reduce((acc, dataPoint) => {
           if (acc.includes(dataPoint.name)) {
             return acc;
@@ -51,7 +50,7 @@ export default function CenteredGrid() {
           }
           return acc;
         }, {});
-        console.log(stackBarData);
+        
         setData(stackBarData);
       });
   }, []);
@@ -62,39 +61,10 @@ export default function CenteredGrid() {
     datasets: Object.entries(testdata || {}).map(([label, values], i) => ({
       label,
       data: values,
-      backgroundColor: `rgba(${i * 100},145,250)`,
+      backgroundColor: `rgba(${i * 100},59,208)`,
     })),
   };
 
-  console.log("datasets?", data);
-
-  //placeholder for line chart
-  const lineData = {
-    labels: ["January", "February", "March", "April", "May", "June", "July"],
-    datasets: [
-      {
-        label: "Completed",
-        fill: false,
-        lineTension: 0.1,
-        backgroundColor: "rgba(75,192,192,0.4)",
-        borderColor: "rgba(75,192,192,1)",
-        borderCapStyle: "butt",
-        borderDash: [],
-        borderDashOffset: 0.0,
-        borderJoinStyle: "miter",
-        pointBorderColor: "rgba(75,192,192,1)",
-        pointBackgroundColor: "#fff",
-        pointBorderWidth: 1,
-        pointHoverRadius: 5,
-        pointHoverBackgroundColor: "rgba(75,192,192,1)",
-        pointHoverBorderColor: "rgba(220,220,220,1)",
-        pointHoverBorderWidth: 2,
-        pointRadius: 1,
-        pointHitRadius: 10,
-        data: [65, 59, 80, 81, 56, 55, 40],
-      },
-    ],
-  };
 
   return (
     <div className={classes.root}>
@@ -105,17 +75,13 @@ export default function CenteredGrid() {
           <Paper className={classes.paper}>
             <div>
               <h2>Progress this week</h2>
+              <h6>Number of Tasks</h6>
               <Bar
                 data={data}
                 width={100}
                 height={50}
                 options={{
-                  plugins: {
-                    title: {
-                      display: true,
-                      text: "Number of Tasks",
-                    },
-                  },
+          
                   responsive: true,
                   scales: {
                     x: {
@@ -133,7 +99,7 @@ export default function CenteredGrid() {
         <Grid item xs={6}>
           <Paper className={classes.paper}>
             <h2>Completion Rate</h2>
-            {/* <LineGraph /> */}
+            <LineGraph />
           </Paper>
         </Grid>
       </Grid>
