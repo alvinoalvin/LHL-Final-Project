@@ -4,8 +4,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import { Doughnut } from "react-chartjs-2";
-import { red } from "@material-ui/core/colors";
-import { authContext } from "../providers/AuthProvider";
 import { useHistory } from "react-router-dom";
 import Form from "./NewSkill/components/Form";
 
@@ -65,19 +63,20 @@ export default function SkillViewAll(props) {
   }, []);
 
   const styles = {
-    textDecoration: 'none',
-    '&:hover': {
-      color: 'white'
-    }
+    textDecoration: "none",
+    "&:hover": {
+      color: "white",
+    },
   };
   return (
     <div className={classes.root}>
       <Grid container spacing={4}>
-        <Grid item xs={4}>
+        <Grid item xs={12}>
           <Paper className={classes.paper}>
-            <div>
-              <Form />
-            </div>
+            <h5>
+              “You have to invest if you want to progress.” ― Erin Hatzikostas,
+              You Do You(ish)"
+            </h5>
           </Paper>
         </Grid>
 
@@ -96,8 +95,7 @@ export default function SkillViewAll(props) {
         <Grid item xs={4}>
           <Paper className={classes.paper} id="add-skill-container">
             <h2>Add New Skill</h2>
-            {/* <Form/> */}
-            {/* <div> */}
+
             <div className="appointment__add">
 
               <img
@@ -110,7 +108,7 @@ export default function SkillViewAll(props) {
                 onHover={styles}
               />
             </div>
-            {/* </div> */}
+           
           </Paper>
         </Grid>
 

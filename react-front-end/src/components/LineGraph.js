@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import { Line } from "react-chartjs-2";
+import moment from "moment";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,27 +31,16 @@ export default function LineGraph() {
       })
       .then((response) => {
         // handle success
-        console.log(response.data);
         const newLabels = response.data.reduce((acc, dataPoint) => {
-          if (acc.includes(dataPoint.end_date)) {
-            return acc;
-          } else {
-            acc.push(dataPoint.end_date);
-          }
+          acc.push(moment(dataPoint.end_date).format("MMM Do"));
+          return acc;
+        }, []);
+        const newData = response.data.reduce((acc, dataPoint) => {
+          acc.push(dataPoint.count);
           return acc;
         }, []);
         setLabels(newLabels);
-
-        // const dataState = response.data.reduce((acc, dataPoint) => {
-        //   if (acc[dataPoint.status]) {
-        //     acc[dataPoint.status].push(Number(dataPoint.count));
-        //   } else {
-        //     acc[dataPoint.status] = [Number(dataPoint.count)];
-        //   }
-        //   return acc;
-        // }, {});
-        // console.log({dataState: response.data})
-        setData(response.data);
+        setData(newData);
       });
   }, []);
 
@@ -59,51 +49,36 @@ export default function LineGraph() {
 // date fns, Date Object (js)
 // filter (homepage)
 
-
-
-  //placeholder for line chart
   const lineData = {
     labels,
-    datasets: Object.entries(testdata || {}).map(([label, values]) => {
-      console.log(label, values)
-      return {
-        label: values.name,
-        fill: false,
-        lineTension: 0.1,
-        backgroundColor: "rgba(75,192,192,0.4)",
-        borderColor: "rgba(75,192,192,1)",
-        borderCapStyle: "butt",
-        borderDash: [],
-        borderDashOffset: 0.0,
-        borderJoinStyle: "miter",
-        pointBorderColor: "rgba(75,192,192,1)",
-        pointBackgroundColor: "#fff",
-        pointBorderWidth: 1,
-        pointHoverRadius: 5,
-        pointHoverBackgroundColor: "rgba(75,192,192,1)",
-        pointHoverBorderColor: "rgba(220,220,220,1)",
-        pointHoverBorderWidth: 2,
-        pointRadius: 1,
-        pointHitRadius: 10,
-        data: values.end_date,
-      }
-    },
-    ),
+    datasets: [{
+      label: 'Number of Completed Tasks',
+      fill: false,
+      lineTension: 0.1,
+      backgroundColor: "#063bd0",
+      borderColor: "#063bd0",
+      borderCapStyle: "butt",
+      borderDash: [],
+      borderDashOffset: 0.0,
+      borderJoinStyle: "miter",
+      pointBorderColor: "#063bd0",
+      pointBackgroundColor: "#fff",
+      pointBorderWidth: 1,
+      pointHoverRadius: 5,
+      pointHoverBackgroundColor: "#063bd0",
+      pointHoverBorderColor: "rgba(220,220,220,1)",
+      pointHoverBorderWidth: 2,
+      pointRadius: 1,
+      pointHitRadius: 10,
+      data: testdata,
+    }],
   };
 
   return (
     <div className={classes.root}>
-
-      <Grid container spacing={6}>
-      
-          <Grid item xs={6}>
-          <Paper className={classes.paper}>
-            <h2>All Completed Tasks in the Last Week</h2>
+         
             <Line data={lineData} />
-          </Paper>
-        </Grid>
-
-      </Grid>
+          
     </div>
   );
 }

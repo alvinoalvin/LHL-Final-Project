@@ -28,7 +28,7 @@ import LineGraph from "./LineGraph"
 /* import icons */
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import MailIcon from '@material-ui/icons/Mail';
+import MenuBookIcon from '@material-ui/icons/MenuBook';
 import MenuIcon from '@material-ui/icons/Menu';
 import GroupIcon from '@material-ui/icons/Group';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
@@ -82,7 +82,7 @@ export default function Application() {
               <MenuIcon />
             </IconButton>
             <div className='website-info-container'>
-              <Typography variant="h6" noWrap id='website-logo'> Life Long Learning</Typography>
+              <Typography variant="h4" noWrap id='website-logo'> Life Long Learning</Typography>
               <div className='user-container'>
                 <div className='user-info-container'>
                   <Typography noWrap align='right' id='user-name'>{first_name+' '+last_name}</Typography>
@@ -122,12 +122,6 @@ export default function Application() {
                 <ListItemText disableTypography className='tab-item' primary='Home'></ListItemText>
               </ListItem>
             </Link>
-            <Link to="/team">
-              <ListItem>
-                <ListItemIcon><GroupIcon /></ListItemIcon>
-                <ListItemText disableTypography className='tab-item' primary='Team'></ListItemText>
-              </ListItem>
-            </Link>
             <Link to="/report">
               <ListItem>
                 <ListItemIcon><AssessmentIcon /></ListItemIcon>
@@ -139,6 +133,13 @@ export default function Application() {
                 <ListItemIcon><ShareIcon /></ListItemIcon>
                 <ListItemText disableTypography className='tab-item' primary='Recommend'></ListItemText>
               </ListItem>
+              </Link>
+              <Link to="/allSkills">
+              <ListItem>
+                <ListItemIcon><MenuBookIcon /></ListItemIcon>
+                <ListItemText  disableTypography className='tab-item' primary='All Skills'></ListItemText>
+              </ListItem>
+            </Link>
               <Divider />
             {/* <Link to="/skill">
               <ListItem>
@@ -146,14 +147,8 @@ export default function Application() {
                 <ListItemText primary='Skill'></ListItemText>
               </ListItem>
             </Link> */}
-            <Link to="/allSkills">
-              <ListItem>
-                <ListItemIcon><AccountCircleIcon /></ListItemIcon>
-                <ListItemText primary='allSkills'></ListItemText>
-              </ListItem>
-            </Link>
-            </Link>
-            <Link to="/test">
+            
+            {/* <Link to="/test">
               <ListItem>
                 <ListItemIcon><MailIcon /></ListItemIcon>
                 <ListItemText primary='Test'></ListItemText>
@@ -164,11 +159,17 @@ export default function Application() {
                 <ListItemIcon><LockOpenIcon /></ListItemIcon>
                 <ListItemText primary='Form'></ListItemText>
               </ListItem>
+            </Link> */}
+            <Link to="/team">
+              <ListItem>
+                <ListItemIcon><GroupIcon /></ListItemIcon>
+                <ListItemText primary='Team'></ListItemText>
+              </ListItem>
             </Link>
             <Link to="/signup">
               <ListItem>
-                <ListItemIcon><LockOpenIcon /></ListItemIcon>
-                <ListItemText primary='Sign Up'></ListItemText>
+                <ListItemIcon><AccountCircleIcon /></ListItemIcon>
+                <ListItemText primary='Add Member'></ListItemText>
               </ListItem>
             </Link>
           </List>

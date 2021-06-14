@@ -7,8 +7,8 @@
   // CSS Variables
 
   // fonts
-  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&family=Yellowtail&display=swap');
-  --title-font: 'Yellowtail', cursive;
+  @import url("https://fonts.googleapis.com/css2?family=Baloo+Tammudu+2&display=swap");
+  --title-font:  'Baloo Tammudu 2', cursive;
 
   @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
   --header-font: 'Roboto Condensed', sans-serif;
@@ -21,19 +21,19 @@
   --blue-light: #91C4F2;
   --blue-dark: #576AB3;
   --purple-light: #9D79BC;
-  --purple-medium: #A14DA0;
+  --purple-medium: #c83cd0;
   --purple-dark: #7E1F86;
-
+  
   --paper: rgba(255,255,255,0.5);
   --content: #eeeeee;
-  --drawer: #4F4E66;
-  --nav: #6F6F8E;
+  --drawer: #ba54f5;
+  --nav: #0B315E;
 
-  --button: #A14DA0;
-  --button-hover: #9D79BC;
+  --button: #c83cd0;
+  --button-hover: #c991fa;
 
-  --table-header: #A14DA0;
-  --table-body: #9D79BC;
+  --table-header: #c83cd0;
+  --table-body: #8d8d8d;
 
   --white: #fff;
 }

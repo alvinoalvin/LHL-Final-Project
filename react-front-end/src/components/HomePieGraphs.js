@@ -42,7 +42,8 @@ export default function HomePieGraphs(props) {
               datasets: [
                 {
                   data: [],
-                  backgroundColor: ["#91C4F2", "#576AB3", "#7E1F86"],
+                  backgroundColor: [ "#c83cd0", "#643bd1", "#d4d0d0" ]
+                  //"#c991fa", "#6491fa", "#0f91fa" 
                 },
               ],
             },
@@ -77,7 +78,7 @@ export default function HomePieGraphs(props) {
             >
               <Paper className={classes.paper}>
                 <h2>{data[skill_id].name}</h2>
-                <h3>Time in Minutes</h3>
+                <h5>Time in Minutes</h5>
                 <Doughnut data={data[skill_id].chartData} />
               </Paper>
             </div>

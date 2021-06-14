@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import MailIcon from '@material-ui/icons/Mail';
+import AddIcon from '@material-ui/icons/Add';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 
@@ -83,7 +83,8 @@ export default function Form(props) {
   return (
     <div className={classes.paper}>
       <Avatar className={classes.avatar}>
-        <MailIcon />
+        <AddIcon 
+        background-color="primary"/>
       </Avatar>
       <Typography component="h1" variant="h5">
         Add A New Skill

@@ -33,10 +33,15 @@ module.exports = (db) => {
 
   router.get("/analytics/completion-rate", (request, response) => {
     db.query(
-      `Select end_date, skill_id, skills.name AS skill_name, deliverables.name
-        From deliverables
-        INNER JOIN skills ON deliverables.skill_id=skills.id
-        Where assigned_to = 1 AND type_id = 1 AND status_id = 3
+      `
+      SELECT 
+      end_date, COUNT(*)
+      FROM
+      deliverables
+      WHERE
+      assigned_to = 1 AND type_id = 1 AND status_id = 3 AND end_date IS NOT NULL
+      GROUP BY
+      end_date
       `
     ).then(({ rows: skills }) => {
       response.json(skills);
