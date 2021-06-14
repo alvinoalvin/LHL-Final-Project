@@ -72,7 +72,7 @@ export default function SkillViewAll(props) {
     <div className={classes.root}>
       <Grid container spacing={4}>
         <Grid item xs={12}>
-          <Paper className={classes.paper}>
+          <Paper className={classes.paper} id ="quote-container">
             <h5>
               “You have to invest if you want to progress.” ― Erin Hatzikostas,
               You Do You(ish)"
