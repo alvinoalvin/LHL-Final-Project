@@ -42,6 +42,10 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: 'var(--button)',
     color: '#fff',
     fontFamily: 'var(--header-font)',
+    '&:hover': {
+      backgroundColor: 'var(--button-hover)',
+      color: '#fff',
+    },
   },
   button: {
     margin: theme.spacing(1),

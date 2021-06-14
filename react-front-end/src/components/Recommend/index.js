@@ -34,9 +34,10 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     width: '70%',
     margin: 'auto',
-    backgroundColor: 'var(--content)',
     padding: '3rem',
-    borderRadius: '50px',
+    border: '1px solid var(--border)',
+    boxShadow: '5px 5px var(--box-shadow)',
+    borderRadius: 'var(--border-radius)',
   },
   avatar: {
     margin: theme.spacing(1),
@@ -52,6 +53,10 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
     backgroundColor:  'var(--button)',
+    '&:hover': {
+      backgroundColor: 'var(--button-hover)',
+      color: '#fff',
+    },
   },
   formControl: {
     margin: theme.spacing(1),
@@ -63,7 +68,6 @@ const useStyles = makeStyles((theme) => ({
   textField: {
     margin: theme.spacing(1),
     minWidth: 120,
-
   }
 }));
 
@@ -253,7 +257,7 @@ export default function Recommend(props) {
                 >
                   {typeChoice}
                 </Select>
-                <FormHelperText>Type</FormHelperText>
+                <FormHelperText>Task/Resource</FormHelperText>
               </FormControl>
               <FormControl className={classes.formControl}>
                 <InputLabel id="demo-simple-select-helper-label">Skill</InputLabel>
@@ -271,7 +275,7 @@ export default function Recommend(props) {
                   </MenuItem>
                   {skillChoice}
                 </Select>
-                <FormHelperText>Type</FormHelperText>
+                <FormHelperText>Skill Name</FormHelperText>
               </FormControl>
             </div>
             <TextField
