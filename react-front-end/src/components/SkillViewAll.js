@@ -64,25 +64,29 @@ export default function SkillViewAll(props) {
   }, []);
 
   const styles = {
-    textDecoration: 'none',
-    '&:hover': {
-      color: 'white'
-    }
+    textDecoration: "none",
+    "&:hover": {
+      color: "white",
+    },
   };
   return (
     <div className={classes.root}>
       <Grid container spacing={4}>
-        <Grid item xs={4}>
+        {/* <Grid item xs={4}>
           <Paper className={classes.paper}>
             <div>
-              <Form />
+
             </div>
           </Paper>
-        </Grid>
+        </Grid> */}
 
         {Object.keys(data).map((skill_id) => (
           <Grid item xs={4}>
-            <div onClick={()=>{handleClick(skill_id)}}>
+            <div
+              onClick={() => {
+                handleClick(skill_id);
+              }}
+            >
               <Paper className={classes.paper}>
                 <h2>{data[skill_id].name}</h2>
                 <h3>Time in Minutes</h3>
@@ -92,11 +96,19 @@ export default function SkillViewAll(props) {
           </Grid>
         ))}
 
-<Grid item xs={4}>
+        <Grid item xs={4}>
           <Paper className={classes.paper}>
-            <h2>Add New Skill</h2>
-            {/* <Form/> */}
             <div>
+              <Form />
+            </div>
+          </Paper>
+        </Grid>
+
+        {/* <Grid item xs={4}>
+          <Paper className={classes.paper}>
+            <h2>Add New Skill</h2> */}
+        {/* <Form/> */}
+        {/* <div>
               <main className="appointment__add">
                 <img
                   className="appointment__add-button"
@@ -108,8 +120,7 @@ export default function SkillViewAll(props) {
               </main>
             </div>
           </Paper>
-        </Grid>
-        
+        </Grid> */}
       </Grid>
     </div>
   );
