@@ -39,7 +39,7 @@ export default makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
-    backgroundColor: '#f5b805'
+    backgroundColor: 'var(--drawer)'
   },
   drawerClose: {
     transition: theme.transitions.create('width', {
@@ -51,7 +51,7 @@ export default makeStyles((theme) => ({
     [theme.breakpoints.up('sm')]: {
       width: theme.spacing(9) + 1,
     },
-    backgroundColor: '#f5b805'
+    backgroundColor: 'var(--drawer)'
   },
   toolbar: {
     display: 'flex',

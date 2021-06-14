@@ -18,8 +18,7 @@ const useRowStyles = makeStyles({
     '& > *': {
       borderBottom: 'unset',
     },
-    borderBottom: '1px solid var(--table-body)',
-    borderTop: '1px solid var(--table-body)',
+    borderBottom: '2px solid var(--border)',
   },
 });
 

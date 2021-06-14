@@ -83,8 +83,8 @@ main {
 }
 
 a {
-  text-decoration: none;
-  color: #fff;
+  text-decoration: none !important;
+  color: #fff !important;
 
   svg {
     color: #fff;
@@ -97,23 +97,19 @@ a {
 }
 
 a:link {
-  color: 0b315e;
-  text-decoration: none;
+  text-decoration: none !important;
 }
 
 a:visited {
-  color: 0b315e;
-  text-decoration: none;
+  text-decoration: none !important;
 }
 
 a:hover {
-  color: 0b315e;
-  text-decoration: none;
+  text-decoration: none !important;
 }
 
 a:active {
-  color: 0b315e;
-  text-decoration: none;
+  text-decoration: none !important;
 }
 
 .appointment__add-button {
