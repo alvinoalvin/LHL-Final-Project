@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
-import Grid from "@material-ui/core/Grid";
+import { Paper, Modal, Backdrop, Fade, Button, Grid } from "@material-ui/core";
 import { Doughnut } from "react-chartjs-2";
 import { useHistory } from "react-router-dom";
 import Form from "./NewSkill/components/Form";
@@ -17,6 +16,11 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.secondary,
     height: "700px",
   },
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 }));
 
 export default function SkillViewAll(props) {
@@ -24,7 +28,15 @@ export default function SkillViewAll(props) {
   const [data, setData] = useState({});
   const [mode, setMode] = useState("donought");
   const history = useHistory();
+  const [open, setOpen] = React.useState(false);
 
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   function handleClick(id) {
     history.push("/skill", { skillId: id });
   }
@@ -72,7 +84,7 @@ export default function SkillViewAll(props) {
     <div className={classes.root}>
       <Grid container spacing={4}>
         <Grid item xs={12}>
-          <Paper className={classes.paper} id ="quote-container">
+          <Paper className={classes.paper} id="quote-container">
             <h5>
               “You have to invest if you want to progress.” ― Erin Hatzikostas,
               You Do You(ish)"
@@ -104,15 +116,33 @@ export default function SkillViewAll(props) {
                 src="images/plus.svg"
                 color="rgb(34, 47, 62)"
                 alt="Add"
-                onClick={<Form />}
+                onClick={handleOpen}
                 onHover={styles}
               />
             </div>
-           
+
           </Paper>
         </Grid>
 
       </Grid>
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        className={classes.modal}
+        open={open}
+        onClose={handleClose}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Fade in={open}>
+          <div className={classes.paper} id = "modal-form-container">
+            <Form />
+          </div>
+        </Fade>
+      </Modal>
     </div>
   );
 }
