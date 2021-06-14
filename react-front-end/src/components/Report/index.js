@@ -25,7 +25,6 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: 'var(--button-hover)',
       color: '#fff',
     },
-    marginRight: '6rem' 
   },
 }));
 
@@ -79,7 +78,7 @@ export default function Report(props) {
           <CSVLink data={csvData}>Export</CSVLink>
         </Button>
       </div> 
-      <TableContainer className='report-table-container' component={Paper}>
+      <TableContainer className='report-table-container'>
         <Table className='report-table' aria-label="collapsible table">
           <TableHead>
             <TableRow className='table-header-row'>

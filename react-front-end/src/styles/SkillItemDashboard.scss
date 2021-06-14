@@ -46,6 +46,16 @@
     margin-left: 0;
     min-height: 100px;
     grid-area: progress;
+
+    .progress-bar {
+      font-weight: bolder;
+    }
+
+    .progress {
+      height: 2rem;
+    }
+
+
   }
 
   .notes {
@@ -73,12 +83,13 @@
 
   #skill-item-container {
     grid-template-areas:
-      "header "
-      "progress"
-      "staging"
-      "notes"
-      "resources"
-      "taskList";
+    "header "
+    "progress"
+    "taskList"
+    "resources"
+    "notes"
+    "staging";
+    
     .header {
       @include areaBorder(header);
     }
