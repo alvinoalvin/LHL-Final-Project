@@ -15,9 +15,10 @@
     "taskList resources";
 
   a {
-    color: 'pink';
+    color: rgb(95, 95, 95) !important;
+    text-decoration: underline !important;
   }
-  
+
   .header {
     @include areaBorder(header);
   }
@@ -30,7 +31,7 @@
     .flexcontainer {
       display: flex;
       flex-direction: row;
-      
+
       .divItem2 {
         padding: 12px;
         margin-left: 30px;
@@ -58,15 +59,13 @@
     .progress {
       height: 2rem;
     }
-
-
   }
 
   .notes {
     @include areaBorder(notes);
-    .MuiCardActions-root{
-      padding:25px;
-      padding-top:8px;
+    .MuiCardActions-root {
+      padding: 20px;
+      padding-top: 8px;
     }
   }
 
@@ -87,13 +86,13 @@
 
   #skill-item-container {
     grid-template-areas:
-    "header "
-    "progress"
-    "taskList"
-    "resources"
-    "notes"
-    "staging";
-    
+      "header "
+      "progress"
+      "taskList"
+      "resources"
+      "notes"
+      "staging";
+
     .header {
       @include areaBorder(header);
     }
@@ -112,9 +111,8 @@
       @include areaBorder(resources);
       max-width: 100%;
     }
-    .staging{
+    .staging {
       @include areaBorder(staging);
-
     }
   }
 }

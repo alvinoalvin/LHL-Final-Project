@@ -114,8 +114,18 @@ a:active {
 
 .appointment__add-button {
   width: 200px;
-  margin-top:40%;
+  margin-top: 40%;
 }
-#add-skill-container{
-  background-color: rgba(255,255,255,0.4);
+#add-skill-container {
+  background-color: rgba(255, 255, 255, 0.4);
+}
+#quote-container {
+  height: auto;
+}
+#modal-form-container {
+  height: auto;
+  background-color: white;
+  .MuiFormControl-fullWidth {
+    padding: 10px;
+  }
 }
