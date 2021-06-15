@@ -13,7 +13,8 @@
     "progress progress"
     "staging notes"
     "taskList resources";
-
+  width:90%;
+  margin:auto;
   a {
     color: rgb(95, 95, 95) !important;
     text-decoration: underline !important;
@@ -114,5 +115,12 @@
     .staging {
       @include areaBorder(staging);
     }
+  }
+}
+@media(max-width:1024px){
+  #skill-item-container{
+    
+  width:100%;
+  margin:auto;
   }
 }
