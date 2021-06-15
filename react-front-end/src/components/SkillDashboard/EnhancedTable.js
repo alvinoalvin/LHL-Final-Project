@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
-import { lighten, makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import {
   Table, TableBody, TableCell, TableContainer, TableHead,
   TablePagination, TableRow, TableSortLabel, Toolbar,

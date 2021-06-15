@@ -20,7 +20,7 @@ const CustomTableCell = ({ row, name, onChange, attr, type }) => {
 
   function renderAttr() {
     if (type === "link" || type === "Link") {
-      return (<a class={classes.link} style={{ textDecoration: 'underline black' }} href={row.link}>{row.link !== "No Link Needed?" && row.link !== "" ? "Resource Link" : ""}</a>)
+      return (<a className={classes.link} style={{ textDecoration: 'underline black' }} href={row.link}>{row.link !== "No Link Needed?" && row.link !== "" ? "Resource Link" : ""}</a>)
     }
     return row[attr]
   }
@@ -40,7 +40,6 @@ const CustomTableCell = ({ row, name, onChange, attr, type }) => {
   return (
     <TableCell align="left" className={classes.tableCell}
       component="th"
-      padding="2px"
     >
       {isEditMode ? (
         <>
