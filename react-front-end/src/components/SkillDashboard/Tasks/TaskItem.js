@@ -31,7 +31,7 @@ const CustomTableCell = ({ row, name, onChange, attr, type }) => {
     }
     return row[attr]
   }
-  
+
   function renderInput() {
     if (type === "date") {
       return (
@@ -105,7 +105,9 @@ const CustomStatusCell = ({ row, status, onStatusChange, statusMap }) => {
   function createMenu() {
     const menu = []
     for (let row of statusMap) {
-      menu.push(<MenuItem value={row.id}>{row.status}</MenuItem>)
+      if (row.id !== 1){
+        menu.push(<MenuItem value={row.id}>{row.status}</MenuItem>)
+      }
     }
     return menu
   }
@@ -231,7 +233,7 @@ export default function TaskItem(props) {
     const { id } = task;
     const newTasks = rows.map((task) => {
       if (task.id === id) {
-
+        console.log(task)
         return {
           ...task, "status_id": value, "status": status, "is_completed": status === "Completed" ? true : false
         };
