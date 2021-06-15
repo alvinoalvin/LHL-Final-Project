@@ -13,10 +13,12 @@
     "progress progress"
     "staging notes"
     "taskList resources";
+
   a {
     color: rgb(95, 95, 95) !important;
     text-decoration: underline !important;
   }
+
   .header {
     @include areaBorder(header);
   }

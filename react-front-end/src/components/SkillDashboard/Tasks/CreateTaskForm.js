@@ -1,16 +1,25 @@
 import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import axios from "axios";
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
+import "../../../styles/variables.scss";
+import { purple } from "@material-ui/core/colors";
 
 import { CssBaseline, TextField,  Grid, Typography, Container } from '@material-ui/core/';
 import SaveIcon from '@material-ui/icons/Save';
 
 const useStyles = makeStyles((theme) => ({
   button: {
-    margin: "40px 0 0 0"
+    margin: "40px 0 0 0",
+    color: '#fff',
+    fontFamily: 'var(--header-font)',
+    backgroundColor: 'var(--button)',
+    '&:hover': {
+      backgroundColor: 'var(--button-hover)',
+      color: '#fff',
+    },
   },
   h5: {
     margin: "0 0 15px 0",
@@ -20,6 +29,12 @@ const useStyles = makeStyles((theme) => ({
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
+
+const theme = createMuiTheme({
+  palette: {
+    primary: purple,
+  }
+});
 
 export default function CreateTaskForm(props) {
   const classes = useStyles();
@@ -104,63 +119,64 @@ export default function CreateTaskForm(props) {
           Add New Task
         </Typography>
         <form className='new-member-form' noValidate>
-          <Grid container spacing={3}>
-            <Grid item xs={12}>
-              <TextField
-                id="create-task-name-input"
-                name="name"
-                variant="outlined"
-                required
-                fullWidth
-                placeholder="Task"
-                label="Task Name"
-                value={name}
-                onChange={(event) => setName(event.target.value)}
-                autoFocus
-                size="small"
-              />
+          <ThemeProvider theme={theme}>
+            <Grid container spacing={3}>
+              <Grid item xs={12}>
+                <TextField
+                  id="create-task-name-input"
+                  name="name"
+                  variant="outlined"
+                  required
+                  fullWidth
+                  placeholder="Task"
+                  label="Task Name"
+                  value={name}
+                  onChange={(event) => setName(event.target.value)}
+                  autoFocus
+                  size="small"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  id="create-task-link-input"
+                  name="link"
+                  variant="outlined"
+                  fullWidth
+                  placeholder="Link"
+                  label="Resource Link"
+                  value={link}
+                  onChange={(event) => setLink(event.target.value)}
+                  size="small"
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  id="create-task-due-date-input"
+                  label="Due Date"
+                  type="date"
+                  defaultValue={Date.now().toISOString}
+                  className={classes.textField}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  onChange={(event) => setDueDate(event.target.value)}
+                  size="small"
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  id="create-task-est-dur-input"
+                  label="Estimated Duration (mins)"
+                  type="number"
+                  className={classes.numInput}
+                  InputLabelProps={{
+                    shrink: true, min: "0", step: "1"
+                  }}
+                  onChange={(event) => setEstDuration(event.target.value)}
+                />
+              </Grid>
             </Grid>
-            <Grid item xs={12}>
-              <TextField
-                id="create-task-link-input"
-                name="link"
-                variant="outlined"
-                fullWidth
-                placeholder="Link"
-                label="Resource Link"
-                value={link}
-                onChange={(event) => setLink(event.target.value)}
-                size="small"
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                id="create-task-due-date-input"
-                label="Due Date"
-                type="date"
-                defaultValue={Date.now().toISOString}
-                className={classes.textField}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                onChange={(event) => setDueDate(event.target.value)}
-                size="small"
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                id="create-task-est-dur-input"
-                label="Estimated Duration (mins)"
-                type="number"
-                className={classes.numInput}
-                InputLabelProps={{
-                  shrink: true, min: "0", step: "1"
-                }}
-                onChange={(event) => setEstDuration(event.target.value)}
-              />
-            </Grid>
-
-          </Grid>
+          </ThemeProvider>
           <Button
             variant="contained"
             color="primary"

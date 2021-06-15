@@ -4,6 +4,7 @@ import React, { useEffect } from "react";
 /* Material Ui */
 import { Button, Modal, Backdrop, Fade } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
+import "../../styles/variables.scss";
 
 /* Custom components */
 import EnhancedTable from "./EnhancedTable";
@@ -38,6 +39,16 @@ const useStyles = makeStyles((theme) => ({
   dialogPaper: {
     height: '400px'
   },
+  button: {
+    margin: "40px 0 0 0",
+    color: '#fff',
+    fontFamily: 'var(--header-font)',
+    backgroundColor: 'var(--button)',
+    '&:hover': {
+      backgroundColor: 'var(--button-hover)',
+      color: '#fff',
+    },
+  }
 }));
 
 export default function ListComponent(props) {
@@ -73,7 +84,7 @@ export default function ListComponent(props) {
         numRows={props.numRows}
       />
       <div class="btnContainer">
-        <Button variant="contained" color="default" onClick={handleOpen}>
+        <Button className={classes.button} variant="contained" color="default" onClick={handleOpen}>
           {props.addName}
         </Button>
       </div>
