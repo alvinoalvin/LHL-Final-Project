@@ -23,14 +23,14 @@ VALUES
   ('JavaScript', true), 
   ('React', true),
   ('Product Management', false),
+  ('Social Media Management', false),
+  ('Conflict Resolution', false),
   ('Scheduling', true), 
   ('Estimating', true), 
   ('Storytelling', false),
-  ('Social Media Management', false),
   ('Risk Management', false),
   ('Negotiating', false),
   ('Testing', true),
-  ('Conflict Resolution', false),
   ('Interviewing', false);
 
 INSERT INTO type (type)

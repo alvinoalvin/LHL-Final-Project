@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     width: "auto",
     minWidth: "60%",
+    padding: "47px",
   },
   paper: {
     padding: theme.spacing(2),
@@ -134,9 +135,9 @@ export default function HomePieGraphs(props) {
               }}
             >
               <Paper className={classes.paper}>
-                <h2>{labels[index]}</h2>
-                <h3>{data[skill_id].name}</h3>
-                <h5>Total Skill Time: {data[skill_id].total_time}hrs</h5>
+                <h3>{labels[index]}</h3>
+                <h5>{data[skill_id].name}</h5>
+                <h7>Total Skill Time: {data[skill_id].total_time}hrs</h7>
                 <Doughnut key={index} data={data[skill_id].chartData} />
               </Paper>
             </div>

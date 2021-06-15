@@ -10,6 +10,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     height: "475px",
+    padding: "30px",
   },
   paper: {
     padding: theme.spacing(4),
@@ -68,8 +69,6 @@ export default function BarGraph() {
   return (
     <div className={classes.root}>
       <div>
-        <h2>Progress this week</h2>
-        <h6>Number of Tasks</h6>
         <Bar
           data={data}
           width={100}
