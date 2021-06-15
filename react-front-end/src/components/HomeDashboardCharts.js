@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { authContext } from '../providers/AuthProvider';
 import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
@@ -11,9 +12,10 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     height: "100%",
+    padding: theme.spacing(4),
+    
   },
   paper: {
-    padding: theme.spacing(4),
     textAlign: "center",
     color: theme.palette.text.secondary,
     height: "100%",
@@ -22,10 +24,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function CenteredGrid() {
+  const { id } = useContext(authContext);
   const classes = useStyles();
   const [testdata, setData] = useState();
   const [labels, setLabels] = useState();
 
+  const userId = id;
+  
   useEffect(() => {
     axios
       .get("http://localhost:8080/api/analytics/skill-status", {
@@ -71,10 +76,10 @@ export default function CenteredGrid() {
 
   return (
     <div className={classes.root}>
-     <br></br>
+     <br/>
       <Grid container spacing={10}> 
       
-      <HomePieGraphs />
+        <HomePieGraphs userId={userId} />
     
    
         <Grid item xs={6}>
