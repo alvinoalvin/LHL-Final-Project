@@ -28,7 +28,7 @@ export default function LineGraph() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/analytics/completion-rate", {
+      .get("api/analytics/completion-rate", {
         headers: {
           "Content-Type": "application/json",
         },
