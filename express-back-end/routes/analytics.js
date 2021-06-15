@@ -13,7 +13,7 @@ module.exports = (db) => {
       `
     ).then(({ rows: skills }) => {
       response.json(skills);
-    });
+    }).catch(error => { error });
   });
 
   router.get("/analytics/time-estimate", (request, response) => {
@@ -45,7 +45,7 @@ module.exports = (db) => {
       `
     ).then(({ rows: skills }) => {
       response.json(skills);
-    });
+    }).catch(error => { error });
   });
 
   router.get("/analytics/topskills", (request, response) => {

@@ -70,13 +70,13 @@ export default function SkillDashboard() {
       ) : (
         <div id="skill-item-container">
           <div id="dashboardHeader"><h1>{skill}</h1></div>
-          <div class="progressCont">
+          <div className="progressCont">
             <CustomProgressBar
               skillID={skillID}
               userID={userID}
             />
           </div>
-          <div class="staging">
+          <div className="staging">
             <StagedList
               skillID={skillID}
               userID={userID}
@@ -88,14 +88,14 @@ export default function SkillDashboard() {
               setResources={setResources}
             />
           </div>
-          <div class="notes">
+          <div className="notes">
             <NotesList
               key={skillID}
               skillID={skillID}
               userID={userID}
             />
           </div>
-          <div class="resources">
+          <div className="resources">
             <ResourceList
               key={skillID}
               skillID={skillID}
@@ -104,7 +104,7 @@ export default function SkillDashboard() {
               setResources={setResources}
             />
           </div>
-          <div class="tasks">
+          <div className="tasks">
             <TasksList
               key={skillID}
               skillID={skillID}

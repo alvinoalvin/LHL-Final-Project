@@ -17,12 +17,24 @@ const useStyles = makeStyles({
   title: {
     fontSize: 14,
   },
+  container: {
+    padding: '3rem 2rem',
+  },
   pos: {
     marginBottom: 12,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
   },
   link: {
     color: "black",
     textDecoration: "underline black"
+  },
+  icon: {
+    color: 'var(--button)',
+    '&:hover': {
+      color: 'var(--button-hover)',
+    },
   }
 });
 
@@ -76,15 +88,16 @@ export default function StagedList(props) {
 
   return (
     <Card className={classes.root}>
-      <CardContent style={{ height: 418, overflow: 'auto' }}>
+      <CardContent className={classes.container} style={{ height: 418, overflow: 'auto' }}>
         <Typography gutterBottom variant="h6" component="h4">
           Tasks/Resource Staging
           </Typography>
-        <Typography className={classes.pos} >
-          {Object.keys(stagedDeliv).map((id) => {
+        <div className={classes.pos} >
+          {Object.keys(stagedDeliv).map((id, index) => {
             return (<>
-              <div class="flexcontainer">
+              <div key={index} className="flexcontainer">
                 <IconButton
+                  className={classes.icon}
                   aria-label="add"
                   onClick={(event) => {
                     addStaged(stagedDeliv[id]);
@@ -92,6 +105,7 @@ export default function StagedList(props) {
                   <CheckIcon />
                 </IconButton>
                 <IconButton
+                  className={classes.icon}
                   aria-label="delete"
                   onClick={(event) => {
                     if (window.confirm('Are you sure you want to delete?')) {
@@ -100,16 +114,16 @@ export default function StagedList(props) {
                   }}>
                   <CloseIcon />
                 </IconButton>
-                <div class="divItem1">{stagedDeliv[id].type}</div>
+                <div className="divItem1">{stagedDeliv[id].type}</div>
                 {stagedDeliv[id].link ? (
-                  <a class={classes.link} href={stagedDeliv[id].link}><div class="divItem2" style={{ textDecoration: 'underline black' }}>{stagedDeliv[id].name}</div></a>) : (
-                  <div class="divItem2">{stagedDeliv[id].name}</div>)
+                  <a className={classes.link} href={stagedDeliv[id].link}><div className="divItem2" style={{ textDecoration: 'underline black' }}>{stagedDeliv[id].name}</div></a>) : (
+                  <div className="divItem2">{stagedDeliv[id].name}</div>)
                 }
               </div>
             </>
             )
           })}
-        </Typography>
+        </div>
       </CardContent>
       <CardActions>
       </CardActions>

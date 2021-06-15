@@ -9,7 +9,7 @@ module.exports = db => {
       `
     ).then(({ rows: type }) => {
       response.json(type);
-    });
+    }).catch(error => { error });
   });
 
 

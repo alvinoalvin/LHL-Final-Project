@@ -121,7 +121,7 @@ export default function Skill(props) {
 
 
   return (
-    <Grid className={classes.grid} item xs={4}>
+    <Grid className={classes.grid} item xs={3}>
       <Typography className='skill-info'>
         {props.skill.skill_name}
       </Typography>

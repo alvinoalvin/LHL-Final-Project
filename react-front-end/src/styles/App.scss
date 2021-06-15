@@ -93,6 +93,12 @@ a {
   .tab-item {
     font-family: var(--title-font);
     font-size: 18px;
+    padding-top: 0.5rem;
+  }
+
+  .MuiListItemIcon-root {
+    padding-left: 0.5rem;
+    padding-bottom: 0.2rem;
   }
 }
 

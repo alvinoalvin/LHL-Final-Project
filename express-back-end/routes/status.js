@@ -10,7 +10,7 @@ module.exports = db => {
       `
     ).then(({ rows: status }) => {
       response.json(status);
-    });
+    }).catch(error => { error });
   });
   return router;
 }

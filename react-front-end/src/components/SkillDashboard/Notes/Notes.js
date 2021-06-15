@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Card, CardActions, CardContent, Button, Input, Typography } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
+import "../../../styles/variables.scss";
 
 const useStyles = makeStyles({
   root: {
@@ -16,8 +17,14 @@ const useStyles = makeStyles({
   title: {
     fontSize: 14,
   },
-  pos: {
-    marginBottom: 12,
+  icon: {
+    color: 'var(--button)',
+    '&:hover': {
+      color: 'var(--button-hover)',
+    },
+  },
+  container: {
+    padding: '3rem 2rem',
   },
 });
 
@@ -79,16 +86,15 @@ export default function NotesList(props) {
   }
   return (
     <Card className={classes.root}>
-      <CardContent style={{ height: 370, overflow: 'auto' }}>
-
+      <CardContent className={classes.container} style={{ height: 370, overflow: 'auto' }}>
         <Typography gutterBottom variant="h6" component="h4">
           Notes
           </Typography>
-        <Typography className={classes.pos} >
           {Object.keys(notes).map((id) => {
             return (<>
               <div>
                 <IconButton
+                  className={classes.icon}
                   aria-label="delete"
                   onClick={(event) => {
                     if (window.confirm('Are you sure you want to delete?')) {
@@ -102,7 +108,6 @@ export default function NotesList(props) {
             </>
             )
           })}
-        </Typography>
       </CardContent>
       <CardActions>
         <Input ref={inputRef} />

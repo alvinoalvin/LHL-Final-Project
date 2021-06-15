@@ -17,7 +17,7 @@ module.exports = db => {
       `
     ).then(({ rows: deliverables }) => {
       response.json(deliverables);
-    });
+    }).catch(error => { error });
   });
 
   return router;

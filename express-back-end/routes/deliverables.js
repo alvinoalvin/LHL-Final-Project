@@ -11,7 +11,7 @@ module.exports = db => {
       `
       ).then(({ rows: deliverables }) => {
         response.json(deliverables);
-      });
+      }).catch(error => { error });
     } catch (err) {
       next(err);
     }
@@ -29,7 +29,7 @@ module.exports = db => {
     try {
       db.query(queryString).then(({ rows: deliverables }) => {
         response.json(deliverables);
-      });
+      }).catch(error => { error });
     } catch (err) {
       next(err);
     }
@@ -50,7 +50,7 @@ module.exports = db => {
         })
         .catch((err) => {
           console.log(err.message)
-        });
+        })
     } catch (err) {
       next(err);
     }

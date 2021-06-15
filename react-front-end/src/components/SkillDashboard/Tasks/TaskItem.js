@@ -2,6 +2,9 @@ import React, { useEffect } from "react";
 
 import { TableCell, TableRow, Checkbox, Input, Select, MenuItem } from '@material-ui/core';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
+
+import "../../../styles/variables.scss";
+
 import DateFnsUtils from '@date-io/date-fns';
 
 import IconButton from '@material-ui/core/IconButton';
@@ -16,6 +19,9 @@ import RevertIcon from "@material-ui/icons/NotInterestedOutlined";
 
 import axios from "axios";
 
+
+
+
 const useStyles = rowStyle;
 
 const CustomTableCell = ({ row, name, onChange, attr, type, input }) => {
@@ -24,7 +30,7 @@ const CustomTableCell = ({ row, name, onChange, attr, type, input }) => {
 
   function renderAttr() {
     if (type === "link" || type === "Link") {
-      return (<a class={classes.link} style={{ textDecoration: 'underline black' }} href={row.link}>{row.link !== "No Link Needed?" && row.link !== "" ? "Task Link" : ""}</a>)
+      return (<a className={classes.link} style={{ textDecoration: 'underline black' }} href={row.link}>{row.link !== "No Link Needed?" && row.link !== "" ? "Task Link" : ""}</a>)
     }
     if (type === "date" || type === "Date") {
       return getDate(row[attr])
@@ -281,6 +287,7 @@ export default function TaskItem(props) {
   };
   return (
     <TableRow
+      className={classes.tableRow}
       hover
       onClick={(event) => handleClick(event, row.id)}
       role="checkbox"
@@ -361,5 +368,6 @@ export default function TaskItem(props) {
           </IconButton>)}
       </TableCell>
     </TableRow>
+
   )
 }

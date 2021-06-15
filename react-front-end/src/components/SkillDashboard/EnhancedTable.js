@@ -1,13 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
-import { lighten, makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import {
   Table, TableBody, TableCell, TableContainer, TableHead,
   TablePagination, TableRow, TableSortLabel, Toolbar,
   Typography, Paper, Checkbox, IconButton, Tooltip
 } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
+
+import "../../styles/variables.scss";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -107,12 +109,12 @@ const useToolbarStyles = makeStyles((theme) => ({
   highlight:
     theme.palette.type === "light"
       ? {
-        color: theme.palette.secondary.main,
-        backgroundColor: lighten(theme.palette.secondary.light, 0.85)
+        color: 'var(--white)',
+        backgroundColor: 'var(--button-hover)'
       }
       : {
         color: theme.palette.text.primary,
-        backgroundColor: theme.palette.secondary.dark
+        backgroundColor: 'theme.palette.secondary.dark'
       },
   title: {
     flex: "1 1 100%"

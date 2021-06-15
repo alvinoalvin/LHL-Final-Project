@@ -1,7 +1,7 @@
 @import "../../styles/variables.scss";
 
 .team-view {
-  padding: 2rem 5rem;
+  padding: var(--container-padding);
 
   .team-info {
     display: flex;
@@ -24,11 +24,11 @@
 
     .table-header-row {
       background-color: var(--table-header);
-      border-bottom: 1px solid var(--border);
+      border-bottom: var(--border);
     }
 
     .table-body-row {
-      border-bottom: 1px solid var(--border);
+      border-bottom: var(--border);
     }
 
     .table-header {
