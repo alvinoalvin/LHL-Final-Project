@@ -25,7 +25,7 @@ export default function CenteredGrid() {
   const { id } = useContext(authContext);
   const classes = useStyles();
 
-  document.title = "Life Long Learning";
+  document.title = "Lifelong Learning";
   const userId = id;
 
   return (
