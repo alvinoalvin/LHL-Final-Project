@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import axios from "axios";
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { CssBaseline, TextField, Grid, Typography, Container } from '@material-ui/core/';
 import SaveIcon from '@material-ui/icons/Save';
+import "../../../styles/variables.scss";
+import { purple } from "@material-ui/core/colors";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -13,12 +15,25 @@ function Alert(props) {
 
 const useStyles = makeStyles((theme) => ({
   button: {
-    margin: "40px 0 0 0"
+    margin: "40px 0 0 0",
+    color: '#fff',
+    fontFamily: 'var(--header-font)',
+    backgroundColor: 'var(--button)',
+    '&:hover': {
+      backgroundColor: 'var(--button-hover)',
+      color: '#fff',
+    },
   },
   h5: {
     margin: "0 0 15px 0",
   }
 }));
+
+const theme = createMuiTheme({
+  palette: {
+    primary: purple,
+  }
+});
 
 export default function CreateResourceForm(props) {
   const classes = useStyles();
@@ -84,55 +99,57 @@ export default function CreateResourceForm(props) {
           Add New Resource
         </Typography>
         <form className='new-member-form' noValidate>
-          <Grid container spacing={3}>
-            <Grid item xs={12}>
-              <TextField
-                id="create-resource-name-input"
-                name="name"
-                variant="outlined"
-                required
-                fullWidth
-                placeholder="Resource"
-                label="Resource Name"
-                value={name}
-                onChange={(event) => setName(event.target.value)}
-                autoFocus
-                size="small"
-              />
+          <ThemeProvider theme={theme}>
+            <Grid container spacing={3}>
+              <Grid item xs={12}>
+                <TextField
+                  id="create-resource-name-input"
+                  name="name"
+                  variant="outlined"
+                  required
+                  fullWidth
+                  placeholder="Resource"
+                  label="Resource Name"
+                  value={name}
+                  onChange={(event) => setName(event.target.value)}
+                  autoFocus
+                  size="small"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  id="create-resource-link-input"
+                  name="link"
+                  variant="outlined"
+                  required
+                  fullWidth
+                  placeholder="Link"
+                  label="Resource Link"
+                  value={link}
+                  onChange={(event) => setLink(event.target.value)}
+                  size="small"
+                />
+              </Grid>
             </Grid>
-            <Grid item xs={12}>
-              <TextField
-                id="create-resource-link-input"
-                name="link"
-                variant="outlined"
-                required
-                fullWidth
-                placeholder="Link"
-                label="Resource Link"
-                value={link}
-                onChange={(event) => setLink(event.target.value)}
-                size="small"
-              />
-            </Grid>
-          </Grid>
-          <Button
-            variant="contained"
-            color="primary"
-            className={classes.button}
-            startIcon={<SaveIcon />}
-            onClick={(event) => {
-              if (!checkRec()) {
-                setSnack(true)
+            <Button
+              variant="contained"
+              color="primary"
+              className={classes.button}
+              startIcon={<SaveIcon />}
+              onClick={(event) => {
+                if (!checkRec()) {
+                  setSnack(true)
+                }
+                else {
+                  addResource()
+                  props.handleClose()
+                }
               }
-              else {
-                addResource()
-                props.handleClose()
               }
-            }
-            }
-          >
-            Save
-        </Button>
+            >
+              Save
+          </Button>
+        </ThemeProvider>
         </form>
         <Snackbar
           anchorOrigin={{ vertical: 'top', horizontal: 'center' }}

@@ -15,6 +15,7 @@ import {
 
 const axios = require('axios');
 
+
 export default function SkillDashboard() {
   const { id } = useContext(authContext);
   const location = useLocation();

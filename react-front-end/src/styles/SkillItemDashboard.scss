@@ -14,6 +14,10 @@
     "staging notes"
     "taskList resources";
 
+  a {
+    color: 'pink';
+  }
+  
   .header {
     @include areaBorder(header);
   }
