@@ -49,27 +49,35 @@ module.exports = (db) => {
   });
 
   router.get("/analytics/topskills", (request, response) => {
-    console.log(request.body)
-    db.query(
-      `
+    console.log(request.query)
+    try {
+      db.query(
+        `
       select skills.name, skills.id,
       count(*) filter(where status.id=1) as stage_count,
       count(*) filter(where status.id=2) as progress_count,
-      count(*) filter(where status.id=3) as complete_count
+      count(*) filter(where status.id=3) as complete_count,
+      Sum(time_estimate_minutes) filter(where status.id=1) as sum_stage_time,
+      Sum(time_estimate_minutes) filter(where status.id=2) as sum_progress_time,
+      Sum(time_estimate_minutes) filter(where status.id=3) as sum_complete_time
       from deliverables
       JOIN status on status_id = status.id
       JOIN users on assigned_to = users.id
       JOIN skills on skill_id = skills.id
       where type_id = 1 and assigned_to = $1 and deleted = false
-      group by  skills.name,skills.id
+      group by  skills.name, skills.id
 
-      `, [request.body.id]
-    ).then(({ rows: skills }) => {
-      response.json(skills);
-    });
+      `, [request.query.id]
+      ).then(({ rows: skills }) => {
+        response.json(skills);
+      }).catch(error => { error });
+    } catch (err) {
+      next(err);
+    };
   });
 
   router.get("/analytics/topskills/timeest", (request, response) => {
+    console.log(request.query)
     const arr = JSON.parse(request.query.array);
     let paramStr = "(";
     for (let i = 1; i <= arr.length; i++) {
@@ -80,18 +88,21 @@ module.exports = (db) => {
       }
     }
     paramStr += ")";
-
-    db.query(
-      `
+    try {
+      db.query(
+        `
       select skill_id, status, sum(time_estimate_minutes) as estimated_time
       from deliverables
       join status on status_id = status.id
-      where skill_id in $1 group by status,skill_id
+      where skill_id in ${paramStr} group by status,skill_id
       order by estimated_time desc
-      `, [paramStr]
-    ).then(({ rows: skills }) => {
-      response.json(skills);
-    });
+      `, arr
+      ).then(({ rows: skills }) => {
+        response.json(skills);
+      }).catch(error => { error });
+    } catch (err) {
+      next(err);
+    };
   });
 
   return router;

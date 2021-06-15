@@ -121,7 +121,6 @@ export default function ResourceItem(props) {
   };
 
   const onRevert = (id) => {
-
     const newResources = rows.map((resource) => {
       if (resource.id === id) {
         resource.name = previous.resource.name
