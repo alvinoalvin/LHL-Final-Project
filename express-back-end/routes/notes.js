@@ -11,7 +11,7 @@ module.exports = db => {
       `
       ).then(({ rows: notes }) => {
         response.json(notes);
-      });
+      }).catch(error => { error });
     } catch (err) {
       next(err);
     }
@@ -24,7 +24,7 @@ module.exports = db => {
       `, [request.body.user_id, request.body.skill_id, request.body.note]
       ).then(({ rows: notes }) => {
         response.json(notes);
-      });
+      }).catch(error => { error });
     } catch (err) {
       next(err);
     }
@@ -40,7 +40,7 @@ module.exports = db => {
         error => {
           console.log(error)
         }
-      );
+      );z
     } catch (err) {
       next(err);
     }

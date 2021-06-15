@@ -1,3 +1,5 @@
+@import "./variables.scss";
+
 .list-component {
   max-width: 45vw;
   min-height: 700px;
@@ -28,12 +30,12 @@
     width: 100%;
     text-align: right;
   }
-  .MuiTableRow-root.Mui-selected,
-  .MuiTableRow-root.Mui-selected:hover {
-    background-color: blue;
+
+  .MuiTableRow-root.Mui-selected, .MuiTableRow-root.Mui-selected:hover{
+    background-color: var(--button-hover);
   }
   .MuiSvgIcon-root {
-    fill: brown;
+    fill: var(--button);
   }
 }
 

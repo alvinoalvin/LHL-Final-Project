@@ -9,7 +9,7 @@ module.exports = db => {
       `
     ).then(({ rows: teams }) => {
       response.json(teams);
-    });
+    }).catch(error => { error });
   });
 
   router.get("/teams/:team_id", (request, response) => {
@@ -29,7 +29,7 @@ module.exports = db => {
       `
     ).then(({ rows: teams }) => {
       response.json(teams);
-    });
+    }).catch(error => { error });
   });
 
   router.post("/teams/:team_id", (request, response) => {

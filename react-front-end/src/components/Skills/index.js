@@ -17,7 +17,7 @@ import { useHistory } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    padding: '3rem 4em',
+    padding: '3rem 6em',
   },
   paper: {
     padding: theme.spacing(2),
@@ -27,8 +27,8 @@ const useStyles = makeStyles((theme) => ({
     maxHeight: 600,
     overflow: 'auto',
     marginTop: '1rem',
-    border: '1px solid var(--border)',
-    boxShadow: '5px 5px var(--box-shadow)',
+    border: 'var(--border)',
+    boxShadow: 'var(--box-shadow)',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     textAlign: "center",
     color: theme.palette.text.secondary,
-    border: '1px solid var(--border)',
+    border: 'var(--border)',
     boxShadow: '5px 5px',
     borderRadius: 'var(--border-radius)',
   },
@@ -60,6 +60,7 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: 'var(--header-font)',
     fontSize: '35px',
     fontWeight: '700',
+    marginBottom: '2rem',
   },
 }));
 

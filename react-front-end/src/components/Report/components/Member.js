@@ -20,7 +20,6 @@ const useRowStyles = makeStyles({
     '& > *': {
       borderBottom: 'unset',
     },
-    borderBottom: '1px solid var(--border)',
   },
 });
 

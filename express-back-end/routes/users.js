@@ -12,7 +12,7 @@ module.exports = db => {
       `
     ).then(({ rows: users }) => {
       response.json(users);
-    });
+    }).catch(error => { error });
   });
 
   router.get("/users/:user_id", (request, response) => {
@@ -24,7 +24,7 @@ module.exports = db => {
       `
     ).then(({ rows: users }) => {
       response.json(users);
-    });
+    }).catch(error => { error });
   });
 
   router.delete("/users/:user_id", (request, response) => {

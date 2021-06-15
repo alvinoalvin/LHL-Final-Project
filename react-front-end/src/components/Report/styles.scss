@@ -1,13 +1,13 @@
 @import "../../styles/variables.scss";
 
 .report-view {
-  padding: 2rem 5rem;
+  padding: var(--container-padding);
 
   .team-info {
     display: flex;
     justify-content: space-between;
     margin: auto;
-    padding: 0rem 3rem;
+    padding: 0rem 4rem;
 
     #team-title {
       font-family: var(--header-font);
@@ -25,7 +25,7 @@
 
       .table-header-row {
         background-color: var(--table-header);
-        border-bottom: 1px solid var(--border);
+        border-bottom: var(--border);
 
         .table-header-cell {
           font-family: var(--header-font);
@@ -44,9 +44,6 @@
         font-size: 14px;
         font-weight: 600;
       }
-
-
     }
   }
-
 }
