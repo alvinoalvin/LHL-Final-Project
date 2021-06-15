@@ -11,7 +11,7 @@ module.exports = db => {
       `
     ).then(({ rows: skills }) => {
       response.json(skills);
-    });
+    }).catch(error => { error });
   });
 
   router.get("/skills/users/:user_id", (request, response) => {
@@ -25,7 +25,7 @@ module.exports = db => {
       `
     ).then(({ rows: skills }) => {
       response.json(skills);
-    });
+    }).catch(error => { error });
   });
 
   router.post("/skills/users/:user_id", (request, response) => {
@@ -47,7 +47,7 @@ module.exports = db => {
 
           db.query(queryString, values)
           .then(({ rows: skills }) => {
-          });
+          }).catch(error => { error });
         });
     });
 
@@ -68,7 +68,7 @@ module.exports = db => {
       `
     ).then(({ rows: skills }) => {
       response.json(skills);
-    });
+    }).catch(error => { error });
   });
 
   router.get("/skills/report/time/users/:user_id&:skill_id", (request, response) => {
@@ -85,7 +85,7 @@ module.exports = db => {
       `
     ).then(({ rows: skills }) => {
       response.json(skills);
-    });
+    }).catch(error => { error });
   });
 
 

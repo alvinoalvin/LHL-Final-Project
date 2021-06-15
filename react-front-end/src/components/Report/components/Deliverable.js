@@ -5,6 +5,7 @@ import TableRow from '@material-ui/core/TableRow';
 
 import date from 'date-and-time';
 
+
 export default function Deliverable(props) {
   const newDate = new Date(props.deliverable.end_date);
   const dueDate = date.format(newDate, 'YYYY/MM/DD');

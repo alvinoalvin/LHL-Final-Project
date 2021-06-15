@@ -27,5 +27,5 @@ export default makeStyles((theme) => ({
   link: {
     color: "black",
     textDecoration: "underline black"
-  }
+  },
 }));

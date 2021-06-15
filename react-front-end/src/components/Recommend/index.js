@@ -18,8 +18,6 @@ import MuiAlert from '@material-ui/lab/Alert';
 import ShareIcon from '@material-ui/icons/Share';
 import { purple } from "@material-ui/core/colors";
 
-import "./styles.scss";
-
 import axios from 'axios';
 
 
@@ -29,15 +27,15 @@ function Alert(props) {
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    marginTop: theme.spacing(8),
+    marginTop: '8rem',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    width: '70%',
+    width: '60%',
     margin: 'auto',
     padding: '3rem',
-    border: '1px solid var(--border)',
-    boxShadow: '5px 5px var(--box-shadow)',
+    border: 'var(--border)',
+    boxShadow: 'var(--box-shadow)',
     borderRadius: 'var(--border-radius)',
   },
   avatar: {
@@ -45,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor:  'var(--button)',
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: '90%', // Fix IE 11 issue.
     marginTop: theme.spacing(3),
     display: 'flex',
     flexDirection: 'column',
@@ -217,7 +215,7 @@ export default function Recommend(props) {
 
   return (
     <>
-    <Container component="main">
+    <Container component="section">
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>

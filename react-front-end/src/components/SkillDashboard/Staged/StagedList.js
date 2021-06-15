@@ -17,12 +17,24 @@ const useStyles = makeStyles({
   title: {
     fontSize: 14,
   },
+  container: {
+    padding: '3rem 2rem',
+  },
   pos: {
     marginBottom: 12,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
   },
   link: {
     color: "black",
     textDecoration: "underline black"
+  },
+  icon: {
+    color: 'var(--button)',
+    '&:hover': {
+      color: 'var(--button-hover)',
+    },
   }
 });
 
@@ -76,7 +88,7 @@ export default function StagedList(props) {
 
   return (
     <Card className={classes.root}>
-      <CardContent style={{ height: 418, overflow: 'auto' }}>
+      <CardContent className={classes.container} style={{ height: 418, overflow: 'auto' }}>
         <Typography gutterBottom variant="h6" component="h4">
           Tasks/Resource Staging
           </Typography>
@@ -85,6 +97,7 @@ export default function StagedList(props) {
             return (<>
               <div class="flexcontainer">
                 <IconButton
+                  className={classes.icon}
                   aria-label="add"
                   onClick={(event) => {
                     addStaged(stagedDeliv[id]);
@@ -92,6 +105,7 @@ export default function StagedList(props) {
                   <CheckIcon />
                 </IconButton>
                 <IconButton
+                  className={classes.icon}
                   aria-label="delete"
                   onClick={(event) => {
                     if (window.confirm('Are you sure you want to delete?')) {

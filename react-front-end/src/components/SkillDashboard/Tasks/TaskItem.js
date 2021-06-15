@@ -2,6 +2,9 @@ import React, { useEffect } from "react";
 
 import { TableCell, TableRow, Checkbox, Input, Select, MenuItem } from '@material-ui/core';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
+
+import "../../../styles/variables.scss";
+
 import DateFnsUtils from '@date-io/date-fns';
 
 import IconButton from '@material-ui/core/IconButton';
@@ -15,6 +18,9 @@ import DoneIcon from "@material-ui/icons/DoneAllTwoTone";
 import RevertIcon from "@material-ui/icons/NotInterestedOutlined";
 
 import axios from "axios";
+
+
+
 
 const useStyles = rowStyle;
 
@@ -281,6 +287,7 @@ export default function TaskItem(props) {
   };
   return (
     <TableRow
+      className={classes.tableRow}
       hover
       onClick={(event) => handleClick(event, row.id)}
       role="checkbox"
@@ -361,5 +368,6 @@ export default function TaskItem(props) {
           </IconButton>)}
       </TableCell>
     </TableRow>
+
   )
 }
