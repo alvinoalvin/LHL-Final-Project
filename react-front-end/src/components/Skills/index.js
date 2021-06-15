@@ -7,7 +7,7 @@ import Form from "./components/Form";
 import Button from '@material-ui/core/Button';
 import { useHistory } from "react-router-dom";
 import "../../styles/variables.scss";
-
+import Typography from '@material-ui/core/Typography';
 import { authContext } from "../../providers/AuthProvider";
 
 const useStyles = makeStyles((theme) => ({
@@ -51,7 +51,12 @@ const useStyles = makeStyles((theme) => ({
     marginTop: '-4rem',
     marginBottom: '1rem',
     fontFamily: 'var(--header-font)',
-  }
+  },
+  header: {
+    fontFamily: 'var(--header-font)',
+    fontSize: '35px',
+    fontWeight: '700',
+  },
 }));
 
 export default function SkillViewAll(props) {
@@ -99,6 +104,7 @@ export default function SkillViewAll(props) {
 
   return (
     <div className={classes.root}>
+      <Typography className={classes.header}>Skills</Typography>
       <Grid container spacing={4}>
         <Grid item xs={12}>
           <Paper className={classes.quote}>
