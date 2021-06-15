@@ -28,6 +28,13 @@
     width: 100%;
     text-align: right;
   }
+  .MuiTableRow-root.Mui-selected,
+  .MuiTableRow-root.Mui-selected:hover {
+    background-color: blue;
+  }
+  .MuiSvgIcon-root {
+    fill: brown;
+  }
 }
 
 label[data-shrink="false"]
