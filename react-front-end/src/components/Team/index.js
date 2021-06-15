@@ -1,17 +1,20 @@
-import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { authContext } from "../../providers/AuthProvider";
+
 import Member from "./components/Member";
 import Form from "./components/Form";
+
 import "./styles.scss"
 
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import axios from "axios";
+
+import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
@@ -74,18 +77,19 @@ export default function Team(props) {
 
   const [team, setTeam] = useState([]);
 
-  const team_id = 1
+  const { team_id } = useContext(authContext);
+  const teamID = team_id
   const team_name = 'Engineering'
 
   useEffect(() => {
-    axios.get(`/api/teams/${team_id}`)
+    axios.get(`/api/teams/${teamID}`)
       .then(function(response) {
         setTeam(response.data)
       })
       .catch(function (error) {
         console.log("ERROR: ", error);
       });
-  }, [])
+  }, [teamID])
 
   const teamList = team.map(member => {
     return (
@@ -111,7 +115,7 @@ export default function Team(props) {
           Add New Member
         </Button>
       </div>
-      <TableContainer className='table-container' maxWidth={900}>
+      <TableContainer className='table-container'>
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
             <TableRow className='table-header-row'>

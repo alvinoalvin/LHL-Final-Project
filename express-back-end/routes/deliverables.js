@@ -234,12 +234,12 @@ module.exports = db => {
   })
 
   router.post("/deliverables", (request, response) => {
-    const { creator, assigned_to, skill_id, status_id, time_estimate_minutes, type_id, name, notes, link } = request.body
+    const { creator, assigned_to, skill_id, status_id, time_estimate_minutes, type_id, name, link } = request.body
 
-    const values = [creator, assigned_to, skill_id, status_id, time_estimate_minutes, type_id, name, notes, link]
+    const values = [creator, assigned_to, skill_id, status_id, time_estimate_minutes, type_id, name, link]
 
-    const queryString = `INSERT INTO deliverables(creator, assigned_to, skill_id, status_id, time_estimate_minutes, type_id, name, notes, link, create_date)
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, NOW())`
+    const queryString = `INSERT INTO deliverables(creator, assigned_to, skill_id, status_id, time_estimate_minutes, type_id, name, notes, create_date)
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, NOW())`
     try {
       db.query(queryString, values)
         .then(({ rows: deliverables }) => {

@@ -28,6 +28,7 @@ export default function ResourceListComponent(props) {
           if (!selected.includes(resource.id)) {
             return resource
           }
+          return null;
         });
         setSelected([]);
         setResources(resourceCopy);

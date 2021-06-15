@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Card, CardActions, CardContent, Button, Input, Typography } from '@material-ui/core';
+import { Card, CardActions, CardContent, Typography } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
 import CheckIcon from '@material-ui/icons/Check';
@@ -31,7 +31,7 @@ const axios = require('axios');
 
 export default function StagedList(props) {
   const classes = useStyles();
-  const { stagedDeliv, setStagedDeliv, tasks, setTasks, resources, setResources } = props
+  const { stagedDeliv, setStagedDeliv, tasks, resources } = props
 
   function addStaged(stageItem) {
     return axios.post(`api/deliverables/staging/${stageItem.id}`, { stageItem })
@@ -40,6 +40,7 @@ export default function StagedList(props) {
           if (staged.id !== stageItem.id) {
             return staged
           }
+          return null;
         });
         setStagedDeliv(stagedCopy);
 
@@ -64,6 +65,7 @@ export default function StagedList(props) {
           if (staged.id !== stageItem.id) {
             return staged
           }
+          return null;
         });
         setStagedDeliv(stagedCopy);
       })
@@ -71,7 +73,6 @@ export default function StagedList(props) {
         console.log(error);
       });
   }
-  const Spacing = () => { return <span style={{ padding: 30 }} >&nbsp;</span> };
 
   return (
     <Card className={classes.root}>

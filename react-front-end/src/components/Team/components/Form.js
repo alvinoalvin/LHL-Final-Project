@@ -1,4 +1,6 @@
 import React, { useState, useContext } from 'react';
+import { authContext } from '../../../providers/AuthProvider';
+
 import Button from '@material-ui/core/Button';
 import { makeStyles, ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
@@ -12,7 +14,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { purple } from "@material-ui/core/colors";
 
-import { authContext } from '../../../providers/AuthProvider';
+
 import axios from "axios";
 
 import "../../../styles/variables.scss";

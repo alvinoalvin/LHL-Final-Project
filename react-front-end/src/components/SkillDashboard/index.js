@@ -41,21 +41,21 @@ export default function SkillDashboard() {
       .then(response => {
         setTasks(response.data);
       }).catch(error => console.log(error));
-  }, []);
+  }, [userID, skillID]);
 
   useEffect(() => {
     axios.get(`/api/resources/${userID}/${skillID}`)
       .then(response => {
         setResources(response.data);
       }).catch(error => console.log(error));
-  }, []);
+  }, [userID, skillID]);
 
   useEffect(() => {
     axios.get(`/api/deliverables/${userID}/${skillID}/staged`)
       .then(response => {
         setStagedDeliv(response.data);
       }).catch(error => console.log(error));
-  }, []);
+  }, [userID, skillID]);
 
   return (<>
     {
