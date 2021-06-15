@@ -18,7 +18,7 @@ import axios from "axios";
 
 const useStyles = rowStyle;
 
-const CustomTableCell = ({ row, name, onChange, attr, type }) => {
+const CustomTableCell = ({ row, name, onChange, attr, type, input }) => {
   const classes = useStyles();
   const { isEditMode } = row;
 
@@ -29,11 +29,14 @@ const CustomTableCell = ({ row, name, onChange, attr, type }) => {
     if (type === "date" || type === "Date") {
       return getDate(row[attr])
     }
+    if (type === "number" || type === "Number") {
+      return (<div style={{ textAlign: 'center', width: '100%' }}>{row[attr]}</div>)
+    }
     return row[attr]
   }
 
   function renderInput() {
-    if (type === "date") {
+    if (type === "date" && input !== "disable") {
       return (
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <KeyboardDatePicker
@@ -42,7 +45,7 @@ const CustomTableCell = ({ row, name, onChange, attr, type }) => {
             format="MM/dd/yyyy"
             margin="normal"
             id="date-picker-inline"
-            value={row.end_date}
+            value={row.due_date}
             onChange={(value) => { onChange(value, row, attr, "date") }}
             KeyboardButtonProps={{
               'aria-label': 'change date',
@@ -61,6 +64,9 @@ const CustomTableCell = ({ row, name, onChange, attr, type }) => {
         className={classes.input}
         onChange={(e, value) => { onChange(e, row, attr) }}
       />)
+    }
+    if (input === "disable") {
+      return;
     }
     return (
       <Input
@@ -105,7 +111,7 @@ const CustomStatusCell = ({ row, status, onStatusChange, statusMap }) => {
   function createMenu() {
     const menu = []
     for (let row of statusMap) {
-      if (row.id !== 1){
+      if (row.id !== 1) {
         menu.push(<MenuItem value={row.id}>{row.status}</MenuItem>)
       }
     }
@@ -233,9 +239,14 @@ export default function TaskItem(props) {
     const { id } = task;
     const newTasks = rows.map((task) => {
       if (task.id === id) {
-        console.log(task)
+        let end_date = null;
+        if (value === 3) {
+          end_date = new Date().toISOString()
+          console.log(end_date)
+        } 
+
         return {
-          ...task, "status_id": value, "status": status, "is_completed": status === "Completed" ? true : false
+          ...task, "status_id": value, "status": status, "is_completed": status === "Completed" ? true : false, "end_date": end_date
         };
       }
       return task;
@@ -251,6 +262,7 @@ export default function TaskItem(props) {
         task.status = previous.task.status
         task.status_id = previous.task.status_id
         task.link = previous.task.link
+        task.due_date = previous.task.due_date
         task.end_date = previous.task.end_date
         task.time_estimate_minutes = previous.task.time_estimate_minutes
         if (task.status === "Completed") {
@@ -290,20 +302,23 @@ export default function TaskItem(props) {
         {...{ row: row, status: row.status, onStatusChange, statusMap }}
       />
       <CustomTableCell
-        {...{ row: row, name: getDate(row.end_date), onChange, attr: "end_date", type: "date" }}
-      />
-      <CustomTableCell
         {...{ row: row, name: row.time_estimate_minutes, onChange, attr: "time_estimate_minutes", type: "number" }}
       />
       <CustomTableCell
         {...{ row: row, name: row.name, onChange, attr: "link", type: "link" }}
       />
-      <TableCell align="left" >
+      <CustomTableCell
+        {...{ row: row, name: getDate(row.due_date), onChange, attr: "due_date", type: "date" }}
+      />
+      {/* <CustomTableCell
+        {...{ row: row, name: row.end_date, onChange, attr: "end_date", type: "date", input: "disable" }}
+      /> */}
+      {/* <TableCell align="left" >
         < Checkbox
           disabled
           checked={row.is_completed}
         />
-      </TableCell>
+      </TableCell> */}
       <TableCell className={classes.selectTableCell}>
         {row.isEditMode ? (
           <>
