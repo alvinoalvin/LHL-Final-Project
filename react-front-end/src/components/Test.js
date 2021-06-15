@@ -1,6 +1,6 @@
 import React from 'react';
 
-import NewSkill from "./NewSkill";
+import NewSkill from "./Skills";
 import Input from "./Input";
 
 export default function Test(props) {

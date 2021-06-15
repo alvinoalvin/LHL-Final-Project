@@ -24,6 +24,7 @@ import Recommend from "./Recommend";
 import Report from "./Report";
 import Test from "./Test";
 import LineGraph from "./LineGraph"
+import Skills from "./Skills";
 
 /* import icons */
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
@@ -117,7 +118,7 @@ export default function Application() {
           <Divider />
           <List>
             <Link to="/">
-              <ListItem>
+              <ListItem className={classes.list}>
                 <ListItemIcon><HomeIcon /></ListItemIcon>
                 <ListItemText disableTypography className='tab-item' primary='Home'></ListItemText>
               </ListItem>
@@ -140,44 +141,18 @@ export default function Application() {
                 <ListItemText  disableTypography className='tab-item' primary='All Skills'></ListItemText>
               </ListItem>
             </Link>
-              <Divider />
-            {/* <Link to="/skill">
-              <ListItem>
-                <ListItemIcon><AccountCircleIcon /></ListItemIcon>
-                <ListItemText primary='Skill'></ListItemText>
-              </ListItem>
-            </Link> */}
-            
-            {/* <Link to="/test">
-              <ListItem>
-                <ListItemIcon><MailIcon /></ListItemIcon>
-                <ListItemText primary='Test'></ListItemText>
-              </ListItem>
-            </Link>
-            <Link to="/Form">
-              <ListItem>
-                <ListItemIcon><LockOpenIcon /></ListItemIcon>
-                <ListItemText primary='Form'></ListItemText>
-              </ListItem>
-            </Link> */}
             <Link to="/team">
               <ListItem>
                 <ListItemIcon><GroupIcon /></ListItemIcon>
-                <ListItemText primary='Team'></ListItemText>
+                <ListItemText disableTypography className='tab-item' primary='Team'></ListItemText>
               </ListItem>
             </Link>
-            <Link to="/signup">
-              <ListItem>
-                <ListItemIcon><AccountCircleIcon /></ListItemIcon>
-                <ListItemText primary='Add Member'></ListItemText>
-              </ListItem>
-            </Link>
+              <Divider />
           </List>
-          <Divider />
         </Drawer>
-        <main className={classes.content}>
-          <div className={classes.toolbar} />
 
+        <main className={classes.content}>
+        <div className={classes.toolbar} />
           <Switch>
             <Route path="/team">
               <Team />
@@ -192,7 +167,7 @@ export default function Application() {
               <Report />
             </Route>
             <Route path="/allSkills">
-              <SkillViewAll/>
+              <Skills/>
             </Route>
             <Route path="/recommend">
               <Recommend />

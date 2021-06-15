@@ -71,8 +71,11 @@ export default function Report(props) {
   return (
     <section className='report-view'>
       <div className='team-info'>
+      <Typography id='team-title'>
+          Reporting
+        </Typography>
         <Typography id='team-title'>
-          Team: Engineering
+          Engineering
         </Typography>
         <Button className={classes.add} variant="contained" color="primary" type="button" id='export-data'>
           <CSVLink data={csvData}>Export</CSVLink>

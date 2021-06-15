@@ -2,9 +2,14 @@ import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import axios from "axios";
-
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 import { CssBaseline, TextField, Grid, Typography, Container } from '@material-ui/core/';
 import SaveIcon from '@material-ui/icons/Save';
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -41,6 +46,35 @@ export default function CreateResourceForm(props) {
         console.log(error);
       });
   }
+
+  const [snack, setSnack] = useState(false);
+  const [alert, setAlert] = useState({
+    message: '',
+    severity: ''
+  });
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setSnack(false);
+  };
+
+  function checkRec() {
+    if (!name) {
+      setAlert({ message: 'Please enter name!', severity: 'warning'})
+      return false
+    }
+  
+    if (!link) {
+      setAlert({ message: 'Please enter a link!', severity: 'warning'})
+      return false
+    }
+  
+    return true;
+  };
+
 
   return (
     <Container component="main" maxWidth="xs">
@@ -87,14 +121,8 @@ export default function CreateResourceForm(props) {
             className={classes.button}
             startIcon={<SaveIcon />}
             onClick={(event) => {
-              const nameInput = document.getElementById("create-resource-name-input");
-              const linkInput = document.getElementById("create-resource-link-input");
-
-              if (!nameInput.value) {
-                alert("Please enter a name")
-              }
-              else if (!linkInput.value) {
-                alert("Please enter a link")
+              if (!checkRec()) {
+                setSnack(true)
               }
               else {
                 addResource()
@@ -106,6 +134,15 @@ export default function CreateResourceForm(props) {
             Save
         </Button>
         </form>
+        <Snackbar
+          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+          open={snack}
+          key={'report-snack-bar'}
+          autoHideDuration={6000}
+          onClose={handleClose}
+        >
+          <Alert onClose={handleClose} severity={alert.severity}>{alert.message}</Alert>
+        </Snackbar>
       </div>
     </Container>
 

@@ -79,15 +79,15 @@ export default function Skill(props) {
 
       for (let object of responseData) {
         if (object.status_id === 1) {
-          staged_time = object.total_estimate
+          staged_time = Math.ceil(object.total_estimate / 60)
         }
 
         if (object.status_id === 2) {
-          progress_time = object.total_estimate
+          progress_time = Math.ceil(object.total_estimate / 60)
         }
 
         if (object.status_id === 3) {
-          completed_time = object.total_estimate
+          completed_time = Math.ceil(object.total_estimate / 60)
         }
       }
 
@@ -122,7 +122,7 @@ export default function Skill(props) {
         {props.skill.skill_name}
       </Typography>
       <Typography className='skill-info'>
-        Time: {Math.round(totalTime / 60)}h
+        Time: {Math.ceil(totalTime)}h
       </Typography>
       <Doughnut data={pieData} />
       <Button variant="contained" className={classes.add} type="button" onClick={handleOpen}>

@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import axios from "axios";
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 
 import { CssBaseline, TextField,  Grid, Typography, Container } from '@material-ui/core/';
 import SaveIcon from '@material-ui/icons/Save';
@@ -14,6 +16,10 @@ const useStyles = makeStyles((theme) => ({
     margin: "0 0 15px 0",
   }
 }));
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 export default function CreateTaskForm(props) {
   const classes = useStyles();
@@ -49,6 +55,46 @@ export default function CreateTaskForm(props) {
         console.log(error);
       });
   }
+
+  const [snack, setSnack] = useState(false);
+  const [alert, setAlert] = useState({
+    message: '',
+    severity: ''
+  });
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setSnack(false);
+  };
+
+  function checkRec() {
+    if (!name) {
+      setAlert({ message: 'Please enter task name!', severity: 'warning'})
+      return false
+    }
+  
+    if (!estDuration) {
+      setAlert({ message: 'Please enter an estimate!', severity: 'warning'})
+      return false
+    }
+    
+    const newDate = new Date(dueDate)
+
+    if (newDate < new Date() || newDate) {
+      setAlert({ message: 'That date has already passed!', severity: 'warning'})
+      return false
+    }
+
+    if (!dueDate) {
+      setAlert({ message: 'Please pick a date!', severity: 'warning'})
+      return false
+    }
+  
+    return true;
+  };
 
   return (
     <Container component="main" maxWidth="xs" >
@@ -121,16 +167,9 @@ export default function CreateTaskForm(props) {
             className={classes.button}
             startIcon={<SaveIcon />}
             onClick={(event) => {
-              const nameInput = document.getElementById("create-task-name-input");
-              const estDurInput = document.getElementById("create-task-est-dur-input");
-
-              if (!nameInput.value) {
-                alert("Please enter a name")
-              }
-              else if (estDurInput.validity.badInput === true || estDurInput.value < 0) {
-                alert("Please enter a postive number for Estimated Duration")
-              }
-              else {
+              if (!checkRec()) {
+                setSnack(true)
+              } else {
                 addTask()
                 props.handleClose()
               }
@@ -140,6 +179,15 @@ export default function CreateTaskForm(props) {
             Save
         </Button>
         </form>
+        <Snackbar
+          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+          open={snack}
+          key={'report-snack-bar'}
+          autoHideDuration={6000}
+          onClose={handleClose}
+        >
+          <Alert onClose={handleClose} severity={alert.severity}>{alert.message}</Alert>
+        </Snackbar>
       </div>
     </Container>
 
