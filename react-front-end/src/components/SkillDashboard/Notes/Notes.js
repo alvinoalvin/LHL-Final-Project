@@ -39,7 +39,7 @@ export default function NotesList(props) {
         setNotes(data);
       })
       .catch(error => console.log(error));
-  }, [notes]);
+  }, [notes, props.skillID, props.userID]);
 
   function addNote() {
     const newNote = {
@@ -68,6 +68,8 @@ export default function NotesList(props) {
             note.key = note.id
             return note
           }
+
+          return null;
         });
         setNotes(noteCopy);
       })

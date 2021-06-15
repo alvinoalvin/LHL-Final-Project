@@ -160,12 +160,14 @@ export default function TaskItem(props) {
           if (task.id !== row.id) {
             return task
           }
+          return null;
         });
 
         const selectedCopy = selected.filter((selectedTask) => {
           if (selectedTask !== row.id) {
             return selectedTask
           }
+          return null;
         });
         setSelected(selectedCopy);
         setRows(taskCopy);

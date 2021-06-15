@@ -16,14 +16,10 @@ import reactStyles from '../helpers/react-styles';
 
 /* Custom Components */
 import SkillDashboard from './SkillDashboard';
-import HomePlaceholders from './HomeDashboardCharts';
-import SkillViewAll from './SkillViewAll';
-import SignUp from './SignUp';
+import Home from "./Home";
 import Team from "./Team";
 import Recommend from "./Recommend";
 import Report from "./Report";
-import Test from "./Test";
-import LineGraph from "./LineGraph"
 import Skills from "./Skills";
 
 /* import icons */
@@ -32,8 +28,6 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import MenuIcon from '@material-ui/icons/Menu';
 import GroupIcon from '@material-ui/icons/Group';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import LockOpenIcon from '@material-ui/icons/LockOpen';
 import HomeIcon from '@material-ui/icons/Home';
 import AssessmentIcon from '@material-ui/icons/Assessment';
 import ShareIcon from '@material-ui/icons/Share';
@@ -158,9 +152,6 @@ export default function Application() {
             <Route path="/team">
               <Team />
             </Route>
-            <Route path="/signup">
-              <SignUp />
-            </Route>
             <Route path="/skill">
               <SkillDashboard />
             </Route>
@@ -173,14 +164,8 @@ export default function Application() {
             <Route path="/recommend">
               <Recommend />
             </Route>
-            <Route path="/lineGraph">
-              <LineGraph />
-            </Route>
-            <Route path="/test">
-              <Test />
-            </Route>
             <Route path="/">
-              <HomePlaceholders />
+              <Home />
             </Route>
           </Switch>
         </main>

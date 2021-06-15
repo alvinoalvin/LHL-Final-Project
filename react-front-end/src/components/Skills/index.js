@@ -1,14 +1,18 @@
 import React, { useEffect, useState, useContext } from "react";
-import axios from "axios";
+import { authContext } from "../../providers/AuthProvider";
+
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Form from "./components/Form";
 import Button from '@material-ui/core/Button';
-import { useHistory } from "react-router-dom";
+
+import Typography from '@material-ui/core/Typography';
+
 import "../../styles/variables.scss";
 
-import { authContext } from "../../providers/AuthProvider";
+import axios from "axios";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -51,7 +55,12 @@ const useStyles = makeStyles((theme) => ({
     marginTop: '-4rem',
     marginBottom: '1rem',
     fontFamily: 'var(--header-font)',
-  }
+  },
+  header: {
+    fontFamily: 'var(--header-font)',
+    fontSize: '35px',
+    fontWeight: '700',
+  },
 }));
 
 export default function SkillViewAll(props) {
@@ -62,7 +71,7 @@ export default function SkillViewAll(props) {
     history.push("/skill", { skillId: id });
   }
 
-  const { id, team_id } = useContext(authContext);
+  const { id } = useContext(authContext);
   const userID = id;
 
   const [skillList, setSkillList] = useState([]);
@@ -99,6 +108,7 @@ export default function SkillViewAll(props) {
 
   return (
     <div className={classes.root}>
+      <Typography className={classes.header}>Skills</Typography>
       <Grid container spacing={4}>
         <Grid item xs={12}>
           <Paper className={classes.quote}>

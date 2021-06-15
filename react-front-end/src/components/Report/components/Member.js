@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { authContext } from '../../../providers/AuthProvider';
+
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Collapse from '@material-ui/core/Collapse';
@@ -7,9 +9,9 @@ import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
-import Skill from './Skill';
 import Grid from '@material-ui/core/Grid';
 
+import Skill from './Skill';
 
 import axios from "axios";
 
@@ -18,7 +20,7 @@ const useRowStyles = makeStyles({
     '& > *': {
       borderBottom: 'unset',
     },
-    borderBottom: '2px solid var(--border)',
+    borderBottom: '1px solid var(--border)',
   },
 });
 
@@ -32,7 +34,8 @@ export default function Member(props) {
 
   const [skills, setSkills] = useState([])
 
-  const userID = 1;
+  const { id } = useContext(authContext);
+  const userID = id;
 
   useEffect(() => {
     axios.get(`/api/skills/report/users/${props.member.id}`)
@@ -53,7 +56,6 @@ export default function Member(props) {
       />
     )
   })
-
 
   return (
     <React.Fragment>

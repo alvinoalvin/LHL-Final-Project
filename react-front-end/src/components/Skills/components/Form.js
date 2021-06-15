@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { authContext } from '../../../providers/AuthProvider';
+
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -59,7 +61,8 @@ export default function Form(props) {
 
   const [skillName, setSkillName] = useState('');
 
-  const user_id = 1;
+  const { id } = useContext(authContext);
+  const user_id = id;
 
   function addSkill() {
     const newSkill = {

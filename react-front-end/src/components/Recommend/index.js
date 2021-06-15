@@ -1,4 +1,6 @@
 import React, {useState, useEffect, useContext } from 'react';
+import { authContext } from '../../providers/AuthProvider';
+
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -19,9 +21,8 @@ import { purple } from "@material-ui/core/colors";
 import "./styles.scss";
 
 import axios from 'axios';
-import { authContext } from '../../providers/AuthProvider';
 
- 
+
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
@@ -86,7 +87,6 @@ export default function Recommend(props) {
   const [deliverableName, setDeliverableName] = useState('');
   const [time, setTime] = useState('');
   const [link, setLink] = useState('');
-  const [notes, setNotes] = useState('');
   const [alert, setAlert] = useState({
     message: '',
     severity: ''
@@ -172,7 +172,6 @@ export default function Recommend(props) {
       time_estimate_minutes: Number(time),
       type_id: type,
       name: deliverableName,
-      notes: notes,
       link: link
     }
 
@@ -215,8 +214,6 @@ export default function Recommend(props) {
   
     return true;
   };
-
-  console.log(isNaN(Number(time)))
 
   return (
     <>
@@ -314,17 +311,6 @@ export default function Recommend(props) {
               autoComplete="dlink"
               value={link}
               onChange={(event) => setLink(event.target.value)}
-            />
-            <TextField
-              className={classes.form}
-              variant="outlined"
-              id="notes"
-              fullWidth
-              label="Notes/Comments"
-              name="notes"
-              autoComplete="notes"
-              value={notes}
-              onChange={(event) => setNotes(event.target.value)}
             />
           </ThemeProvider>
           <Button
