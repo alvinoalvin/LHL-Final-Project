@@ -51,7 +51,7 @@ export default function CreateTaskForm(props) {
       skill_id: props.skillID,
       status_id: 2,
       time_estimate_minutes: estDuration,
-      end_date: dueDate,
+      due_date: dueDate,
       type_id: 1,
       name: name,
       // notes: description,
@@ -98,7 +98,8 @@ export default function CreateTaskForm(props) {
     
     const newDate = new Date(dueDate)
 
-    if (newDate < new Date() || newDate) {
+    if (newDate < new Date() && newDate) {
+      console.log(newDate,":", new Date())
       setAlert({ message: 'That date has already passed!', severity: 'warning'})
       return false
     }
@@ -154,7 +155,6 @@ export default function CreateTaskForm(props) {
                   id="create-task-due-date-input"
                   label="Due Date"
                   type="date"
-                  defaultValue={Date.now().toISOString}
                   className={classes.textField}
                   InputLabelProps={{
                     shrink: true,
@@ -165,6 +165,7 @@ export default function CreateTaskForm(props) {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
+                  required
                   id="create-task-est-dur-input"
                   label="Estimated Duration (mins)"
                   type="number"

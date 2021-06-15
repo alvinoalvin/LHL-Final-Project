@@ -57,12 +57,12 @@ module.exports = db => {
   })
 
   router.post("/tasks/:task_id", (request, response) => {
-    const { name, status_id, link, end_date, time_estimate_minutes } = request.body.task
-    const values = [request.params.task_id, name, status_id, link, end_date, time_estimate_minutes]
+    const { name, status_id, link, due_date, time_estimate_minutes, end_date } = request.body.task
+    const values = [request.params.task_id, name, status_id, link, due_date, time_estimate_minutes ,end_date ]
     const queryString =
       `
     update deliverables SET
-    name = $2, status_id = $3, link = $4, end_date = $5, time_estimate_minutes = $6
+    name = $2, status_id = $3, link = $4, due_date = $5, time_estimate_minutes = $6, end_date = $7
     where id = $1
     RETURNING *
     `
