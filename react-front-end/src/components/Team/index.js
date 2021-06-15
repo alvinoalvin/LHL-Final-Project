@@ -65,6 +65,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Team(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
+  document.title = "Team";
 
 
   const handleOpen = () => {

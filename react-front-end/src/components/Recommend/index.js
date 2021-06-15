@@ -91,6 +91,7 @@ export default function Recommend(props) {
     message: '',
     severity: ''
   });
+  document.title = "Make a Recommendation";
 
   const [snack, setSnack] = useState(false);
 

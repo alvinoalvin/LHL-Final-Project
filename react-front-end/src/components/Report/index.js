@@ -39,6 +39,8 @@ export default function Report(props) {
   const { team_id } = useContext(authContext);
   const teamID = team_id;
 
+  document.title = "Reports";
+  
   useEffect(() => {
     axios.get(`/api/teams/${teamID}`)
       .then(function(response) {
