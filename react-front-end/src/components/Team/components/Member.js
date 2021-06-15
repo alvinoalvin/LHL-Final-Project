@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
+import { authContext } from "../../../providers/AuthProvider";
 
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
+
 import axios from "axios";
 
 export default function Member(props) {
 
-  const userID = 1;
+  const { id } = useContext(authContext);
+  const userID = id;
 
   function deleteMember(id) {
     return axios.delete(`api/users/${id}`, {id})

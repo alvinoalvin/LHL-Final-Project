@@ -5,7 +5,6 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import { Doughnut } from "react-chartjs-2";
 import { useHistory } from "react-router-dom";
-import { max } from "moment";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -66,6 +65,8 @@ export default function HomePieGraphs(props) {
             maxCompleteSkill = skill;
             maxCompleteSkill.skill_id = skill.id;
           }
+          
+          return { maxStageSkill, maxProgressSkill, maxCompleteSkill, maxObjs }
         });
 
         axios.get(`api/analytics/topskills/timeest/?array=[${maxStageSkill.skill_id}, ${maxProgressSkill.skill_id}, ${maxCompleteSkill.skill_id}]`)
@@ -80,6 +81,8 @@ export default function HomePieGraphs(props) {
               if (skill.skill_id === maxCompleteSkill.skill_id && skill.status === "Completed") {
                 maxCompleteSkill.total_estimate = skill.estimated_time;
               }
+
+              return {maxStageSkill, maxProgressSkill, maxCompleteSkill}
             });
 
             maxObjs = {
@@ -92,7 +95,6 @@ export default function HomePieGraphs(props) {
             maxObjs.maxStageSkill.label = "Most Staged Tasks"
 
             const dataObj = {};
-            console.log(maxObjs)
             Object.keys(maxObjs).map((key) => {
               const dataPoint = maxObjs[key]
               const skill = {
@@ -110,14 +112,14 @@ export default function HomePieGraphs(props) {
                   ],
                 },
               };
-              dataObj[key] = skill
+              return dataObj[key] = skill
             });
             setData(dataObj);
           }, [])
           .catch((error) => { console.log(error) });
 
       })
-  }, []);
+  }, [props.userId]);
 
 
   return (
@@ -125,7 +127,7 @@ export default function HomePieGraphs(props) {
 
       <Grid container spacing={6}>
         {Object.keys(data).map((skill_id, index) => (
-          <Grid item xs={4}>
+          <Grid key={index} item xs={4}>
             <div
               onClick={() => {
                 handleClick(data[skill_id].id);
@@ -135,7 +137,7 @@ export default function HomePieGraphs(props) {
                 <h2>{labels[index]}</h2>
                 <h3>{data[skill_id].name}</h3>
                 <h5>Total Skill Time: {data[skill_id].total_time}hrs</h5>
-                <Doughnut data={data[skill_id].chartData} />
+                <Doughnut key={index} data={data[skill_id].chartData} />
               </Paper>
             </div>
           </Grid>

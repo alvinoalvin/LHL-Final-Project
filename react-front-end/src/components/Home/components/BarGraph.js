@@ -1,36 +1,29 @@
-import React, { useEffect, useState, useContext } from "react";
-import { authContext } from '../providers/AuthProvider';
+import React, { useEffect, useState } from "react";
+
 import axios from "axios";
+import { Bar } from "react-chartjs-2";
+
 import { makeStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
-import Grid from "@material-ui/core/Grid";
-import HomePieGraphs from "./HomePieGraphs";
-import LineGraph from "./LineGraph";
-import BarGraph from "./BarGraph";
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    height: "100%",
-    padding: theme.spacing(4),
-    
+    height: "475px",
   },
   paper: {
+    padding: theme.spacing(4),
     textAlign: "center",
     color: theme.palette.text.secondary,
-    height: "100%",
+    height: "475px",
   },
-
 }));
 
-export default function CenteredGrid() {
-  const { id } = useContext(authContext);
+export default function BarGraph() {
   const classes = useStyles();
   const [testdata, setData] = useState();
   const [labels, setLabels] = useState();
 
-  const userId = id;
-  
   useEffect(() => {
     axios
       .get("http://localhost:8080/api/analytics/skill-status", {
@@ -39,7 +32,6 @@ export default function CenteredGrid() {
         },
       })
       .then((response) => {
-      
         const newLabels = response.data.reduce((acc, dataPoint) => {
           if (acc.includes(dataPoint.name)) {
             return acc;
@@ -58,12 +50,12 @@ export default function CenteredGrid() {
           }
           return acc;
         }, {});
-        
+
         setData(stackBarData);
       });
   }, []);
 
-  //Bar chart real data
+
   const data = {
     labels: labels,
     datasets: Object.entries(testdata || {}).map(([label, values], i) => ({
@@ -73,30 +65,28 @@ export default function CenteredGrid() {
     })),
   };
 
-
   return (
     <div className={classes.root}>
-     <br/>
-      <Grid container spacing={10}> 
-      
-        <HomePieGraphs userId={userId} />
-    
-   
-        <Grid item xs={6}>
-          <Paper className={classes.paper}>
-            <BarGraph/>
-          </Paper>
-        </Grid>
-        
-        <Grid item xs={6}>
-          <Paper className={classes.paper}>
-            <h2>Completion Rate</h2>
-            <LineGraph />
-          </Paper>
-        </Grid>
-
-      </Grid>
-      
+      <div>
+        <h2>Progress this week</h2>
+        <h6>Number of Tasks</h6>
+        <Bar
+          data={data}
+          width={100}
+          height={50}
+          options={{
+            responsive: true,
+            scales: {
+              x: {
+                stacked: true,
+              },
+              y: {
+                stacked: true,
+              },
+            },
+          }}
+        />
+      </div>
     </div>
   );
 }

@@ -1,14 +1,18 @@
 import React, { useEffect, useState, useContext } from "react";
-import axios from "axios";
+import { authContext } from "../../providers/AuthProvider";
+
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Form from "./components/Form";
 import Button from '@material-ui/core/Button';
-import { useHistory } from "react-router-dom";
-import "../../styles/variables.scss";
+
 import Typography from '@material-ui/core/Typography';
-import { authContext } from "../../providers/AuthProvider";
+
+import "../../styles/variables.scss";
+
+import axios from "axios";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -67,7 +71,7 @@ export default function SkillViewAll(props) {
     history.push("/skill", { skillId: id });
   }
 
-  const { id, team_id } = useContext(authContext);
+  const { id } = useContext(authContext);
   const userID = id;
 
   const [skillList, setSkillList] = useState([]);

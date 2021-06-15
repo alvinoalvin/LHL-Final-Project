@@ -32,6 +32,7 @@ export default function TasksList(props) {
           if (!selected.includes(task.id)) {
             return task
           }
+          return null;
         });
         setSelected([]);
         setTasks(taskCopy);

@@ -66,12 +66,15 @@ export default function ResourceItem(props) {
           if (resource.id !== props.row.id) {
             return resource
           }
+
+          return null;
         });
 
         const selectedCopy = selected.filter((selectedResource) => {
           if (selectedResource !== row.id) {
             return selectedResource
           }
+          return null;
         });
         setSelected(selectedCopy);
         setRows(resourceCopy);
@@ -133,7 +136,7 @@ export default function ResourceItem(props) {
     onToggleEditMode(id, false);
   };
   return (
-    <TableRow key={row.id}
+    <TableRow
       hover
       onClick={(event) => handleClick(event, row.id)}
       role="checkbox"

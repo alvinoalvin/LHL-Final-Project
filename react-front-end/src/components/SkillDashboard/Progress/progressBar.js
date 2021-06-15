@@ -60,7 +60,7 @@ export default function CustomProgressBar(props) {
         setTotalCount(stagedCount + inProgCount + completeCount);
       })
       .catch(error => console.log(error));
-  }, [stagedCount, inProgCount, , completeCount, totalCount]);
+  }, [stagedCount, inProgCount, completeCount, totalCount, props.userID, props.skillID]);
 
   return (
     <>
