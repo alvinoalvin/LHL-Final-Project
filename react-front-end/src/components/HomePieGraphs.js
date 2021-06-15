@@ -101,11 +101,11 @@ export default function HomePieGraphs(props) {
                 label: dataPoint.label,
                 total_time: Math.round((parseInt(maxObjs[key].sum_stage_time ? maxObjs[key].sum_stage_time : 0) + parseInt(maxObjs[key].sum_progress_time ? maxObjs[key].sum_progress_time : 0) + parseInt(maxObjs[key].sum_complete_time ? maxObjs[key].sum_complete_time : 0)) / 60),
                 chartData: {
-                  labels: ["Completed (mins)", "Staged (mins)", "In Progress (mins)"],
+                  labels: ["Staged (mins)",  "In Progress (mins)","Completed (mins)"],
                   datasets: [
                     {
                       data: [maxObjs[key].sum_stage_time, maxObjs[key].sum_progress_time, maxObjs[key].sum_complete_time],
-                      backgroundColor: ["#c83cd0", "#643bd1", "#d4d0d0"]
+                      backgroundColor: ["#d4d0d0","#643bd1","#c83cd0"]
                     },
                   ],
                 },
