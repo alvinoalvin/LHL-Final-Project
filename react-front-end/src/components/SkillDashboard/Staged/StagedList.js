@@ -92,10 +92,10 @@ export default function StagedList(props) {
         <Typography gutterBottom variant="h6" component="h4">
           Tasks/Resource Staging
           </Typography>
-        <Typography className={classes.pos} >
-          {Object.keys(stagedDeliv).map((id) => {
+        <div className={classes.pos} >
+          {Object.keys(stagedDeliv).map((id, index) => {
             return (<>
-              <div class="flexcontainer">
+              <div key={index} className="flexcontainer">
                 <IconButton
                   className={classes.icon}
                   aria-label="add"
@@ -114,16 +114,16 @@ export default function StagedList(props) {
                   }}>
                   <CloseIcon />
                 </IconButton>
-                <div class="divItem1">{stagedDeliv[id].type}</div>
+                <div className="divItem1">{stagedDeliv[id].type}</div>
                 {stagedDeliv[id].link ? (
-                  <a class={classes.link} href={stagedDeliv[id].link}><div class="divItem2" style={{ textDecoration: 'underline black' }}>{stagedDeliv[id].name}</div></a>) : (
-                  <div class="divItem2">{stagedDeliv[id].name}</div>)
+                  <a className={classes.link} href={stagedDeliv[id].link}><div className="divItem2" style={{ textDecoration: 'underline black' }}>{stagedDeliv[id].name}</div></a>) : (
+                  <div className="divItem2">{stagedDeliv[id].name}</div>)
                 }
               </div>
             </>
             )
           })}
-        </Typography>
+        </div>
       </CardContent>
       <CardActions>
       </CardActions>

@@ -72,7 +72,7 @@ export default function ListComponent(props) {
   }, [props.userID, props.skillID, setRows]);
 
   return (
-    <div class="list-component" >
+    <div className="list-component" >
       <EnhancedTable
         key={1}
         rows={rows}
@@ -83,7 +83,7 @@ export default function ListComponent(props) {
         tableName={tableName}
         numRows={props.numRows}
       />
-      <div class="btnContainer">
+      <div className="btnContainer">
         <Button className={classes.button} variant="contained" color="default" onClick={handleOpen}>
           {props.addName}
         </Button>
