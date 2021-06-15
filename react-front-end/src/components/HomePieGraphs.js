@@ -14,7 +14,16 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     textAlign: "center",
     color: theme.palette.text.secondary,
+    "&:hover": {
+      cursor: "pointer",
+      backgroundColor: "#F6F5F3",
+    },
   },
+
+  pieContainer:{
+    margin: "15px, 15px, 15px"
+  }
+
 }));
 
 export default function HomePieGraphs(props) {
@@ -60,15 +69,12 @@ export default function HomePieGraphs(props) {
       });
   }, []);
 
-  const styles = {
-    textDecoration: "none",
-    "&:hover": {
-      color: "white",
-    },
-  };
+
+
   return (
     <div className={classes.root}>
-      <Grid container spacing={4}>
+      
+      <Grid container spacing={6}>
         {Object.keys(data).map((skill_id) => (
           <Grid item xs={4}>
             <div

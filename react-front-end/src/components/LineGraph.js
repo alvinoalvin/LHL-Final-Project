@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
-import Grid from "@material-ui/core/Grid";
 import { Line } from "react-chartjs-2";
 import moment from "moment";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    height: "100%",
+    
   },
   paper: {
     padding: theme.spacing(2),
     textAlign: "center",
     color: theme.palette.text.secondary,
+    height: "100%",
+    
   },
 }));
 
@@ -30,7 +32,6 @@ export default function LineGraph() {
         },
       })
       .then((response) => {
-        // handle success
         const newLabels = response.data.reduce((acc, dataPoint) => {
           acc.push(moment(dataPoint.end_date).format("MMM Do"));
           return acc;
@@ -43,11 +44,6 @@ export default function LineGraph() {
         setData(newData);
       });
   }, []);
-
-// only show last 7 days date library (moment js)
-// Array.filter (moments is between date x y, today and a week ago)
-// date fns, Date Object (js)
-// filter (homepage)
 
   const lineData = {
     labels,
@@ -75,10 +71,9 @@ export default function LineGraph() {
   };
 
   return (
-    <div className={classes.root}>
-         
-            <Line data={lineData} />
-          
+    <div className={`${classes.root} lineGraph`}>    
+            <Line 
+            data={lineData}/> 
     </div>
   );
 }
