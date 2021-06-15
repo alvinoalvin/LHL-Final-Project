@@ -28,6 +28,8 @@ export default function SkillDashboard() {
   const [tasks, setTasks] = useState([]);
   const [stagedDeliv, setStagedDeliv] = useState([]);
 
+  document.title = skill;
+
   useEffect(() => {
     axios.get(`/api/skills`)
       .then(response => {
@@ -60,9 +62,11 @@ export default function SkillDashboard() {
   return (<>
     {
       skillID === undefined ? (
-        <Link to="/">
-          {'Skill not selected, please click here to go back to home page'}
-        </Link>
+        <div id="skill-item-container" style={{ margin: 0 }}>
+          <Link to="/">
+            {'Skill not selected, please click here to go back to home page'}
+          </Link>
+        </div>
       ) : (
         <div id="skill-item-container">
           <div id="dashboardHeader"><h1>{skill}</h1></div>

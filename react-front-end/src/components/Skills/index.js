@@ -68,6 +68,8 @@ export default function SkillViewAll(props) {
   const classes = useStyles();
   const history = useHistory();
 
+  document.title = "Skills";
+  
   function handleClick(id) {
     history.push("/skill", { skillId: id });
   }
