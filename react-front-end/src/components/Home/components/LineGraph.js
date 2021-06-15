@@ -8,6 +8,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     height: "100%",
+    padding: "30px",
     
   },
   paper: {
@@ -15,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     color: theme.palette.text.secondary,
     height: "100%",
+    
     
   },
 }));
