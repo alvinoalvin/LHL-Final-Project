@@ -27,7 +27,7 @@ export default function BarGraph() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/analytics/skill-status", {
+      .get("api/analytics/skill-status", {
         headers: {
           "Content-Type": "application/json",
         },
