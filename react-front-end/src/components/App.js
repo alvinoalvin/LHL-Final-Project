@@ -46,6 +46,7 @@ import { authContext } from '../providers/AuthProvider';
 const useStyles = reactStyles;
 
 export default function Application() {
+  document.title = "Life Long learning"
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
